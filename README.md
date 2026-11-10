@@ -163,8 +163,8 @@ Demo coupons: `MAY10`, `WELCOME50K` (from 400K), `FREESHIP`. `BLACKFRIDAY` is sc
 1. **Create the database:** sign up at [turso.tech](https://turso.tech), create a database, then copy its URL (`libsql://…`) and an auth token.
 2. **Fill the production database from your machine:** put the Turso values in `.env.local` (`DATABASE_URL`, `DATABASE_AUTH_TOKEN`), set a strong `SEED_ADMIN_PASSWORD`, then run `npm run setup`. Switch `.env.local` back to `file:local.db` afterwards.
 3. **Push the code to GitHub.** CI runs automatically.
-4. **Import the repo on [vercel.com](https://vercel.com)** and add `DATABASE_URL`, `DATABASE_AUTH_TOKEN`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` (your Vercel URL), `NEXT_PUBLIC_SITE_URL` (the same URL), `ADMIN_EMAILS`, plus any optional integrations above.
-5. Deploy. If you change the Vercel URL later, update `BETTER_AUTH_URL` and `NEXT_PUBLIC_SITE_URL` to match.
+4. **Import the repo on [vercel.com](https://vercel.com)** and add `DATABASE_URL`, `DATABASE_AUTH_TOKEN`, `BETTER_AUTH_SECRET` and `ADMIN_EMAILS`, plus any optional integrations above.
+5. Deploy. The site and sign-in use the Vercel production domain automatically; set `BETTER_AUTH_URL` and `NEXT_PUBLIC_SITE_URL` only when you add a custom domain.
 
 ## Project structure
 

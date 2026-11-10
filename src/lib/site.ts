@@ -1,8 +1,11 @@
+/** On Vercel the production domain is known without any setup (e.g. may-studio.vercel.app). */
+const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined;
+
 /** Store-wide configuration. Change the brand here. */
 export const site = {
   name: "MÂY Studio",
   shortName: "MÂY",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || "http://localhost:3000",
   email: "hello@may.studio",
   phone: "0900 000 000",
   address: "Quận 3, TP. Hồ Chí Minh",

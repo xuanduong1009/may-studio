@@ -17,7 +17,10 @@ function adminEmails() {
 
 export const auth = betterAuth({
   appName: "MÂY Studio",
-  baseURL: process.env.BETTER_AUTH_URL,
+  // falls back to the Vercel production domain, so a fresh deploy works without extra settings
+  baseURL:
+    process.env.BETTER_AUTH_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined),
   secret: process.env.BETTER_AUTH_SECRET,
   database: drizzleAdapter(db, {
     provider: "sqlite",
