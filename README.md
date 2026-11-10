@@ -4,7 +4,7 @@ A full-stack clothing store built with **Next.js 16**, **TypeScript** and **SQLi
 
 > 🇻🇳 Cửa hàng thời trang song ngữ Việt/Anh: tồn kho theo màu × size, mã giảm giá, thanh toán VietQR/VNPay tự xác nhận, email, theo dõi đơn, đánh giá từ người mua thật và trang quản trị đầy đủ.
 
-**Live demo:** _add your Vercel URL here_ · **Read-only admin:** `viewer@may.studio` / `viewer12345`
+**Live demo:** [may-studio-red.vercel.app](https://may-studio-red.vercel.app) · **Read-only admin:** `viewer@may.studio` / `viewer12345`
 
 ![Home](docs/screenshots/home.png)
 
@@ -105,8 +105,8 @@ A full-stack clothing store built with **Next.js 16**, **TypeScript** and **SQLi
 - **Payment security:** VNPay callbacks are verified with HMAC-SHA512 and a timing-safe comparison. The bank webhook requires an API key. The VietQR payload, including its CRC-16, is built from the EMVCo spec and unit-tested.
 - **Audit trail:** every order keeps an event log (created, status changes, payments, internal notes, with who and when). Customers and admins see the same history.
 - **Emails never block checkout:** they are sent with Next.js `after()` once the response has gone out. Without a Resend key they are printed to the server log, so everything works locally.
-- **Role-based access & abuse protection:** `user` / `admin` / read-only `viewer`, checked in every server action. Rate limits on sign-in, sign-up and password reset. Demo accounts cannot change their password. Order lookups never reveal whether a code exists. CSV export guards against formula injection.
-- **Security headers:** `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, HSTS.
+- **Role-based access & abuse protection:** `user` / `admin` / read-only `viewer`, checked in every server action. Database-backed rate limits (they hold across serverless instances) on sign-in, sign-up, password reset, order placement, coupon checks, order lookups, the contact form, reviews and search. Demo accounts cannot change their password. Order lookups never reveal whether a code exists. CSV export guards against formula injection.
+- **Security headers:** a Content-Security-Policy with no third-party scripts, frames or form targets, plus `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` and HSTS. The image optimizer only accepts the site's own files and Pexels, so it cannot be used as an open proxy.
 - **Type-safe i18n:** about 500 translation keys checked at compile time in both languages.
 - **Tests & CI:** unit tests for pricing, coupon rules, the VietQR payload, VNPay signing, validators, stock helpers, order access and size recommendation (Node's built-in test runner). GitHub Actions runs type check, tests, a seeded database and a production build on every push.
 
