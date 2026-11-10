@@ -73,6 +73,21 @@ export const verification = sqliteTable("verification", {
   ...timestamps,
 });
 
+/** Better Auth sign-in / sign-up throttling, shared by every server instance. */
+export const rateLimit = sqliteTable("rate_limit", {
+  id: text("id").primaryKey(),
+  key: text("key").notNull().unique(),
+  count: integer("count").notNull(),
+  lastRequest: integer("last_request").notNull(),
+});
+
+/** Fixed-window counters for public actions (orders, coupons, contact form, tracking). */
+export const requestLimits = sqliteTable("request_limits", {
+  key: text("key").primaryKey(),
+  count: integer("count").notNull(),
+  windowStart: integer("window_start").notNull(),
+});
+
 /* ------------------------------------------------------------------ */
 /* Store tables                                                        */
 /* ------------------------------------------------------------------ */

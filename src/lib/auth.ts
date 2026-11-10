@@ -29,6 +29,7 @@ export const auth = betterAuth({
       session: schema.session,
       account: schema.account,
       verification: schema.verification,
+      rateLimit: schema.rateLimit,
     },
   }),
   emailAndPassword: {
@@ -47,6 +48,8 @@ export const auth = betterAuth({
   // brute-force protection on the sensitive endpoints
   rateLimit: {
     enabled: process.env.NODE_ENV === "production",
+    // stored in the database: in-memory counters reset on every serverless instance
+    storage: "database",
     window: 60,
     max: 100,
     customRules: {

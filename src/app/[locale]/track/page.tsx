@@ -10,6 +10,7 @@ import { Link } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
 import { canAccessOrder } from "@/lib/orders";
 import { getOrderByCode } from "@/lib/queries";
+import { allow } from "@/lib/rate-limit";
 import { getSession } from "@/lib/session";
 import { cn, formatDate, formatPrice } from "@/lib/utils";
 
@@ -38,7 +39,8 @@ export default async function TrackPage({
   const [t, tc, session] = await Promise.all([getTranslations("Track"), getTranslations("Checkout"), getSession()]);
 
   const searched = code.trim().length > 0;
-  const raw = searched ? await getOrderByCode(normalizeCode(code)) : null;
+  // throttled so order codes cannot be guessed by brute force
+  const raw = searched && (await allow("orderLookup")) ? await getOrderByCode(normalizeCode(code)) : null;
   const order = raw && canAccessOrder(raw, session?.user.id, contact) ? raw : null;
 
   return (

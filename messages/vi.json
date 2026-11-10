@@ -280,7 +280,8 @@
       "stock": "“{name}” không đủ hàng.",
       "generic": "Có lỗi xảy ra, vui lòng thử lại.",
       "express": "Giao hỏa tốc chỉ áp dụng tại TP.HCM và Hà Nội.",
-      "payment": "Phương thức thanh toán này đang tạm ngưng."
+      "payment": "Phương thức thanh toán này đang tạm ngưng.",
+      "rateLimited": "Bạn thao tác quá nhanh, vui lòng thử lại sau ít phút."
     },
     "successTitle": "Đặt hàng thành công!",
     "successText": "Cảm ơn {name}. Chúng tôi sẽ gọi xác nhận đơn trong ít phút.",
@@ -299,7 +300,8 @@
       "notStarted": "Mã chưa đến thời gian áp dụng.",
       "expired": "Mã đã hết hạn.",
       "exhausted": "Mã đã hết lượt sử dụng.",
-      "minSubtotal": "Đơn tối thiểu {amount} để dùng mã này."
+      "minSubtotal": "Đơn tối thiểu {amount} để dùng mã này.",
+      "rateLimited": "Bạn thử mã quá nhiều lần, vui lòng đợi ít phút."
     },
     "couponShort": "Mua thêm {amount} để mã có hiệu lực.",
     "payWithVnpay": "Thanh toán với VNPay",
@@ -602,7 +604,8 @@
       "invalid": "Nội dung chưa hợp lệ",
       "notPurchased": "Bạn cần nhận hàng trước khi đánh giá",
       "duplicate": "Bạn đã đánh giá sản phẩm này",
-      "generic": "Có lỗi xảy ra, thử lại sau"
+      "generic": "Có lỗi xảy ra, thử lại sau",
+      "rateLimited": "Bạn gửi đánh giá quá nhanh, thử lại sau nhé."
     },
     "stars": {
       "1": "Rất tệ",

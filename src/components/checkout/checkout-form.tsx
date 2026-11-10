@@ -126,6 +126,8 @@ export function CheckoutForm({
         toast.error(t("errors.express"));
       } else if (res.error === "payment") {
         toast.error(t("errors.payment"));
+      } else if (res.error === "rateLimited") {
+        toast.error(t("errors.rateLimited"));
       } else {
         toast.error(t("errors.generic"));
       }

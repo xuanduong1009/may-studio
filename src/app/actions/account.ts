@@ -6,10 +6,11 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { addresses, reviews } from "@/lib/db/schema";
 import { findPurchase, refreshProductRating } from "@/lib/reviews";
+import { allow } from "@/lib/rate-limit";
 import { getSession } from "@/lib/session";
 import { addressSchema, reviewSchema, type AddressInput, type ReviewInput } from "@/lib/validators";
 
-type Result = { ok: true } | { ok: false; error: "unauthorized" | "invalid" | "notPurchased" | "duplicate" | "generic"; fields?: string[] };
+type Result = { ok: true } | { ok: false; error: "unauthorized" | "invalid" | "notPurchased" | "duplicate" | "rateLimited" | "generic"; fields?: string[] };
 
 /* ------------------------------------------------------------------ */
 /* Address book                                                        */
@@ -81,6 +82,7 @@ export async function setDefaultAddress(addressId: number): Promise<Result> {
 export async function submitReview(input: ReviewInput, locale: string): Promise<Result> {
   const session = await getSession();
   if (!session) return { ok: false, error: "unauthorized" };
+  if (!(await allow("review", `user:${session.user.id}`))) return { ok: false, error: "rateLimited" };
   const parsed = reviewSchema.safeParse(input);
   if (!parsed.success) return { ok: false, error: "invalid", fields: parsed.error.issues.map((i) => String(i.path[0])) };
   const data = parsed.data;

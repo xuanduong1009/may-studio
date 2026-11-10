@@ -12,6 +12,7 @@ import { afterResponse, canAccessOrder, changeOrderStatus, checkCoupon, generate
 import { bankConfig } from "@/lib/payments/vietqr";
 import { buildVnpayUrl, codeToTxnRef, vnpayConfig } from "@/lib/payments/vnpay";
 import { computeTotals, expressAvailable, type CouponCheck } from "@/lib/pricing";
+import { allow } from "@/lib/rate-limit";
 import { getSession } from "@/lib/session";
 import { site } from "@/lib/site";
 import { checkoutSchema, orderItemsSchema, type CheckoutInput } from "@/lib/validators";
@@ -20,7 +21,7 @@ export type PlaceOrderResult =
   | { ok: true; code: string; redirectUrl?: string }
   | {
       ok: false;
-      error: "invalid" | "stock" | "coupon" | "express" | "payment" | "generic";
+      error: "invalid" | "stock" | "coupon" | "express" | "payment" | "rateLimited" | "generic";
       productName?: string;
       reason?: Extract<CouponCheck, { ok: false }>["reason"];
     };
@@ -53,6 +54,7 @@ async function vnpayUrlFor(order: { code: string; total: number }, locale: strin
 /** Live coupon check for the checkout page. The order itself re-checks it. */
 export async function previewCoupon(code: string, subtotal: number): Promise<CouponCheck> {
   if (typeof code !== "string" || code.length > 30 || !Number.isFinite(subtotal)) return { ok: false, reason: "notFound" };
+  if (!(await allow("coupon"))) return { ok: false, reason: "rateLimited" };
   return checkCoupon(code, Math.max(0, Math.round(subtotal)));
 }
 
@@ -69,6 +71,7 @@ export async function placeOrder(
   const parsedForm = checkoutSchema.safeParse(form);
   const parsedItems = orderItemsSchema.safeParse(cart);
   if (!parsedForm.success || !parsedItems.success) return { ok: false, error: "invalid" };
+  if (!(await allow("order"))) return { ok: false, error: "rateLimited" };
   const data = parsedForm.data;
   const items = parsedItems.data;
   const lang = locale === "en" ? "en" : "vi";
@@ -239,6 +242,7 @@ async function findOwnedOrder(code: string, contact?: string) {
 }
 
 export async function cancelOrder(code: string, contact?: string) {
+  if (!(await allow("orderAction"))) return { ok: false as const, error: "notFound" as const };
   const order = await findOwnedOrder(code, contact);
   if (!order) return { ok: false as const, error: "notFound" as const };
   if (order.status !== "pending") return { ok: false as const, error: "transition" as const };
@@ -253,6 +257,7 @@ export async function cancelOrder(code: string, contact?: string) {
  */
 export async function simulateBankPayment(code: string) {
   if (bankConfig()) return { ok: false as const };
+  if (!(await allow("orderAction"))) return { ok: false as const };
   const order = await db.query.orders.findFirst({ where: eq(orders.code, String(code).toUpperCase()) });
   if (!order || order.paymentMethod !== "bank") return { ok: false as const };
   const res = await markOrderPaid(order.id, { ref: `DEMO-${Date.now().toString(36).toUpperCase()}`, actor: "bank-webhook (demo)", amount: order.total, method: "VietQR" });

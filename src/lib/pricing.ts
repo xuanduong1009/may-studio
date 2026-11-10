@@ -26,7 +26,7 @@ export type CouponRule = {
 
 export type CouponCheck =
   | { ok: true; rule: CouponRule }
-  | { ok: false; reason: "notFound" | "inactive" | "notStarted" | "expired" | "exhausted" | "minSubtotal"; minSubtotal?: number };
+  | { ok: false; reason: "notFound" | "inactive" | "notStarted" | "expired" | "exhausted" | "minSubtotal" | "rateLimited"; minSubtotal?: number };
 
 /** Validates a stored coupon against the cart (pure, so it is unit-tested). */
 export function evaluateCoupon(

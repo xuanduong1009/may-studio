@@ -1,5 +1,6 @@
 "use server";
 
+import { allow } from "@/lib/rate-limit";
 import { z } from "zod";
 import { sendEmail } from "@/lib/email";
 import { site } from "@/lib/site";
@@ -21,6 +22,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&
 export async function sendContactMessage(input: ContactInput): Promise<{ ok: boolean; fields?: string[] }> {
   const parsed = contactSchema.safeParse(input);
   if (!parsed.success) return { ok: false, fields: parsed.error.issues.map((i) => String(i.path[0])) };
+  if (!(await allow("contact"))) return { ok: false, fields: [] };
   const { name, email, topic, message } = parsed.data;
   await sendEmail({
     to: process.env.CONTACT_INBOX || site.email,

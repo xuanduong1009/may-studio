@@ -9,6 +9,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "db:push": "drizzle-kit push",
+    "db:push:prod": "node --env-file=.env.vercel.local node_modules/drizzle-kit/bin.cjs push",
     "db:seed": "tsx scripts/seed.ts",
     "setup": "npm run db:push && npm run db:seed",
     "test": "tsx --test tests/pricing.test.ts tests/payments.test.ts tests/domain.test.ts",

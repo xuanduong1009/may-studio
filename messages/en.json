@@ -280,7 +280,8 @@
       "stock": "Not enough stock for “{name}”.",
       "generic": "Something went wrong, please try again.",
       "express": "Express delivery is only available in Ho Chi Minh City and Hanoi.",
-      "payment": "This payment method is currently unavailable."
+      "payment": "This payment method is currently unavailable.",
+      "rateLimited": "Too many attempts. Please try again in a few minutes."
     },
     "successTitle": "Order placed!",
     "successText": "Thank you, {name}. We'll call to confirm your order in a few minutes.",
@@ -299,7 +300,8 @@
       "notStarted": "This code is not active yet.",
       "expired": "This code has expired.",
       "exhausted": "This code has been fully redeemed.",
-      "minSubtotal": "Spend at least {amount} to use this code."
+      "minSubtotal": "Spend at least {amount} to use this code.",
+      "rateLimited": "Too many code attempts. Please wait a few minutes."
     },
     "couponShort": "Add {amount} more for the code to apply.",
     "payWithVnpay": "Pay with VNPay",
@@ -602,7 +604,8 @@
       "invalid": "Please check your review",
       "notPurchased": "You can review once your order is delivered",
       "duplicate": "You have already reviewed this product",
-      "generic": "Something went wrong, please try again"
+      "generic": "Something went wrong, please try again",
+      "rateLimited": "You are posting reviews too quickly. Please try again later."
     },
     "stars": {
       "1": "Terrible",
