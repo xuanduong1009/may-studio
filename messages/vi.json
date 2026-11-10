@@ -1,0 +1,886 @@
+{
+  "Meta": {
+    "title": "MÂY Studio — Thời trang tối giản",
+    "description": "Thời trang tối giản, nhẹ như mây. Thiết kế tại Sài Gòn, giao hàng toàn quốc."
+  },
+  "Nav": {
+    "home": "Trang chủ",
+    "shop": "Cửa hàng",
+    "newArrivals": "Hàng mới",
+    "sale": "Khuyến mãi",
+    "lookbook": "Lookbook",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm áo, quần, váy…",
+    "cart": "Giỏ hàng",
+    "wishlist": "Yêu thích",
+    "account": "Tài khoản",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "admin": "Quản trị",
+    "language": "Ngôn ngữ",
+    "theme": "Đổi giao diện sáng/tối",
+    "menu": "Menu",
+    "close": "Đóng",
+    "announcement": "Miễn phí giao hàng cho đơn từ 500.000₫ · Nhập MAY10 giảm 10%",
+    "track": "Tra cứu đơn hàng",
+    "about": "Câu chuyện",
+    "help": "Hỗ trợ",
+    "megaCategories": "Danh mục",
+    "megaHighlights": "Nổi bật",
+    "bestSellers": "Bán chạy",
+    "shopNow": "Mua ngay",
+    "megaPromo": "cuối tuần này"
+  },
+  "Home": {
+    "eyebrow": "Bộ sưu tập Thu Đông 2026",
+    "titleA": "Nhẹ",
+    "titleB": "như",
+    "titleC": "mây.",
+    "subtitle": "Những thiết kế tối giản, chất liệu tự nhiên, mặc thoải mái từ sáng tới tối. Thiết kế và may tại Sài Gòn.",
+    "ctaShop": "Mua sắm ngay",
+    "ctaLookbook": "Xem lookbook",
+    "scroll": "Cuộn xuống",
+    "marquee": [
+      "Chất liệu tự nhiên",
+      "May tại Sài Gòn",
+      "Đổi trả 30 ngày",
+      "Giao hàng 2h nội thành",
+      "Thiết kế tối giản"
+    ],
+    "categoriesTitle": "Mua theo danh mục",
+    "featuredTitle": "Được yêu thích nhất",
+    "featuredSub": "Những món đồ khách hàng mua đi mua lại.",
+    "newTitle": "Vừa cập bến",
+    "viewAll": "Xem tất cả",
+    "lookbookTitle": "Lookbook",
+    "lookbookSub": "Kéo xuống để dạo một vòng bộ sưu tập.",
+    "lookbookItems": [
+      {
+        "title": "Buổi sáng ở quận 3",
+        "text": "Đầm linen thắt nơ, túi lưới đi chợ và một ly cà phê sữa đá."
+      },
+      {
+        "title": "Chiều mưa Sài Gòn",
+        "text": "Áo trench nhẹ chống nước, gấp gọn trong túi tote."
+      },
+      {
+        "title": "Tối thứ Sáu",
+        "text": "Bộ satin mềm rủ, ánh lên dưới ánh đèn vàng."
+      },
+      {
+        "title": "Cuối tuần",
+        "text": "Đồ len mềm và hoodie dày dặn cho những chuyến đi xa."
+      }
+    ],
+    "saleTitle": "Flash sale cuối tuần",
+    "saleSub": "Giảm tới 30% cho các sản phẩm chọn lọc. Kết thúc sau:",
+    "saleCta": "Săn sale",
+    "days": "Ngày",
+    "hours": "Giờ",
+    "minutes": "Phút",
+    "seconds": "Giây",
+    "values": [
+      {
+        "title": "Giao nhanh",
+        "text": "Miễn phí cho đơn từ 500K, giao 2h nội thành."
+      },
+      {
+        "title": "Đổi trả 30 ngày",
+        "text": "Không vừa? Đổi size hoặc hoàn tiền dễ dàng."
+      },
+      {
+        "title": "Chất liệu bền vững",
+        "text": "Cotton hữu cơ, linen và vải tái chế."
+      }
+    ],
+    "newsletterTitle": "Nhận tin từ MÂY",
+    "newsletterSub": "Ưu đãi riêng và thông tin bộ sưu tập mới, không spam.",
+    "newsletterPlaceholder": "Email của bạn",
+    "newsletterCta": "Đăng ký",
+    "newsletterDone": "Cảm ơn bạn! Hẹn gặp trong hộp thư.",
+    "socialProof": "2.000+ đánh giá",
+    "manifestoEyebrow": "Tuyên ngôn",
+    "manifesto": "Chúng tôi tin quần áo đẹp nhất là những món bạn với tay lấy mỗi sáng. Vải tự nhiên, đường may tử tế, thiết kế vừa đủ — để bạn thấy nhẹ như mây.",
+    "manifestoHighlight": [
+      "mỗi",
+      "sáng",
+      "mây"
+    ],
+    "quickView": "Xem nhanh",
+    "lookTitle": "Một bộ đồ, năm món",
+    "lookHint": "Chạm vào dấu + để xem từng món",
+    "reviewsTitle": "Khách hàng nói gì về MÂY",
+    "reviewsSub": "Đánh giá thật từ những người đã nhận hàng, không chỉnh sửa.",
+    "shopLook": "Mua theo look này",
+    "heroAlt": "Người mẫu mặc sơ mi đen và quần kaki màu kem",
+    "campaignEyebrow": "Chiến dịch Thu Đông 2026",
+    "campaignTitle": "Gió & cát",
+    "campaignCta": "Khám phá",
+    "campaign": [
+      {
+        "title": "Đi xa, mặc nhẹ",
+        "text": "Trench chống nước và những lớp áo mỏng cho hành trình dài ngày."
+      },
+      {
+        "title": "Đỏ giữa đồi cát",
+        "text": "Satin mềm rủ bắt nắng chiều — món đồ làm bừng sáng cả tủ quần áo."
+      },
+      {
+        "title": "Hoàng hôn",
+        "text": "Tông đen và nâu đất, gọn gàng khi trời trở lạnh."
+      },
+      {
+        "title": "Khoảng lặng",
+        "text": "Tối giản đến mức chỉ còn bạn, bầu trời và gió."
+      }
+    ],
+    "galleryTitle": "Mặc theo cách của bạn",
+    "gallerySub": "Những khoảnh khắc đẹp nhất mùa này. Gắn #maystudio để xuất hiện tại đây.",
+    "galleryCta": "Theo dõi trên Instagram",
+    "lookAlt1": "Người mẫu mặc blazer linen và quần ống suông màu be",
+    "lookAlt2": "Người mẫu đội mũ lưỡi trai, mặc áo thun trắng và quần kaki"
+  },
+  "Product": {
+    "addToCart": "Thêm vào giỏ",
+    "added": "Đã thêm vào giỏ hàng",
+    "quickAdd": "Thêm nhanh",
+    "selectSize": "Vui lòng chọn size",
+    "size": "Size",
+    "color": "Màu",
+    "quantity": "Số lượng",
+    "inStock": "Còn hàng",
+    "lowStock": "Chỉ còn {count} sản phẩm",
+    "outOfStock": "Hết hàng",
+    "soldOut": "Hết hàng",
+    "new": "Mới",
+    "sale": "-{percent}%",
+    "sizeGuide": "Hướng dẫn chọn size",
+    "description": "Mô tả",
+    "details": "Chất liệu & bảo quản",
+    "detailsText": "Giặt máy ở 30°C, không dùng chất tẩy. Phơi trong bóng râm. Là ở nhiệt độ thấp.",
+    "shipping": "Giao hàng & đổi trả",
+    "shippingText": "Giao tiêu chuẩn 2–4 ngày, hỏa tốc 2h nội thành TP.HCM. Đổi trả miễn phí trong 30 ngày.",
+    "related": "Có thể bạn cũng thích",
+    "reviews": "{count} đánh giá",
+    "wishlistAdd": "Thêm vào yêu thích",
+    "wishlistRemove": "Bỏ yêu thích",
+    "viewFront": "Mặt trước",
+    "viewBack": "Mặt sau",
+    "viewDetail": "Chi tiết vải",
+    "sizeGuideIntro": "Số đo cơ thể (cm). Nếu bạn ở giữa hai size, hãy chọn size lớn hơn.",
+    "chest": "Ngực",
+    "waist": "Eo",
+    "height": "Chiều cao",
+    "buyNow": "Mua ngay",
+    "share": "Chia sẻ",
+    "copied": "Đã sao chép liên kết",
+    "variantSoldOut": "Màu/size này đã hết hàng",
+    "recentlyViewed": "Bạn đã xem gần đây",
+    "clearHistory": "Xóa lịch sử",
+    "quickView": "Xem nhanh",
+    "viewDetails": "Xem chi tiết sản phẩm",
+    "yourSize": "Size của bạn: {size}",
+    "findSize": "Tìm size của bạn",
+    "suggested": "Size gợi ý",
+    "suggestedSoldOut": "Size {size} của màu này đã hết, hãy thử màu khác.",
+    "colorCount": "{count} màu",
+    "prevPhoto": "Ảnh trước",
+    "nextPhoto": "Ảnh tiếp",
+    "closeViewer": "Đóng trình xem ảnh",
+    "deliveryBy": "Giao dự kiến {from} – {to}",
+    "deliveryDays": "Giao trong 2–4 ngày",
+    "freeShipOver": "Miễn phí giao hàng cho đơn từ {amount}",
+    "returnsTitle": "Đổi trả miễn phí 30 ngày",
+    "returnsHint": "Đổi size hoặc trả hàng tại nhà, không cần lý do",
+    "secureTitle": "Thanh toán an toàn",
+    "completeLook": "Phối cùng",
+    "completeLookHint": "Những món stylist của MÂY hay đặt cạnh nhau"
+  },
+  "Shop": {
+    "title": "Cửa hàng",
+    "titleNew": "Hàng mới về",
+    "titleSale": "Đang khuyến mãi",
+    "results": "{count} sản phẩm",
+    "filters": "Bộ lọc",
+    "category": "Danh mục",
+    "all": "Tất cả",
+    "size": "Size",
+    "color": "Màu sắc",
+    "price": "Khoảng giá",
+    "under300": "Dưới 300K",
+    "300to600": "300K – 600K",
+    "over600": "Trên 600K",
+    "sortBy": "Sắp xếp",
+    "sortNewest": "Mới nhất",
+    "sortPriceAsc": "Giá tăng dần",
+    "sortPriceDesc": "Giá giảm dần",
+    "sortPopular": "Phổ biến",
+    "onSale": "Đang giảm giá",
+    "inStockOnly": "Chỉ hàng còn",
+    "clear": "Xóa bộ lọc",
+    "noResults": "Không tìm thấy sản phẩm phù hợp.",
+    "noResultsHint": "Thử bỏ bớt bộ lọc hoặc tìm với từ khóa khác.",
+    "searchFor": "Kết quả cho “{q}”",
+    "showResults": "Xem {count} sản phẩm",
+    "density": "Số cột hiển thị",
+    "columns": "{count} cột"
+  },
+  "Cart": {
+    "title": "Giỏ hàng",
+    "empty": "Giỏ hàng đang trống.",
+    "emptyCta": "Bắt đầu mua sắm",
+    "subtotal": "Tạm tính",
+    "checkout": "Thanh toán",
+    "viewCart": "Xem giỏ hàng",
+    "continue": "Tiếp tục mua sắm",
+    "remove": "Xóa",
+    "freeShipLeft": "Mua thêm {amount} để được miễn phí giao hàng",
+    "freeShipReached": "Bạn được miễn phí giao hàng!",
+    "items": "{count, plural, other {# sản phẩm}}",
+    "taxNote": "Phí giao hàng và mã giảm giá được tính ở bước thanh toán."
+  },
+  "Checkout": {
+    "title": "Thanh toán",
+    "contact": "Thông tin nhận hàng",
+    "name": "Họ và tên",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "address": "Địa chỉ",
+    "city": "Tỉnh / Thành phố",
+    "note": "Ghi chú (không bắt buộc)",
+    "shippingMethod": "Phương thức giao hàng",
+    "standard": "Tiêu chuẩn (2–4 ngày)",
+    "express": "Hỏa tốc 2h (nội thành)",
+    "free": "Miễn phí",
+    "payment": "Thanh toán",
+    "cod": "Thanh toán khi nhận hàng (COD)",
+    "bank": "Chuyển khoản VietQR",
+    "bankNote": "Quét mã QR, xác nhận tự động",
+    "coupon": "Mã giảm giá",
+    "couponPlaceholder": "Nhập mã, ví dụ MAY10",
+    "apply": "Áp dụng",
+    "couponInvalid": "Mã không hợp lệ hoặc chưa đủ điều kiện.",
+    "couponApplied": "Đã áp dụng mã {code}",
+    "removeCoupon": "Bỏ mã",
+    "subtotal": "Tạm tính",
+    "shipping": "Phí giao hàng",
+    "discount": "Giảm giá",
+    "total": "Tổng cộng",
+    "placeOrder": "Đặt hàng",
+    "placing": "Đang đặt hàng…",
+    "summary": "Đơn hàng của bạn",
+    "emptyCart": "Giỏ hàng trống, chưa thể thanh toán.",
+    "loginHint": "Đã có tài khoản? Đăng nhập để theo dõi đơn hàng dễ hơn.",
+    "errors": {
+      "name": "Vui lòng nhập họ tên",
+      "phone": "Số điện thoại không hợp lệ",
+      "email": "Email không hợp lệ",
+      "address": "Vui lòng nhập địa chỉ",
+      "city": "Vui lòng chọn tỉnh / thành phố",
+      "stock": "“{name}” không đủ hàng.",
+      "generic": "Có lỗi xảy ra, vui lòng thử lại.",
+      "express": "Giao hỏa tốc chỉ áp dụng tại TP.HCM và Hà Nội.",
+      "payment": "Phương thức thanh toán này đang tạm ngưng."
+    },
+    "successTitle": "Đặt hàng thành công!",
+    "successText": "Cảm ơn {name}. Chúng tôi sẽ gọi xác nhận đơn trong ít phút.",
+    "orderCode": "Mã đơn hàng",
+    "viewOrders": "Xem đơn hàng của tôi",
+    "backHome": "Về trang chủ",
+    "savedAddresses": "Địa chỉ đã lưu",
+    "saveAddress": "Lưu địa chỉ này cho lần sau",
+    "expressUnavailable": "Chỉ áp dụng tại TP.HCM và Hà Nội",
+    "codNote": "Trả tiền mặt khi nhận hàng",
+    "vnpay": "VNPay (thẻ ATM, Visa, Mastercard, QR)",
+    "vnpayNote": "Thanh toán an toàn qua cổng VNPay",
+    "couponErrors": {
+      "notFound": "Mã không tồn tại.",
+      "inactive": "Mã đã ngừng áp dụng.",
+      "notStarted": "Mã chưa đến thời gian áp dụng.",
+      "expired": "Mã đã hết hạn.",
+      "exhausted": "Mã đã hết lượt sử dụng.",
+      "minSubtotal": "Đơn tối thiểu {amount} để dùng mã này."
+    },
+    "couponShort": "Mua thêm {amount} để mã có hiệu lực.",
+    "payWithVnpay": "Thanh toán với VNPay",
+    "secureNote": "Thông tin được mã hóa và bảo mật",
+    "emailSent": "Email xác nhận đã được gửi tới {email}.",
+    "trackOrder": "Theo dõi đơn hàng"
+  },
+  "Auth": {
+    "loginTitle": "Chào mừng trở lại",
+    "loginSub": "Đăng nhập để theo dõi đơn hàng và lưu sản phẩm yêu thích.",
+    "registerTitle": "Tạo tài khoản",
+    "registerSub": "Chỉ mất 30 giây để trở thành thành viên MÂY.",
+    "name": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "passwordHint": "Tối thiểu 8 ký tự",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "noAccount": "Chưa có tài khoản?",
+    "haveAccount": "Đã có tài khoản?",
+    "error": "Email hoặc mật khẩu không đúng.",
+    "registerError": "Không thể tạo tài khoản. Email có thể đã được sử dụng.",
+    "loading": "Đang xử lý…",
+    "forgot": "Quên mật khẩu?",
+    "forgotTitle": "Quên mật khẩu",
+    "forgotSub": "Nhập email, chúng tôi sẽ gửi liên kết đặt lại mật khẩu.",
+    "forgotSent": "Kiểm tra hộp thư của bạn",
+    "forgotSentHint": "Nếu {email} có tài khoản, liên kết đặt lại sẽ đến trong ít phút.",
+    "sendLink": "Gửi liên kết",
+    "backToLogin": "Quay lại đăng nhập",
+    "resetTitle": "Đặt mật khẩu mới",
+    "resetInvalid": "Liên kết không hợp lệ hoặc đã hết hạn.",
+    "passwordMismatch": "Mật khẩu nhập lại không khớp.",
+    "resetSub": "Chọn mật khẩu mới, tối thiểu 8 ký tự.",
+    "resetDone": "Đã đổi mật khẩu. Đang chuyển tới trang đăng nhập…",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Nhập lại mật khẩu",
+    "resetSubmit": "Đổi mật khẩu"
+  },
+  "Account": {
+    "title": "Tài khoản của tôi",
+    "hello": "Xin chào, {name}",
+    "orders": "Đơn hàng",
+    "noOrders": "Bạn chưa có đơn hàng nào.",
+    "date": "Ngày đặt",
+    "total": "Tổng",
+    "status": "Trạng thái",
+    "items": "Sản phẩm",
+    "memberSince": "Thành viên từ {date}",
+    "startShopping": "Bắt đầu mua sắm",
+    "writeReview": "Đánh giá",
+    "details": "Chi tiết",
+    "addresses": "Sổ địa chỉ",
+    "settings": "Cài đặt",
+    "addressError": "Không lưu được địa chỉ, kiểm tra lại thông tin.",
+    "default": "Mặc định",
+    "edit": "Sửa",
+    "makeDefault": "Đặt mặc định",
+    "addressSaved": "Đã lưu địa chỉ",
+    "remove": "Xóa",
+    "addressDeleted": "Đã xóa địa chỉ",
+    "addAddress": "Thêm địa chỉ",
+    "editAddress": "Sửa địa chỉ",
+    "label": "Nhãn",
+    "labelPlaceholder": "Nhà riêng, Công ty…",
+    "setDefault": "Đặt làm địa chỉ mặc định",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "saveError": "Không thể lưu, thử lại sau.",
+    "profileSaved": "Đã cập nhật hồ sơ",
+    "demoLocked": "Tài khoản demo không thể đổi mật khẩu.",
+    "passwordError": "Mật khẩu hiện tại không đúng.",
+    "passwordChanged": "Đã đổi mật khẩu",
+    "profile": "Hồ sơ",
+    "displayName": "Tên hiển thị",
+    "changePassword": "Đổi mật khẩu",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "signOutOthers": "Các thiết bị khác sẽ bị đăng xuất sau khi đổi mật khẩu.",
+    "updatePassword": "Cập nhật mật khẩu"
+  },
+  "Status": {
+    "pending": "Chờ xác nhận",
+    "confirmed": "Đã xác nhận",
+    "shipping": "Đang giao",
+    "delivered": "Đã giao",
+    "cancelled": "Đã hủy"
+  },
+  "Admin": {
+    "title": "Quản trị",
+    "dashboard": "Tổng quan",
+    "products": "Sản phẩm",
+    "orders": "Đơn hàng",
+    "backToStore": "Về cửa hàng",
+    "revenue": "Doanh thu (30 ngày)",
+    "ordersCount": "Đơn hàng (30 ngày)",
+    "customers": "Khách hàng",
+    "avgOrder": "Giá trị đơn TB",
+    "revenueChart": "Doanh thu theo ngày",
+    "topProducts": "Bán chạy nhất",
+    "recentOrders": "Đơn hàng gần đây",
+    "statusBreakdown": "Trạng thái đơn hàng",
+    "sold": "đã bán",
+    "newProduct": "Thêm sản phẩm",
+    "editProduct": "Sửa sản phẩm",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "confirmDelete": "Bấm lần nữa để xóa",
+    "deleted": "Đã xóa sản phẩm",
+    "save": "Lưu",
+    "saving": "Đang lưu…",
+    "saved": "Đã lưu",
+    "cancel": "Hủy",
+    "search": "Tìm theo tên…",
+    "allStatuses": "Tất cả trạng thái",
+    "fields": {
+      "nameVi": "Tên (Tiếng Việt)",
+      "nameEn": "Tên (English)",
+      "descriptionVi": "Mô tả (Tiếng Việt)",
+      "descriptionEn": "Mô tả (English)",
+      "slug": "Slug (đường dẫn)",
+      "price": "Giá bán (₫)",
+      "compareAtPrice": "Giá gốc (₫, để trống nếu không giảm)",
+      "category": "Danh mục",
+      "kind": "Kiểu dáng (ảnh minh họa)",
+      "colors": "Màu sắc",
+      "colorsHint": "Mỗi dòng: Tên Việt | Tên Anh | #mãmàu",
+      "sizes": "Size",
+      "stock": "Tồn kho",
+      "imageUrl": "Link ảnh thật (không bắt buộc)",
+      "featured": "Nổi bật",
+      "isNew": "Hàng mới",
+      "preview": "Xem trước",
+      "stockMatrix": "Tồn kho theo màu × size (tổng {total})",
+      "fillAll": "Điền tất cả ô:",
+      "apply": "Áp dụng"
+    },
+    "table": {
+      "product": "Sản phẩm",
+      "price": "Giá",
+      "stock": "Kho",
+      "category": "Danh mục",
+      "actions": "",
+      "code": "Mã đơn",
+      "customer": "Khách hàng",
+      "date": "Ngày",
+      "total": "Tổng",
+      "status": "Trạng thái",
+      "payment": "Thanh toán"
+    },
+    "statusUpdated": "Đã cập nhật trạng thái",
+    "invalid": "Dữ liệu chưa hợp lệ, vui lòng kiểm tra lại.",
+    "readonly": "Chế độ demo chỉ xem: bạn có thể xem mọi trang quản trị nhưng không thể thay đổi dữ liệu.",
+    "noData": "Chưa có dữ liệu",
+    "coupons": "Mã giảm giá",
+    "customersNav": "Khách hàng",
+    "reviews": "Đánh giá",
+    "transitionError": "Không thể chuyển sang trạng thái này.",
+    "allStocked": "Tất cả biến thể đều đủ hàng.",
+    "stockUpdated": "Đã cập nhật tồn kho",
+    "newStock": "SL mới",
+    "exportCsv": "Xuất CSV",
+    "awaitingPayment": "{count} đơn chuyển khoản/VNPay đang chờ thanh toán",
+    "lowStock": "Sắp hết hàng",
+    "unpaid": "Chờ thanh toán",
+    "searchOrders": "Tìm theo mã đơn, tên, email, SĐT…",
+    "resultCount": "{count} đơn hàng",
+    "paymentConfirmed": "Đã xác nhận thanh toán",
+    "markPaid": "Xác nhận đã thanh toán",
+    "printInvoice": "In hóa đơn",
+    "notePlaceholder": "Thêm ghi chú nội bộ…",
+    "addNote": "Thêm ghi chú",
+    "customer": "Khách hàng",
+    "member": "Thành viên",
+    "invoice": "HÓA ĐƠN",
+    "invoiceThanks": "Cảm ơn bạn đã mua sắm tại MÂY Studio!",
+    "couponFreeship": "Miễn phí giao hàng",
+    "newCoupon": "Tạo mã",
+    "couponState": {
+      "live": "Đang chạy",
+      "scheduled": "Sắp diễn ra",
+      "expired": "Hết hạn",
+      "used": "Hết lượt",
+      "off": "Đã tắt"
+    },
+    "couponMin": "Đơn tối thiểu {amount}",
+    "couponEnds": "Hết hạn {date}",
+    "couponUsed": "Đã dùng {used}",
+    "deactivate": "Tắt",
+    "activate": "Bật",
+    "deletedCoupon": "Đã xóa mã",
+    "editCoupon": "Sửa mã giảm giá",
+    "couponExists": "Mã này đã tồn tại.",
+    "couponFields": {
+      "code": "Mã",
+      "type": "Loại",
+      "percent": "Phần trăm (%)",
+      "amount": "Số tiền (₫)",
+      "maxDiscount": "Giảm tối đa (₫)",
+      "minSubtotal": "Đơn tối thiểu (₫)",
+      "usageLimit": "Giới hạn lượt dùng",
+      "startsAt": "Bắt đầu",
+      "endsAt": "Kết thúc",
+      "descriptionVi": "Mô tả (Tiếng Việt)",
+      "descriptionEn": "Mô tả (English)",
+      "active": "Đang bật"
+    },
+    "couponTypes": {
+      "percent": "Giảm theo %",
+      "fixed": "Giảm số tiền",
+      "freeship": "Miễn phí ship"
+    },
+    "roleSelf": "Bạn không thể đổi quyền của chính mình.",
+    "role": "Quyền",
+    "roleUpdated": "Đã cập nhật quyền",
+    "roles": {
+      "user": "Khách hàng",
+      "viewer": "Admin chỉ xem",
+      "admin": "Admin"
+    },
+    "reviewShown": "Đã hiện đánh giá",
+    "reviewHidden": "Đã ẩn đánh giá",
+    "show": "Hiện",
+    "hide": "Ẩn",
+    "reviewDeleted": "Đã xóa đánh giá",
+    "customersSummary": "{count} tài khoản · tổng chi tiêu {amount}",
+    "searchCustomers": "Tìm theo tên hoặc email…",
+    "joined": "Tham gia",
+    "spent": "Đã chi",
+    "lastOrder": "Đơn gần nhất",
+    "allReviews": "Tất cả",
+    "lowRated": "Từ 3 sao trở xuống",
+    "hiddenReviews": "Đã ẩn",
+    "hiddenBadge": "Đang ẩn",
+    "verifiedBuyer": "Đã mua"
+  },
+  "Footer": {
+    "tagline": "Thời trang tối giản, nhẹ như mây. Thiết kế tại Sài Gòn.",
+    "shop": "Mua sắm",
+    "help": "Hỗ trợ",
+    "company": "Về MÂY",
+    "shippingPolicy": "Chính sách giao hàng",
+    "returns": "Đổi trả",
+    "sizeGuide": "Hướng dẫn chọn size",
+    "contact": "Liên hệ",
+    "about": "Câu chuyện thương hiệu",
+    "stores": "Cửa hàng",
+    "careers": "Tuyển dụng",
+    "rights": "© {year} MÂY Studio. Dự án demo phục vụ học tập.",
+    "demo": "Đây là cửa hàng demo: không có giao dịch thật."
+  },
+  "Common": {
+    "loading": "Đang tải…",
+    "notFoundTitle": "Không tìm thấy trang",
+    "notFoundText": "Trang bạn tìm có thể đã bị xóa hoặc chưa từng tồn tại.",
+    "backHome": "Về trang chủ",
+    "errorTitle": "Đã có lỗi xảy ra",
+    "retry": "Thử lại"
+  },
+  "Search": {
+    "title": "Tìm kiếm sản phẩm",
+    "placeholder": "Tìm áo, quần, váy, màu sắc…",
+    "close": "Đóng",
+    "recent": "Tìm kiếm gần đây",
+    "trending": "Xu hướng",
+    "empty": "Không tìm thấy kết quả cho “{q}”.",
+    "seeAll": "Xem tất cả {count} kết quả cho “{q}”",
+    "navigate": "di chuyển",
+    "open": "mở"
+  },
+  "Reviews": {
+    "title": "Đánh giá",
+    "basedOn": "{count, plural, =0 {Chưa có đánh giá} other {Dựa trên # đánh giá}}",
+    "fitTitle": "Độ vừa vặn",
+    "fit": {
+      "small": "Hơi chật",
+      "true": "Vừa vặn",
+      "large": "Hơi rộng"
+    },
+    "write": "Viết đánh giá",
+    "signinToReview": "Đăng nhập để đánh giá",
+    "alreadyReviewed": "Cảm ơn, bạn đã đánh giá sản phẩm này.",
+    "onlyBuyers": "Chỉ khách đã nhận hàng mới có thể đánh giá, để mọi nhận xét đều đáng tin.",
+    "filtered": "{count} đánh giá {star} sao",
+    "showing": "{count} đánh giá",
+    "clearFilter": "Bỏ lọc",
+    "sort": "Sắp xếp",
+    "sortNewest": "Mới nhất",
+    "sortHighest": "Điểm cao nhất",
+    "sortLowest": "Điểm thấp nhất",
+    "empty": "Chưa có đánh giá nào.",
+    "verified": "Đã mua hàng",
+    "bought": "Đã mua: {variant}",
+    "more": "Xem thêm {count} đánh giá",
+    "pickRating": "Vui lòng chọn số sao",
+    "bodyTooShort": "Nhận xét cần ít nhất 10 ký tự",
+    "thanks": "Cảm ơn bạn đã đánh giá!",
+    "errors": {
+      "unauthorized": "Vui lòng đăng nhập",
+      "invalid": "Nội dung chưa hợp lệ",
+      "notPurchased": "Bạn cần nhận hàng trước khi đánh giá",
+      "duplicate": "Bạn đã đánh giá sản phẩm này",
+      "generic": "Có lỗi xảy ra, thử lại sau"
+    },
+    "stars": {
+      "1": "Rất tệ",
+      "2": "Chưa ổn",
+      "3": "Bình thường",
+      "4": "Hài lòng",
+      "5": "Tuyệt vời"
+    },
+    "yourRating": "Bạn chấm mấy sao?",
+    "titlePlaceholder": "Tiêu đề (không bắt buộc)",
+    "bodyPlaceholder": "Chất liệu, form dáng, màu sắc… bạn thấy thế nào?",
+    "fitQuestion": "Size có vừa không?",
+    "submit": "Gửi đánh giá",
+    "cancel": "Hủy"
+  },
+  "Payment": {
+    "received": "Đã nhận thanh toán!",
+    "receivedText": "Chúng tôi đã nhận {amount}. Đơn hàng được xác nhận tự động.",
+    "scan": "Mở app ngân hàng và quét mã để thanh toán",
+    "bank": "Ngân hàng",
+    "account": "Số tài khoản",
+    "accountName": "Chủ tài khoản",
+    "demoNote": "Chế độ demo: shop chưa cấu hình tài khoản ngân hàng nên mã QR này chỉ mở trang đơn hàng. Bấm “Giả lập chuyển khoản” để xem đơn được xác nhận tự động.",
+    "amount": "Số tiền",
+    "note": "Nội dung",
+    "waiting": "Đang chờ thanh toán… trang sẽ tự cập nhật",
+    "simulate": "Giả lập chuyển khoản",
+    "copy": "Sao chép",
+    "retryFailed": "Không thể tạo lại thanh toán.",
+    "retry": "Thanh toán lại",
+    "failedTitle": "Thanh toán chưa thành công",
+    "failedText": "Đơn hàng đã được giữ. Bạn có thể thanh toán lại hoặc liên hệ shop để đổi sang COD.",
+    "paidVnpay": "Đã thanh toán qua VNPay"
+  },
+  "Track": {
+    "title": "Tra cứu đơn hàng",
+    "subtitle": "Nhập mã đơn và email hoặc số điện thoại bạn dùng khi đặt hàng.",
+    "code": "Mã đơn hàng",
+    "codePlaceholder": "Mã đơn, ví dụ MAY-7KQ2X9HD",
+    "contact": "Email hoặc số điện thoại",
+    "contactPlaceholder": "Email hoặc số điện thoại",
+    "submit": "Tra cứu",
+    "notFound": "Không tìm thấy đơn hàng",
+    "notFoundHint": "Kiểm tra lại mã đơn và email/số điện thoại đã dùng khi đặt hàng.",
+    "payment": {
+      "unpaid": "Chưa thanh toán",
+      "paid": "Đã thanh toán",
+      "refunded": "Đã hoàn tiền"
+    },
+    "cancelHint": "Đơn chưa được xác nhận, bạn vẫn có thể hủy.",
+    "awaitingTransfer": "Đơn đang chờ chuyển khoản.",
+    "payNow": "Thanh toán ngay",
+    "items": "Sản phẩm",
+    "shipTo": "Giao tới",
+    "history": "Lịch sử đơn hàng",
+    "eventCreated": "Đặt hàng thành công",
+    "eventRefunded": "Đã hoàn tiền",
+    "eventPaymentFailed": "Thanh toán thất bại",
+    "eventPartial": "Nhận thiếu tiền",
+    "eventPaid": "Đã nhận thanh toán",
+    "eventNote": "Ghi chú nội bộ",
+    "eventStatus": "Chuyển sang: {status}",
+    "cancel": "Hủy đơn",
+    "cancelConfirm": "Chắc chắn hủy đơn?",
+    "cancelled": "Đã hủy đơn hàng",
+    "cancelFailed": "Không thể hủy đơn này",
+    "cancelYes": "Hủy đơn",
+    "cancelNo": "Không"
+  },
+  "Fit": {
+    "eyebrow": "Trợ lý chọn size",
+    "title": "Tìm size vừa vặn",
+    "intro": "Nhập số đo, MÂY gợi ý size phù hợp và ghi nhớ cho mọi sản phẩm.",
+    "height": "Chiều cao",
+    "weight": "Cân nặng",
+    "preference": "Bạn thích mặc",
+    "fits": {
+      "slim": "Ôm vừa",
+      "regular": "Vừa vặn",
+      "loose": "Rộng rãi"
+    },
+    "result": "Size gợi ý",
+    "closest": "Size gần nhất sản phẩm có",
+    "use": "Dùng size này",
+    "close": "Đóng"
+  },
+  "Help": {
+    "eyebrow": "Trung tâm hỗ trợ",
+    "title": "Chúng tôi có thể giúp gì?",
+    "subtitle": "Tìm câu trả lời nhanh, hoặc nhắn cho MÂY, chúng tôi phản hồi trong 24 giờ.",
+    "searchPlaceholder": "Tìm câu hỏi: đổi size, giao hàng, hoàn tiền…",
+    "noResults": "Chưa có câu trả lời phù hợp. Hãy nhắn cho chúng tôi ở cuối trang.",
+    "faq": [
+      {
+        "title": "Đơn hàng & thanh toán",
+        "items": [
+          {
+            "q": "Tôi có thể thanh toán bằng cách nào?",
+            "a": "MÂY nhận thanh toán khi nhận hàng (COD), chuyển khoản qua mã VietQR (xác nhận tự động trong vài giây) và cổng VNPay cho thẻ ATM, Visa, Mastercard."
+          },
+          {
+            "q": "Làm sao để dùng mã giảm giá?",
+            "a": "Nhập mã ở bước thanh toán và bấm Áp dụng. Mỗi đơn dùng một mã; mã có thể có điều kiện về giá trị đơn tối thiểu và thời gian hiệu lực."
+          },
+          {
+            "q": "Tôi có thể hủy đơn không?",
+            "a": "Có, khi đơn còn ở trạng thái Chờ xác nhận. Vào Tra cứu đơn hàng (hoặc Tài khoản) và bấm Hủy đơn; số tiền đã thanh toán sẽ được hoàn lại."
+          }
+        ]
+      },
+      {
+        "title": "Giao hàng",
+        "items": [
+          {
+            "q": "Bao lâu tôi nhận được hàng?",
+            "a": "Giao tiêu chuẩn 2–4 ngày làm việc trên toàn quốc. Giao hỏa tốc trong 2 giờ áp dụng tại nội thành TP.HCM và Hà Nội."
+          },
+          {
+            "q": "Phí giao hàng là bao nhiêu?",
+            "a": "Miễn phí giao tiêu chuẩn cho đơn từ 500.000₫. Dưới mức này phí là 30.000₫; giao hỏa tốc 50.000₫."
+          },
+          {
+            "q": "Làm sao theo dõi đơn hàng?",
+            "a": "Dùng trang Tra cứu đơn hàng với mã đơn và email hoặc số điện thoại bạn đã dùng. Bạn cũng nhận email mỗi khi đơn đổi trạng thái."
+          }
+        ]
+      },
+      {
+        "title": "Đổi trả & hoàn tiền",
+        "items": [
+          {
+            "q": "Chính sách đổi trả thế nào?",
+            "a": "Đổi size hoặc trả hàng miễn phí trong 30 ngày, sản phẩm còn nguyên tem mác và chưa qua giặt."
+          },
+          {
+            "q": "Bao lâu tôi nhận lại tiền?",
+            "a": "Sau khi nhận lại hàng, MÂY hoàn tiền trong 3–5 ngày làm việc về đúng phương thức bạn đã thanh toán."
+          }
+        ]
+      },
+      {
+        "title": "Sản phẩm & size",
+        "items": [
+          {
+            "q": "Làm sao chọn đúng size?",
+            "a": "Bấm “Tìm size của bạn” trên trang sản phẩm, nhập chiều cao và cân nặng để nhận gợi ý. Nếu ở giữa hai size, hãy chọn size lớn hơn."
+          },
+          {
+            "q": "Bảo quản quần áo linen thế nào?",
+            "a": "Giặt máy ở 30°C, không dùng chất tẩy, phơi trong bóng râm và là ở nhiệt độ thấp. Linen sẽ mềm hơn sau mỗi lần giặt."
+          }
+        ]
+      }
+    ],
+    "shippingTitle": "Giao hàng",
+    "shippingText": "Miễn phí cho đơn từ {free}. Tiêu chuẩn {standard} (2–4 ngày), hỏa tốc {express} (2 giờ, HCM & Hà Nội).",
+    "returnsTitle": "Đổi trả 30 ngày",
+    "returnsText": "Đổi size hoặc hoàn tiền miễn phí trong 30 ngày, hàng còn nguyên tem mác.",
+    "paymentTitle": "Thanh toán an toàn",
+    "paymentText": "COD, VietQR xác nhận tự động và VNPay. MÂY không lưu thông tin thẻ của bạn.",
+    "trackingTitle": "Theo dõi đơn",
+    "trackingText": "Xem tiến trình và lịch sử đơn chỉ với mã đơn và email/số điện thoại.",
+    "trackingCta": "Tra cứu ngay",
+    "contactTitle": "Vẫn cần giúp đỡ?",
+    "contactText": "Gửi lời nhắn, đội ngũ MÂY trả lời trong vòng 24 giờ làm việc.",
+    "hours": "9:00 – 21:00, thứ Hai – Chủ nhật",
+    "name": "Họ và tên",
+    "email": "Email",
+    "topic": "Chủ đề",
+    "topics": {
+      "order": "Đơn hàng",
+      "product": "Sản phẩm & size",
+      "return": "Đổi trả",
+      "partnership": "Hợp tác",
+      "other": "Khác"
+    },
+    "message": "Nội dung",
+    "send": "Gửi lời nhắn",
+    "sentTitle": "Đã gửi, cảm ơn bạn!",
+    "sentText": "Chúng tôi sẽ phản hồi qua email trong 24 giờ làm việc.",
+    "formError": "Vui lòng kiểm tra lại thông tin."
+  },
+  "About": {
+    "eyebrow": "Câu chuyện thương hiệu",
+    "title": "Quần áo cho những ngày bình thường đẹp đẽ.",
+    "lead": "MÂY bắt đầu từ một xưởng may nhỏ ở quận 3, với ý tưởng giản dị: làm ít mẫu hơn, nhưng làm thật tốt.",
+    "manifestoEyebrow": "Điều chúng tôi tin",
+    "manifesto": "Một chiếc áo tốt nên đi cùng bạn nhiều năm, không phải một mùa. Vì vậy chúng tôi chọn vải kỹ, may chậm, và chỉ ra mẫu mới khi thật sự cần.",
+    "manifestoHighlight": [
+      "nhiều",
+      "năm",
+      "chậm"
+    ],
+    "stats": [
+      {
+        "value": 7,
+        "suffix": " năm",
+        "label": "may mặc tại Sài Gòn"
+      },
+      {
+        "value": 12,
+        "suffix": "",
+        "label": "thợ may lành nghề"
+      },
+      {
+        "value": 86,
+        "suffix": "%",
+        "label": "vải tự nhiên hoặc tái chế"
+      },
+      {
+        "value": 30,
+        "suffix": " ngày",
+        "label": "đổi trả miễn phí"
+      }
+    ],
+    "processTitle": "Một chiếc áo ra đời thế nào",
+    "process": [
+      {
+        "title": "Phác thảo",
+        "text": "Mỗi mẫu bắt đầu từ một nhu cầu thật: mát hơn, gọn hơn, dễ phối hơn."
+      },
+      {
+        "title": "Chọn vải",
+        "text": "Cotton hữu cơ, linen và vải tái chế, được thử giặt nhiều lần trước khi chọn."
+      },
+      {
+        "title": "May thủ công",
+        "text": "Đội thợ ở xưởng quận 3 may và kiểm tra từng đường chỉ."
+      },
+      {
+        "title": "Đóng gói tử tế",
+        "text": "Túi giấy tái chế, không nhựa dùng một lần, giao tận tay bạn."
+      }
+    ],
+    "timelineEyebrow": "Hành trình",
+    "timelineTitle": "Từ xưởng nhỏ đến tủ đồ của bạn",
+    "timeline": [
+      {
+        "year": "2019",
+        "title": "Xưởng may đầu tiên",
+        "text": "Ba người, hai máy may và mẫu áo thun cotton đầu tiên."
+      },
+      {
+        "year": "2021",
+        "title": "Bộ sưu tập linen",
+        "text": "Ra mắt dòng linen cho mùa hè Sài Gòn, bán hết sau hai tuần."
+      },
+      {
+        "year": "2023",
+        "title": "Cửa hàng đầu tiên",
+        "text": "Mở cửa hàng ở quận 3, nơi khách có thể chạm vào từng thớ vải."
+      },
+      {
+        "year": "2025",
+        "title": "Ra Hà Nội",
+        "text": "Cửa hàng thứ hai ở Hoàn Kiếm và dịch vụ giao hỏa tốc 2 giờ."
+      },
+      {
+        "year": "2026",
+        "title": "Bộ sưu tập Thu Đông",
+        "text": "Bộ sưu tập lớn nhất của MÂY, với 86% vải tự nhiên hoặc tái chế."
+      }
+    ],
+    "storesTitle": "Ghé thăm MÂY",
+    "stores": [
+      {
+        "city": "TP. Hồ Chí Minh",
+        "address": "24 Tú Xương, Phường Xuân Hòa",
+        "hours": "9:00 – 21:30 mỗi ngày"
+      },
+      {
+        "city": "Hà Nội",
+        "address": "18 Hàng Bài, Phường Hoàn Kiếm",
+        "hours": "9:00 – 21:00 mỗi ngày"
+      }
+    ],
+    "ctaTitle": "Sẵn sàng tìm món đồ bạn sẽ mặc nhiều năm?",
+    "careers": "MÂY luôn tìm người cùng yêu nghề may và thiết kế. Gửi CV về {email}.",
+    "cta": "Khám phá cửa hàng"
+  }
+}

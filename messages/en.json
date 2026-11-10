@@ -1,0 +1,885 @@
+{
+  "Meta": {
+    "title": "MÂY Studio — Minimal clothing",
+    "description": "Minimal clothing, light as clouds. Designed in Saigon, shipped nationwide."
+  },
+  "Nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "newArrivals": "New in",
+    "sale": "Sale",
+    "lookbook": "Lookbook",
+    "search": "Search",
+    "searchPlaceholder": "Search shirts, pants, dresses…",
+    "cart": "Cart",
+    "wishlist": "Wishlist",
+    "account": "Account",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "admin": "Admin",
+    "language": "Language",
+    "theme": "Toggle light/dark theme",
+    "menu": "Menu",
+    "close": "Close",
+    "announcement": "Free shipping on orders over 500,000₫ · Use MAY10 for 10% off",
+    "track": "Track order",
+    "about": "Our story",
+    "help": "Help",
+    "megaCategories": "Categories",
+    "megaHighlights": "Highlights",
+    "bestSellers": "Best sellers",
+    "shopNow": "Shop now",
+    "megaPromo": "this weekend"
+  },
+  "Home": {
+    "eyebrow": "Fall / Winter 2026 collection",
+    "titleA": "Light",
+    "titleB": "as",
+    "titleC": "clouds.",
+    "subtitle": "Minimal designs in natural fabrics, comfortable from morning to night. Designed and made in Saigon.",
+    "ctaShop": "Shop now",
+    "ctaLookbook": "See the lookbook",
+    "scroll": "Scroll",
+    "marquee": [
+      "Natural fabrics",
+      "Made in Saigon",
+      "30-day returns",
+      "2-hour city delivery",
+      "Minimal design"
+    ],
+    "categoriesTitle": "Shop by category",
+    "featuredTitle": "Customer favourites",
+    "featuredSub": "The pieces people keep coming back for.",
+    "newTitle": "Just landed",
+    "viewAll": "View all",
+    "lookbookTitle": "Lookbook",
+    "lookbookSub": "Scroll down to stroll through the collection.",
+    "lookbookItems": [
+      {
+        "title": "Morning in District 3",
+        "text": "A tie-back linen dress, a market bag and an iced coffee."
+      },
+      {
+        "title": "Rainy Saigon afternoon",
+        "text": "A light water-repellent trench that packs into a tote."
+      },
+      {
+        "title": "Friday night",
+        "text": "A fluid satin set that glows under warm lights."
+      },
+      {
+        "title": "Weekend",
+        "text": "Soft knits and a heavyweight hoodie for long trips."
+      }
+    ],
+    "saleTitle": "Weekend flash sale",
+    "saleSub": "Up to 30% off selected pieces. Ends in:",
+    "saleCta": "Shop the sale",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Min",
+    "seconds": "Sec",
+    "values": [
+      {
+        "title": "Fast delivery",
+        "text": "Free over 500K, 2-hour delivery in the city."
+      },
+      {
+        "title": "30-day returns",
+        "text": "Not the right fit? Exchange or refund, easily."
+      },
+      {
+        "title": "Sustainable fabrics",
+        "text": "Organic cotton, linen and recycled textiles."
+      }
+    ],
+    "newsletterTitle": "Hear from MÂY",
+    "newsletterSub": "Members-only offers and new collection drops. No spam.",
+    "newsletterPlaceholder": "Your email",
+    "newsletterCta": "Subscribe",
+    "newsletterDone": "Thank you! See you in your inbox.",
+    "socialProof": "2,000+ reviews",
+    "manifestoEyebrow": "Manifesto",
+    "manifesto": "We believe the best clothes are the ones you reach for every morning. Natural fabrics, honest stitching, just enough design — so you feel as light as a cloud.",
+    "manifestoHighlight": [
+      "every",
+      "morning",
+      "cloud"
+    ],
+    "quickView": "Quick view",
+    "lookTitle": "One outfit, five pieces",
+    "lookHint": "Tap a + to explore each piece",
+    "reviewsTitle": "What people say about MÂY",
+    "reviewsSub": "Real reviews from customers who received their order, unedited.",
+    "shopLook": "Shop this look",
+    "heroAlt": "Model wearing a black shirt and cream chinos",
+    "campaignEyebrow": "Autumn/Winter 2026 campaign",
+    "campaignTitle": "Wind & sand",
+    "campaignCta": "Explore",
+    "campaign": [
+      {
+        "title": "Travel light",
+        "text": "A water-repellent trench and thin layers for long journeys."
+      },
+      {
+        "title": "Red on the dunes",
+        "text": "Fluid satin that catches the late sun, the piece that lights up a wardrobe."
+      },
+      {
+        "title": "Golden hour",
+        "text": "Black and earth tones, neat when the weather turns."
+      },
+      {
+        "title": "Stillness",
+        "text": "So minimal it is just you, the sky and the wind."
+      }
+    ],
+    "galleryTitle": "Worn your way",
+    "gallerySub": "The best moments of the season. Tag #maystudio to be featured here.",
+    "galleryCta": "Follow on Instagram",
+    "lookAlt1": "Model in a linen blazer and beige wide-leg trousers",
+    "lookAlt2": "Model in a cap, white tee and chinos"
+  },
+  "Product": {
+    "addToCart": "Add to cart",
+    "added": "Added to your cart",
+    "quickAdd": "Quick add",
+    "selectSize": "Please choose a size",
+    "size": "Size",
+    "color": "Colour",
+    "quantity": "Quantity",
+    "inStock": "In stock",
+    "lowStock": "Only {count} left",
+    "outOfStock": "Out of stock",
+    "soldOut": "Sold out",
+    "new": "New",
+    "sale": "-{percent}%",
+    "sizeGuide": "Size guide",
+    "description": "Description",
+    "details": "Fabric & care",
+    "detailsText": "Machine wash at 30°C, no bleach. Dry in the shade. Iron on low heat.",
+    "shipping": "Shipping & returns",
+    "shippingText": "Standard delivery in 2–4 days, 2-hour express within Ho Chi Minh City. Free returns within 30 days.",
+    "related": "You may also like",
+    "reviews": "{count, plural, one {# review} other {# reviews}}",
+    "wishlistAdd": "Add to wishlist",
+    "wishlistRemove": "Remove from wishlist",
+    "viewFront": "Front",
+    "viewBack": "Back",
+    "viewDetail": "Fabric detail",
+    "sizeGuideIntro": "Body measurements (cm). If you are between two sizes, pick the larger one.",
+    "chest": "Chest",
+    "waist": "Waist",
+    "height": "Height",
+    "buyNow": "Buy now",
+    "share": "Share",
+    "copied": "Link copied",
+    "variantSoldOut": "This colour/size is sold out",
+    "recentlyViewed": "Recently viewed",
+    "clearHistory": "Clear history",
+    "quickView": "Quick view",
+    "viewDetails": "View full details",
+    "yourSize": "Your size: {size}",
+    "findSize": "Find your size",
+    "suggested": "Suggested size",
+    "suggestedSoldOut": "Size {size} is sold out in this colour, try another one.",
+    "colorCount": "{count} colours",
+    "prevPhoto": "Previous photo",
+    "nextPhoto": "Next photo",
+    "closeViewer": "Close photo viewer",
+    "deliveryBy": "Arrives {from} – {to}",
+    "deliveryDays": "Arrives in 2–4 days",
+    "freeShipOver": "Free shipping on orders over {amount}",
+    "returnsTitle": "Free 30-day returns",
+    "returnsHint": "Swap sizes or send it back from home, no questions asked",
+    "secureTitle": "Secure payment",
+    "completeLook": "Complete the look",
+    "completeLookHint": "Pieces our stylists keep pairing together"
+  },
+  "Shop": {
+    "title": "Shop",
+    "titleNew": "New arrivals",
+    "titleSale": "On sale",
+    "results": "{count, plural, one {# product} other {# products}}",
+    "filters": "Filters",
+    "category": "Category",
+    "all": "All",
+    "size": "Size",
+    "color": "Colour",
+    "price": "Price",
+    "under300": "Under 300K",
+    "300to600": "300K – 600K",
+    "over600": "Over 600K",
+    "sortBy": "Sort by",
+    "sortNewest": "Newest",
+    "sortPriceAsc": "Price: low to high",
+    "sortPriceDesc": "Price: high to low",
+    "sortPopular": "Popular",
+    "onSale": "On sale",
+    "inStockOnly": "In stock only",
+    "clear": "Clear filters",
+    "noResults": "No products match your filters.",
+    "noResultsHint": "Try removing a filter or searching for something else.",
+    "searchFor": "Results for “{q}”",
+    "showResults": "Show {count} products",
+    "density": "Grid columns",
+    "columns": "{count} columns"
+  },
+  "Cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "emptyCta": "Start shopping",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "viewCart": "View cart",
+    "continue": "Continue shopping",
+    "remove": "Remove",
+    "freeShipLeft": "Add {amount} more for free shipping",
+    "freeShipReached": "You've unlocked free shipping!",
+    "items": "{count, plural, one {# item} other {# items}}",
+    "taxNote": "Shipping and discount codes are calculated at checkout."
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "contact": "Delivery details",
+    "name": "Full name",
+    "phone": "Phone number",
+    "email": "Email",
+    "address": "Address",
+    "city": "Province / City",
+    "note": "Note (optional)",
+    "shippingMethod": "Delivery method",
+    "standard": "Standard (2–4 days)",
+    "express": "2-hour express (city only)",
+    "free": "Free",
+    "payment": "Payment",
+    "cod": "Cash on delivery (COD)",
+    "bank": "VietQR bank transfer",
+    "bankNote": "Scan the QR code, confirmed automatically",
+    "coupon": "Discount code",
+    "couponPlaceholder": "Enter a code, e.g. MAY10",
+    "apply": "Apply",
+    "couponInvalid": "This code is invalid or not applicable.",
+    "couponApplied": "Code {code} applied",
+    "removeCoupon": "Remove",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "discount": "Discount",
+    "total": "Total",
+    "placeOrder": "Place order",
+    "placing": "Placing order…",
+    "summary": "Order summary",
+    "emptyCart": "Your cart is empty, nothing to check out yet.",
+    "loginHint": "Have an account? Sign in to track your orders more easily.",
+    "errors": {
+      "name": "Please enter your name",
+      "phone": "Invalid phone number",
+      "email": "Invalid email address",
+      "address": "Please enter your address",
+      "city": "Please choose a province / city",
+      "stock": "Not enough stock for “{name}”.",
+      "generic": "Something went wrong, please try again.",
+      "express": "Express delivery is only available in Ho Chi Minh City and Hanoi.",
+      "payment": "This payment method is currently unavailable."
+    },
+    "successTitle": "Order placed!",
+    "successText": "Thank you, {name}. We'll call to confirm your order in a few minutes.",
+    "orderCode": "Order number",
+    "viewOrders": "View my orders",
+    "backHome": "Back to home",
+    "savedAddresses": "Saved addresses",
+    "saveAddress": "Save this address for next time",
+    "expressUnavailable": "Only in Ho Chi Minh City and Hanoi",
+    "codNote": "Pay in cash on delivery",
+    "vnpay": "VNPay (ATM card, Visa, Mastercard, QR)",
+    "vnpayNote": "Secure payment through VNPay",
+    "couponErrors": {
+      "notFound": "This code does not exist.",
+      "inactive": "This code is no longer active.",
+      "notStarted": "This code is not active yet.",
+      "expired": "This code has expired.",
+      "exhausted": "This code has been fully redeemed.",
+      "minSubtotal": "Spend at least {amount} to use this code."
+    },
+    "couponShort": "Add {amount} more for the code to apply.",
+    "payWithVnpay": "Pay with VNPay",
+    "secureNote": "Your details are encrypted and secure",
+    "emailSent": "A confirmation email has been sent to {email}.",
+    "trackOrder": "Track order"
+  },
+  "Auth": {
+    "loginTitle": "Welcome back",
+    "loginSub": "Sign in to track orders and save your favourites.",
+    "registerTitle": "Create an account",
+    "registerSub": "It takes 30 seconds to become a MÂY member.",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 8 characters",
+    "login": "Sign in",
+    "register": "Sign up",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "error": "Incorrect email or password.",
+    "registerError": "Could not create the account. The email may already be in use.",
+    "loading": "Working…",
+    "forgot": "Forgot password?",
+    "forgotTitle": "Forgot password",
+    "forgotSub": "Enter your email and we will send you a reset link.",
+    "forgotSent": "Check your inbox",
+    "forgotSentHint": "If {email} has an account, a reset link is on its way.",
+    "sendLink": "Send link",
+    "backToLogin": "Back to sign in",
+    "resetTitle": "Choose a new password",
+    "resetInvalid": "This link is invalid or has expired.",
+    "passwordMismatch": "The passwords do not match.",
+    "resetSub": "Pick a new password of at least 8 characters.",
+    "resetDone": "Password changed. Taking you to sign in…",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "resetSubmit": "Change password"
+  },
+  "Account": {
+    "title": "My account",
+    "hello": "Hello, {name}",
+    "orders": "Orders",
+    "noOrders": "You haven't placed any orders yet.",
+    "date": "Date",
+    "total": "Total",
+    "status": "Status",
+    "items": "Items",
+    "memberSince": "Member since {date}",
+    "startShopping": "Start shopping",
+    "writeReview": "Review",
+    "details": "Details",
+    "addresses": "Addresses",
+    "settings": "Settings",
+    "addressError": "Could not save the address, please check the details.",
+    "default": "Default",
+    "edit": "Edit",
+    "makeDefault": "Make default",
+    "addressSaved": "Address saved",
+    "remove": "Remove",
+    "addressDeleted": "Address removed",
+    "addAddress": "Add address",
+    "editAddress": "Edit address",
+    "label": "Label",
+    "labelPlaceholder": "Home, Office…",
+    "setDefault": "Use as my default address",
+    "save": "Save",
+    "cancel": "Cancel",
+    "saveError": "Could not save, please try again.",
+    "profileSaved": "Profile updated",
+    "demoLocked": "Demo accounts cannot change their password.",
+    "passwordError": "Your current password is incorrect.",
+    "passwordChanged": "Password changed",
+    "profile": "Profile",
+    "displayName": "Display name",
+    "changePassword": "Change password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "signOutOthers": "Other devices will be signed out after the change.",
+    "updatePassword": "Update password"
+  },
+  "Status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "shipping": "Shipping",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
+  },
+  "Admin": {
+    "title": "Admin",
+    "dashboard": "Overview",
+    "products": "Products",
+    "orders": "Orders",
+    "backToStore": "Back to store",
+    "revenue": "Revenue (30 days)",
+    "ordersCount": "Orders (30 days)",
+    "customers": "Customers",
+    "avgOrder": "Avg. order value",
+    "revenueChart": "Daily revenue",
+    "topProducts": "Best sellers",
+    "recentOrders": "Recent orders",
+    "statusBreakdown": "Order status",
+    "sold": "sold",
+    "newProduct": "New product",
+    "editProduct": "Edit product",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Click again to delete",
+    "deleted": "Product deleted",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "cancel": "Cancel",
+    "search": "Search by name…",
+    "allStatuses": "All statuses",
+    "fields": {
+      "nameVi": "Name (Vietnamese)",
+      "nameEn": "Name (English)",
+      "descriptionVi": "Description (Vietnamese)",
+      "descriptionEn": "Description (English)",
+      "slug": "Slug (URL)",
+      "price": "Price (₫)",
+      "compareAtPrice": "Original price (₫, empty if not on sale)",
+      "category": "Category",
+      "kind": "Shape (illustration)",
+      "colors": "Colours",
+      "colorsHint": "One per line: Vietnamese name | English name | #hex",
+      "sizes": "Sizes",
+      "stock": "Stock",
+      "imageUrl": "Real photo URL (optional)",
+      "featured": "Featured",
+      "isNew": "New arrival",
+      "preview": "Preview",
+      "stockMatrix": "Stock per colour × size (total {total})",
+      "fillAll": "Fill every cell:",
+      "apply": "Apply"
+    },
+    "table": {
+      "product": "Product",
+      "price": "Price",
+      "stock": "Stock",
+      "category": "Category",
+      "actions": "",
+      "code": "Order",
+      "customer": "Customer",
+      "date": "Date",
+      "total": "Total",
+      "status": "Status",
+      "payment": "Payment"
+    },
+    "statusUpdated": "Status updated",
+    "invalid": "Some fields are invalid, please check again.",
+    "readonly": "Read-only demo mode: you can explore every admin page but cannot change data.",
+    "noData": "No data yet",
+    "coupons": "Coupons",
+    "customersNav": "Customers",
+    "reviews": "Reviews",
+    "transitionError": "This status change is not allowed.",
+    "allStocked": "Every variant is well stocked.",
+    "stockUpdated": "Stock updated",
+    "newStock": "New qty",
+    "exportCsv": "Export CSV",
+    "awaitingPayment": "{count, plural, one {# bank/VNPay order is} other {# bank/VNPay orders are}} waiting for payment",
+    "lowStock": "Running low",
+    "unpaid": "Awaiting payment",
+    "searchOrders": "Search by code, name, email, phone…",
+    "resultCount": "{count, plural, one {# order} other {# orders}}",
+    "paymentConfirmed": "Payment confirmed",
+    "markPaid": "Mark as paid",
+    "printInvoice": "Print invoice",
+    "notePlaceholder": "Add an internal note…",
+    "addNote": "Add note",
+    "customer": "Customer",
+    "member": "Member",
+    "invoice": "INVOICE",
+    "invoiceThanks": "Thank you for shopping at MÂY Studio!",
+    "couponFreeship": "Free shipping",
+    "newCoupon": "New coupon",
+    "couponState": {
+      "live": "Live",
+      "scheduled": "Scheduled",
+      "expired": "Expired",
+      "used": "Used up",
+      "off": "Off"
+    },
+    "couponMin": "Min. order {amount}",
+    "couponEnds": "Ends {date}",
+    "couponUsed": "Used {used}",
+    "deactivate": "Turn off",
+    "activate": "Turn on",
+    "deletedCoupon": "Coupon deleted",
+    "editCoupon": "Edit coupon",
+    "couponExists": "This code already exists.",
+    "couponFields": {
+      "code": "Code",
+      "type": "Type",
+      "percent": "Percent (%)",
+      "amount": "Amount (₫)",
+      "maxDiscount": "Max discount (₫)",
+      "minSubtotal": "Minimum order (₫)",
+      "usageLimit": "Usage limit",
+      "startsAt": "Starts",
+      "endsAt": "Ends",
+      "descriptionVi": "Description (Vietnamese)",
+      "descriptionEn": "Description (English)",
+      "active": "Active"
+    },
+    "couponTypes": {
+      "percent": "Percentage off",
+      "fixed": "Fixed amount off",
+      "freeship": "Free shipping"
+    },
+    "roleSelf": "You cannot change your own role.",
+    "role": "Role",
+    "roleUpdated": "Role updated",
+    "roles": {
+      "user": "Customer",
+      "viewer": "Read-only admin",
+      "admin": "Admin"
+    },
+    "reviewShown": "Review visible",
+    "reviewHidden": "Review hidden",
+    "show": "Show",
+    "hide": "Hide",
+    "reviewDeleted": "Review deleted",
+    "customersSummary": "{count} accounts · {amount} spent in total",
+    "searchCustomers": "Search by name or email…",
+    "joined": "Joined",
+    "spent": "Spent",
+    "lastOrder": "Last order",
+    "allReviews": "All",
+    "lowRated": "3 stars or less",
+    "hiddenReviews": "Hidden",
+    "hiddenBadge": "Hidden",
+    "verifiedBuyer": "Verified"
+  },
+  "Footer": {
+    "tagline": "Minimal clothing, light as clouds. Designed in Saigon.",
+    "shop": "Shop",
+    "help": "Help",
+    "company": "About MÂY",
+    "shippingPolicy": "Shipping policy",
+    "returns": "Returns",
+    "sizeGuide": "Size guide",
+    "contact": "Contact",
+    "about": "Our story",
+    "stores": "Stores",
+    "careers": "Careers",
+    "rights": "© {year} MÂY Studio. A demo project for learning purposes.",
+    "demo": "This is a demo store: no real transactions."
+  },
+  "Common": {
+    "loading": "Loading…",
+    "notFoundTitle": "Page not found",
+    "notFoundText": "The page you're looking for may have been removed or never existed.",
+    "backHome": "Back to home",
+    "errorTitle": "Something went wrong",
+    "retry": "Try again"
+  },
+  "Search": {
+    "title": "Search products",
+    "placeholder": "Search tees, trousers, dresses, colours…",
+    "close": "Close",
+    "recent": "Recent searches",
+    "trending": "Trending",
+    "empty": "No results for “{q}”.",
+    "seeAll": "See all {count} results for “{q}”",
+    "navigate": "navigate",
+    "open": "open"
+  },
+  "Reviews": {
+    "title": "Reviews",
+    "basedOn": "{count, plural, =0 {No reviews yet} one {Based on # review} other {Based on # reviews}}",
+    "fitTitle": "Fit",
+    "fit": {
+      "small": "Runs small",
+      "true": "True to size",
+      "large": "Runs large"
+    },
+    "write": "Write a review",
+    "signinToReview": "Sign in to review",
+    "alreadyReviewed": "Thanks, you have already reviewed this product.",
+    "onlyBuyers": "Only customers who received this product can review it, so every review is genuine.",
+    "filtered": "{count} {star}-star reviews",
+    "showing": "{count, plural, one {# review} other {# reviews}}",
+    "clearFilter": "Clear filter",
+    "sort": "Sort",
+    "sortNewest": "Newest",
+    "sortHighest": "Highest rated",
+    "sortLowest": "Lowest rated",
+    "empty": "No reviews yet.",
+    "verified": "Verified purchase",
+    "bought": "Bought: {variant}",
+    "more": "Show {count} more",
+    "pickRating": "Please choose a star rating",
+    "bodyTooShort": "Your review needs at least 10 characters",
+    "thanks": "Thanks for your review!",
+    "errors": {
+      "unauthorized": "Please sign in",
+      "invalid": "Please check your review",
+      "notPurchased": "You can review once your order is delivered",
+      "duplicate": "You have already reviewed this product",
+      "generic": "Something went wrong, please try again"
+    },
+    "stars": {
+      "1": "Terrible",
+      "2": "Not great",
+      "3": "Okay",
+      "4": "Good",
+      "5": "Excellent"
+    },
+    "yourRating": "Your rating",
+    "titlePlaceholder": "Title (optional)",
+    "bodyPlaceholder": "Fabric, fit, colour… how did you find it?",
+    "fitQuestion": "How was the fit?",
+    "submit": "Submit review",
+    "cancel": "Cancel"
+  },
+  "Payment": {
+    "received": "Payment received!",
+    "receivedText": "We received {amount}. Your order was confirmed automatically.",
+    "scan": "Open your banking app and scan to pay",
+    "bank": "Bank",
+    "account": "Account number",
+    "accountName": "Account holder",
+    "demoNote": "Demo mode: no bank account is configured, so this QR only opens your order page. Press “Simulate transfer” to see the order confirmed automatically.",
+    "amount": "Amount",
+    "note": "Reference",
+    "waiting": "Waiting for payment… this page updates by itself",
+    "simulate": "Simulate transfer",
+    "copy": "Copy",
+    "retryFailed": "Could not create a new payment.",
+    "retry": "Pay again",
+    "failedTitle": "Payment not completed",
+    "failedText": "Your order is on hold. You can pay again or contact us to switch to cash on delivery.",
+    "paidVnpay": "Paid with VNPay"
+  },
+  "Track": {
+    "title": "Track your order",
+    "subtitle": "Enter your order code and the email or phone number used at checkout.",
+    "code": "Order code",
+    "codePlaceholder": "Order code, e.g. MAY-7KQ2X9HD",
+    "contact": "Email or phone",
+    "contactPlaceholder": "Email or phone number",
+    "submit": "Track",
+    "notFound": "Order not found",
+    "notFoundHint": "Check the order code and the email or phone number used at checkout.",
+    "payment": {
+      "unpaid": "Unpaid",
+      "paid": "Paid",
+      "refunded": "Refunded"
+    },
+    "cancelHint": "This order is not confirmed yet, so you can still cancel it.",
+    "awaitingTransfer": "This order is waiting for your bank transfer.",
+    "payNow": "Pay now",
+    "items": "Items",
+    "shipTo": "Ship to",
+    "history": "Order history",
+    "eventCreated": "Order placed",
+    "eventRefunded": "Refunded",
+    "eventPaymentFailed": "Payment failed",
+    "eventPartial": "Partial payment received",
+    "eventPaid": "Payment received",
+    "eventNote": "Internal note",
+    "eventStatus": "Moved to: {status}",
+    "cancel": "Cancel order",
+    "cancelConfirm": "Cancel this order?",
+    "cancelled": "Order cancelled",
+    "cancelFailed": "This order can no longer be cancelled",
+    "cancelYes": "Cancel order",
+    "cancelNo": "Keep it"
+  },
+  "Fit": {
+    "eyebrow": "Size assistant",
+    "title": "Find your fit",
+    "intro": "Enter your measurements and MÂY suggests a size, remembered for every product.",
+    "height": "Height",
+    "weight": "Weight",
+    "preference": "You like your clothes",
+    "fits": {
+      "slim": "Close",
+      "regular": "Regular",
+      "loose": "Relaxed"
+    },
+    "result": "Suggested size",
+    "closest": "Closest size this item comes in",
+    "use": "Use this size",
+    "close": "Close"
+  },
+  "Help": {
+    "eyebrow": "Help centre",
+    "title": "How can we help?",
+    "subtitle": "Find answers fast, or message MÂY and we will reply within 24 hours.",
+    "searchPlaceholder": "Search: exchanges, delivery, refunds…",
+    "noResults": "No matching answer yet. Send us a message below.",
+    "faq": [
+      {
+        "title": "Orders & payment",
+        "items": [
+          {
+            "q": "How can I pay?",
+            "a": "MÂY accepts cash on delivery, VietQR bank transfer (confirmed automatically within seconds) and VNPay for ATM, Visa and Mastercard."
+          },
+          {
+            "q": "How do I use a discount code?",
+            "a": "Enter it at checkout and press Apply. One code per order; codes may have a minimum order value and a validity period."
+          },
+          {
+            "q": "Can I cancel my order?",
+            "a": "Yes, while it is still pending. Open Track order (or your account) and press Cancel order; any payment is refunded."
+          }
+        ]
+      },
+      {
+        "title": "Delivery",
+        "items": [
+          {
+            "q": "How long does delivery take?",
+            "a": "Standard delivery takes 2–4 working days nationwide. 2-hour express delivery is available in central Ho Chi Minh City and Hanoi."
+          },
+          {
+            "q": "How much is shipping?",
+            "a": "Standard delivery is free from 500,000₫. Below that it costs 30,000₫; express costs 50,000₫."
+          },
+          {
+            "q": "How do I track my order?",
+            "a": "Use Track order with your order code and the email or phone number you used. You also get an email whenever the status changes."
+          }
+        ]
+      },
+      {
+        "title": "Returns & refunds",
+        "items": [
+          {
+            "q": "What is your returns policy?",
+            "a": "Free exchanges or returns within 30 days, as long as items are unwashed with their tags on."
+          },
+          {
+            "q": "When will I get my money back?",
+            "a": "Once we receive the items, refunds are sent within 3–5 working days to your original payment method."
+          }
+        ]
+      },
+      {
+        "title": "Products & sizing",
+        "items": [
+          {
+            "q": "How do I pick the right size?",
+            "a": "Press “Find your size” on any product page and enter your height and weight. If you are between two sizes, choose the larger one."
+          },
+          {
+            "q": "How should I care for linen?",
+            "a": "Machine wash at 30°C, no bleach, dry in the shade and iron on low. Linen gets softer with every wash."
+          }
+        ]
+      }
+    ],
+    "shippingTitle": "Delivery",
+    "shippingText": "Free from {free}. Standard {standard} (2–4 days), express {express} (2 hours, HCMC & Hanoi).",
+    "returnsTitle": "30-day returns",
+    "returnsText": "Free exchanges or refunds within 30 days for items with their tags on.",
+    "paymentTitle": "Secure payment",
+    "paymentText": "Cash on delivery, auto-confirmed VietQR and VNPay. MÂY never stores your card details.",
+    "trackingTitle": "Order tracking",
+    "trackingText": "See progress and history with just your order code and email or phone.",
+    "trackingCta": "Track now",
+    "contactTitle": "Still need help?",
+    "contactText": "Send a message and the MÂY team replies within one working day.",
+    "hours": "9:00 – 21:00, Monday – Sunday",
+    "name": "Full name",
+    "email": "Email",
+    "topic": "Topic",
+    "topics": {
+      "order": "Order",
+      "product": "Product & sizing",
+      "return": "Returns",
+      "partnership": "Partnership",
+      "other": "Other"
+    },
+    "message": "Message",
+    "send": "Send message",
+    "sentTitle": "Sent, thank you!",
+    "sentText": "We will reply by email within one working day.",
+    "formError": "Please check the form."
+  },
+  "About": {
+    "eyebrow": "Our story",
+    "title": "Clothes for beautifully ordinary days.",
+    "lead": "MÂY started as a small sewing workshop in District 3 with a simple idea: make fewer pieces, and make them really well.",
+    "manifestoEyebrow": "What we believe",
+    "manifesto": "A good shirt should stay with you for years, not a season. So we choose fabrics carefully, sew slowly, and only release new pieces when they are truly needed.",
+    "manifestoHighlight": [
+      "years",
+      "slowly"
+    ],
+    "stats": [
+      {
+        "value": 7,
+        "suffix": " yrs",
+        "label": "of making in Saigon"
+      },
+      {
+        "value": 12,
+        "suffix": "",
+        "label": "skilled tailors"
+      },
+      {
+        "value": 86,
+        "suffix": "%",
+        "label": "natural or recycled fabric"
+      },
+      {
+        "value": 30,
+        "suffix": " days",
+        "label": "free returns"
+      }
+    ],
+    "processTitle": "How a piece comes to life",
+    "process": [
+      {
+        "title": "Sketch",
+        "text": "Every design starts from a real need: cooler, neater, easier to wear."
+      },
+      {
+        "title": "Fabric",
+        "text": "Organic cotton, linen and recycled fabrics, washed many times before we choose."
+      },
+      {
+        "title": "Hand finishing",
+        "text": "Our District 3 team sews and checks every seam."
+      },
+      {
+        "title": "Thoughtful packing",
+        "text": "Recycled paper, no single-use plastic, delivered to your door."
+      }
+    ],
+    "timelineEyebrow": "Journey",
+    "timelineTitle": "From a small workshop to your wardrobe",
+    "timeline": [
+      {
+        "year": "2019",
+        "title": "The first workshop",
+        "text": "Three people, two sewing machines and our first cotton tee."
+      },
+      {
+        "year": "2021",
+        "title": "The linen collection",
+        "text": "A linen line for Saigon summers, sold out in two weeks."
+      },
+      {
+        "year": "2023",
+        "title": "First store",
+        "text": "A store in District 3 where you can touch every fabric."
+      },
+      {
+        "year": "2025",
+        "title": "Hello, Hanoi",
+        "text": "A second store in Hoàn Kiếm and 2-hour express delivery."
+      },
+      {
+        "year": "2026",
+        "title": "Autumn/Winter",
+        "text": "Our largest collection, 86% natural or recycled fabric."
+      }
+    ],
+    "storesTitle": "Visit MÂY",
+    "stores": [
+      {
+        "city": "Ho Chi Minh City",
+        "address": "24 Tú Xương, Xuân Hòa Ward",
+        "hours": "9:00 – 21:30 daily"
+      },
+      {
+        "city": "Hanoi",
+        "address": "18 Hàng Bài, Hoàn Kiếm Ward",
+        "hours": "9:00 – 21:00 daily"
+      }
+    ],
+    "ctaTitle": "Ready to find a piece you will wear for years?",
+    "careers": "We are always looking for people who love making clothes. Send your CV to {email}.",
+    "cta": "Explore the shop"
+  }
+}
