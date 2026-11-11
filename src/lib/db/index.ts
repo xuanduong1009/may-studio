@@ -20,3 +20,8 @@ if (process.env.NODE_ENV !== "production") globalForDb.libsql = client;
 
 export const db = drizzle(client, { schema });
 export { schema };
+
+/** A transaction handle, as passed to db.transaction(async (tx) => …). */
+export type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
+/** Helpers that work both inside and outside a transaction take either. */
+export type Executor = typeof db | Tx;

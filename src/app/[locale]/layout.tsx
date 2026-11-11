@@ -12,7 +12,7 @@ import { QuickView } from "@/components/product/quick-view";
 import { Cursor } from "@/components/ui/cursor";
 import { Providers } from "@/components/providers";
 import { routing } from "@/i18n/routing";
-import { getCategories } from "@/lib/queries";
+import { getCategories } from "@/lib/server/queries/catalog";
 import { site } from "@/lib/site";
 import "../globals.css";
 

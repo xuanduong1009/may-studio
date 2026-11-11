@@ -2,11 +2,11 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
 import { useRef } from "react";
 import { Link } from "@/i18n/navigation";
-import { EDITORIAL } from "@/lib/editorial";
+import { EDITORIAL } from "@/lib/photos/editorial";
 
 const LINKS = ["/shop?category=vay-dam", "/shop?category=ao-khoac", "/shop?category=quan", "/shop?category=hoodie"];
 const TONES = ["#e8dccb", "#d9dccf", "#ead8cf", "#d7d3cb"];

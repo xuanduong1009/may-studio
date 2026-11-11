@@ -5,16 +5,15 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { useLenis } from "lenis/react";
-import { CommandPalette } from "@/components/search/command-palette";
-import { MegaMenu, type MenuCategory } from "./mega-menu";
-import { OPEN_SEARCH } from "./mobile-tabbar";
+import { CommandPalette, OPEN_SEARCH } from "@/components/search/command-palette";
 import { useMounted } from "@/hooks/use-mounted";
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { cartCount, useCart } from "@/store/cart";
 import { useWishlist } from "@/store/wishlist";
+import { MegaMenu, type MenuCategory } from "./mega-menu";
 
 const NAV = [
   { href: "/shop", key: "shop" },
@@ -297,13 +296,9 @@ export function ThemeToggle({ className }: { className?: string }) {
 
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const t = useTranslations("Nav");
-  const lenis = useLenis();
   const { data: session } = useSession();
 
-  useEffect(() => {
-    if (open) lenis?.stop();
-    else lenis?.start();
-  }, [open, lenis]);
+  useScrollLock(open);
 
   const links = [
     { href: "/", label: t("home") },

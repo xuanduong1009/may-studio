@@ -6,9 +6,9 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { setVariantStock } from "@/app/actions/admin";
 import { ProductImage } from "@/components/product/product-image";
-import { primaryPhoto } from "@/lib/photos";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { ProductColor, ProductPhoto } from "@/lib/db/schema";
+import { primaryPhoto } from "@/lib/photos/gallery";
 import { cn } from "@/lib/utils";
 
 type Row = { id: number; productId: number; nameVi: string; nameEn: string; kind: string; colors: ProductColor[]; images: ProductPhoto[]; colorHex: string; size: string; stock: number };

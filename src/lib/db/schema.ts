@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { index, integer, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import { blob, index, integer, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { COUPON_TYPES, ORDER_EVENT_TYPES, ORDER_STATUSES, PAYMENT_METHODS, PAYMENT_STATUSES, REVIEW_FITS } from "../constants";
 
 export * from "../constants";
@@ -138,6 +138,20 @@ export const products = sqliteTable(
   (t) => [index("products_category_idx").on(t.categoryId)],
 );
 
+/**
+ * Photos uploaded from the admin, served at /api/images/<id>. Kept in the
+ * database so uploads work the same locally and on Vercel (whose file system
+ * is read-only) without another storage service. An id's content never changes.
+ */
+export const productImages = sqliteTable("product_images", {
+  id: text("id").primaryKey(),
+  mime: text("mime").notNull(),
+  data: blob("data", { mode: "buffer" }).notNull(),
+  size: integer("size").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
 
 export const orders = sqliteTable(
   "orders",

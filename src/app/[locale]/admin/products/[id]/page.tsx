@@ -1,8 +1,9 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { asLocale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ProductForm } from "@/components/admin/product-form";
-import { getCategories, getProductById } from "@/lib/queries";
+import { asLocale } from "@/i18n/routing";
+import { getProductById } from "@/lib/server/queries/admin";
+import { getCategories } from "@/lib/server/queries/catalog";
 
 export default async function EditProductPage({ params }: { params: Promise<{ locale: string; id: string }> }) {
   const { locale: rawLocale, id } = await params;

@@ -2,8 +2,8 @@ import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/db/schema";
-import { logEvent, markOrderPaid } from "@/lib/orders";
 import { txnRefToCode, verifyVnpayParams, vnpayConfig } from "@/lib/payments/vnpay";
+import { logEvent, markOrderPaid } from "@/lib/server/orders";
 
 /**
  * VNPay Instant Payment Notification: server-to-server call that confirms a

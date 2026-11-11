@@ -4,7 +4,7 @@ A full-stack clothing store built with **Next.js 16**, **TypeScript** and **SQLi
 
 > 🇻🇳 Cửa hàng thời trang song ngữ Việt/Anh: tồn kho theo màu × size, mã giảm giá, thanh toán VietQR/VNPay tự xác nhận, email, theo dõi đơn, đánh giá từ người mua thật và trang quản trị đầy đủ.
 
-**Live demo:** [may-studio-red.vercel.app](https://may-studio-red.vercel.app) · **Read-only admin:** `viewer@may.studio` / `viewer12345`
+**Live site:** [may-studio-red.vercel.app](https://may-studio-red.vercel.app)
 
 ![Home](docs/screenshots/home.png)
 
@@ -92,9 +92,9 @@ A full-stack clothing store built with **Next.js 16**, **TypeScript** and **SQLi
 **Admin** (`/admin`)
 - Dashboard: revenue chart, KPIs, best sellers, unpaid-order alert, **low-stock list with inline restock**
 - Orders: search, filters (status, awaiting payment), detail page with audit log, internal notes, manual payment confirmation, **printable invoice**, **CSV export**
-- Products: CRUD with a live preview and a **colour × size stock matrix**
+- Products: CRUD with a live preview, a **colour × size stock matrix** and **photo upload** (drag and drop, one gallery per colour, reorder)
 - Coupons, customers (lifetime spend, role management) and review moderation
-- A read-only `viewer` role so the public can explore the back office without changing data
+- A read-only `viewer` role for staff who should see the back office without changing data
 
 ## Engineering highlights
 
@@ -105,6 +105,7 @@ A full-stack clothing store built with **Next.js 16**, **TypeScript** and **SQLi
 - **Payment security:** VNPay callbacks are verified with HMAC-SHA512 and a timing-safe comparison. The bank webhook requires an API key. The VietQR payload, including its CRC-16, is built from the EMVCo spec and unit-tested.
 - **Audit trail:** every order keeps an event log (created, status changes, payments, internal notes, with who and when). Customers and admins see the same history.
 - **Emails never block checkout:** they are sent with Next.js `after()` once the response has gone out. Without a Resend key they are printed to the server log, so everything works locally.
+- **Photo uploads without another service:** the admin shrinks photos in the browser (longest side 1600 px, WebP or JPEG), the server checks the file's bytes (only JPEG, PNG and WebP are stored, never SVG or HTML) and keeps it in the database. Photos are served from `/api/images/<id>` with a one-year immutable cache, and photos no product or past order uses are cleaned up automatically.
 - **Role-based access & abuse protection:** `user` / `admin` / read-only `viewer`, checked in every server action. Database-backed rate limits (they hold across serverless instances) on sign-in, sign-up, password reset, order placement, coupon checks, order lookups, the contact form, reviews and search. Demo accounts cannot change their password. Order lookups never reveal whether a code exists. CSV export guards against formula injection.
 - **Security headers:** a Content-Security-Policy with no third-party scripts, frames or form targets, plus `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` and HSTS. The image optimizer only accepts the site's own files and Pexels, so it cannot be used as an open proxy.
 - **Type-safe i18n:** about 500 translation keys checked at compile time in both languages.
@@ -137,7 +138,7 @@ npm run dev                       # http://localhost:3000
 npm test                          # unit tests
 ```
 
-Everything works without any third-party account. Payments run in demo mode: the VietQR block has a "Simulate transfer" button that triggers the same code path as the bank webhook. Emails are printed to the terminal.
+Everything works locally without any third-party account. In development, bank transfer runs in demo mode: the VietQR block has a "Simulate transfer" button that triggers the same code path as the bank webhook. In production, bank transfer is only offered once the `BANK_*` variables are set, and the simulate button never appears. Emails are printed to the terminal until `RESEND_API_KEY` is set.
 
 ### Demo accounts (created by the seed)
 
@@ -161,38 +162,58 @@ Demo coupons: `MAY10`, `WELCOME50K` (from 400K), `FREESHIP`. `BLACKFRIDAY` is sc
 ## Deploying (Vercel + Turso, both free tiers)
 
 1. **Create the database:** sign up at [turso.tech](https://turso.tech), create a database, then copy its URL (`libsql://…`) and an auth token.
-2. **Fill the production database from your machine:** put the Turso values in `.env.local` (`DATABASE_URL`, `DATABASE_AUTH_TOKEN`), set a strong `SEED_ADMIN_PASSWORD`, then run `npm run setup`. Switch `.env.local` back to `file:local.db` afterwards.
+2. **Fill the production database from your machine:** put the Turso values in `.env.local` (`DATABASE_URL`, `DATABASE_AUTH_TOKEN`), set a strong `SEED_ADMIN_PASSWORD` (12+ characters), then run `npm run db:push` and `npm run db:seed:catalog`. This creates the categories, the sample products with their photos and the admin account, without demo orders, reviews, coupons or demo accounts, so the store is ready for real orders. Switch `.env.local` back to `file:local.db` afterwards.
 3. **Push the code to GitHub.** CI runs automatically.
-4. **Import the repo on [vercel.com](https://vercel.com)** and add `DATABASE_URL`, `DATABASE_AUTH_TOKEN`, `BETTER_AUTH_SECRET` and `ADMIN_EMAILS`, plus any optional integrations above.
+4. **Import the repo on [vercel.com](https://vercel.com)** and add `DATABASE_URL`, `DATABASE_AUTH_TOKEN`, `BETTER_AUTH_SECRET` and `ADMIN_EMAILS`, plus the payment and email integrations above. Bank transfer is only offered once the `BANK_*` variables are set.
 5. Deploy. The site and sign-in use the Vercel production domain automatically; set `BETTER_AUTH_URL` and `NEXT_PUBLIC_SITE_URL` only when you add a custom domain.
+
+**Updating a deployed store:** after a release that changes the schema, run `npm run db:push:prod` (it reads `.env.vercel.local`, created with `vercel env pull .env.vercel.local --environment=production`). To turn an existing demo deployment into a store that takes real orders, run `npm run db:seed:catalog:prod` once. It refuses to run when the database already holds orders from real customers.
 
 ## Project structure
 
 ```
 src/
   app/
-    [locale]/          pages: home, shop, product, checkout (+ success), track, account/*, login,
-                       register, forgot/reset password, wishlist, admin/* (dashboard, products,
-                       orders, coupons, customers, reviews)
-    actions/           server actions: orders, account, admin
-    api/               auth, search, payments (VNPay IPN/return, bank webhook),
-                       order payment status, admin CSV export
-  components/          home/, product/, shop/, search/, cart/, checkout/, account/, admin/, layout/, ui/
-  lib/
-    db/                schema (products, variants, orders, events, coupons, reviews, addresses…) + client
-    payments/          vietqr.ts (EMVCo payload + CRC), vnpay.ts (signing + verification)
-    orders.ts          order state machine, payments, restocking, coupon checks
-    pricing.ts         pure pricing & coupon rules (shared by client and server)
-    email.ts           Resend client + bilingual templates
-    auth.ts, session.ts, queries.ts, validators.ts, inventory.ts, site.ts
-  i18n/                routing, navigation, request config
-  store/               cart, wishlist, recently viewed (Zustand)
-  proxy.ts             locale routing (Next.js 16 "proxy", formerly middleware)
-messages/              vi.json, en.json
-scripts/seed.ts        demo data (variants, coupons, orders with history, reviews)
-tests/                 unit tests
-.github/workflows/     CI
+    [locale]/            pages: home, shop, product, checkout (+ success), track, account/*, login,
+                         register, forgot/reset password, wishlist, admin/* (dashboard, products,
+                         orders, coupons, customers, reviews)
+    actions/             server actions (writes): orders, account, admin, contact
+    api/                 route handlers: auth, search, quick-view product, payments (VNPay IPN/return,
+                         bank webhook), order payment status, admin CSV export, uploaded photos
+  components/
+    ui/                  building blocks: button, price, stars, reveal, count-up, cursor…
+    layout/              header, mega menu, footer, mobile tab bar, intro
+    home/ shop/ product/ search/ cart/ checkout/ help/ auth/
+    orders/              shared by account, tracking and admin: status & payment badges, timeline
+    account/  admin/     screens of the customer area and the back office
+  hooks/                 use-mounted, use-scroll-lock
+  store/                 Zustand stores kept in the browser: cart, wishlist, recently viewed, fit, grid
+  i18n/                  routing, locale-aware navigation, request config
+  lib/                   code that runs anywhere (browser, server, tests):
+    constants.ts           enums shared by schema, validators and UI (order statuses, garment kinds…)
+    pricing.ts             prices, shipping and coupon rules
+    inventory.ts fit.ts    stock per colour × size, size recommendation
+    validators.ts          Zod schemas for every form and action input
+    site.ts utils.ts       store settings, palette, formatting helpers
+    db/                    Drizzle schema and client
+    payments/              vietqr.ts (EMVCo payload + CRC), vnpay.ts (signing + verification)
+    photos/                gallery.ts (photos per colour), editorial.ts (mood photos), uploads.ts (upload checks)
+    server/              server-only code:
+      auth.ts session.ts   Better Auth config, current user and roles
+      orders.ts            order state machine, payments, restocking, coupon checks
+      reviews.ts           rating sync, verified purchases
+      email.ts             Resend client + bilingual templates
+      rate-limit.ts        database-backed rate limits, client IP
+      photo-cleanup.ts     removes uploaded photos nothing uses
+      queries/             reads, by area: catalog.ts, reviews.ts, orders.ts, admin.ts
+  proxy.ts               locale routing (Next.js 16 "proxy", formerly middleware)
+messages/                vi.json, en.json (type-checked keys)
+scripts/                 seed.ts (+ seed-data.ts: sample catalogue), set-password.ts, share.ps1
+tests/                   unit tests (Node test runner)
+.github/workflows/       CI
 ```
+
+Where things go: pages read through `lib/server/queries/*` and write through `app/actions/*`; anything that imports `lib/server` stays on the server (client components may only `import type` from it), and everything else in `lib/` is safe for the browser and for unit tests.
 
 ## Scripts
 
@@ -202,9 +223,8 @@ tests/                 unit tests
 | `npm run build` / `npm start` | Production build / serve |
 | `npm run typecheck` | TypeScript check |
 | `npm test` | Unit tests |
-| `npm run db:push` | Create or update tables from the schema |
-| `npm run db:seed` | Reset store data and create the demo accounts |
+| `npm run db:push` | Create or update tables from the schema (`db:push:prod` for the production database) |
+| `npm run db:seed` | Full demo: sample catalogue, demo accounts, orders, reviews and coupons |
+| `npm run db:seed:catalog` | Ready to sell: sample catalogue and the admin account only; removes demo orders, reviews, coupons and the public demo accounts (`db:seed:catalog:prod` for the production database) |
 
----
-
-MÂY Studio is a fictional brand made for learning and portfolio purposes. No real transactions take place unless you configure your own payment accounts.
+Both seeds **delete every product, order, review and coupon**. On a hosted database they refuse to run while orders from real customers exist (override with `--force` only if you really mean it).

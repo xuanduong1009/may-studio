@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import type { ProductCardData } from "@/lib/queries";
+import type { ProductCardData } from "@/lib/server/queries/catalog";
 
 type WishlistState = {
   items: ProductCardData[];

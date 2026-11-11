@@ -29,6 +29,18 @@ export function tr<T extends Record<string, unknown>>(obj: T, field: string, loc
   return String(obj[key] ?? obj[`${field}Vi`] ?? "");
 }
 
+const HTML_ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+
+/** Escapes text for HTML that is built by hand (emails). */
+export function escapeHtml(text: string) {
+  return text.replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
+}
+
+/** Lower-case, accent-free words for searching: "Áo thun Đen" → "ao thun den". */
+export function searchText(input: string) {
+  return slugify(input).replace(/-/g, " ");
+}
+
 export function slugify(input: string) {
   return input
     .normalize("NFD")

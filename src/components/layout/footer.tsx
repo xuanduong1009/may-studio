@@ -75,7 +75,6 @@ export async function Footer() {
       <div className="border-t border-background/10">
         <div className="container-x flex flex-col gap-2 py-6 text-xs text-background/50 sm:flex-row sm:justify-between">
           <p>{t("rights", { year: new Date().getFullYear() })}</p>
-          <p>{t("demo")}</p>
         </div>
       </div>
     </footer>

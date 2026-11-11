@@ -1,27 +1,13 @@
 import { isLight, luminance, shade } from "@/lib/color";
+import type { GarmentKind } from "@/lib/constants";
 
 /**
  * Procedurally drawn product artwork.
  *
- * Every product in the demo store is rendered from vector shapes so the site
- * works with zero external images and re-colours instantly when a shopper
- * picks a different colour swatch. Real photos can replace this at any time by
- * setting `imageUrl` on a product from the admin panel.
+ * Fallback for products without photos: drawn from vector shapes, so it
+ * re-colours instantly when a shopper picks a different colour swatch.
  */
 
-export const GARMENT_KINDS = [
-  "tee",
-  "hoodie",
-  "shirt",
-  "jacket",
-  "pants",
-  "dress",
-  "skirt",
-  "cap",
-  "tote",
-] as const;
-
-export type GarmentKind = (typeof GARMENT_KINDS)[number];
 export type GarmentView = "front" | "back" | "detail";
 
 type Part = {

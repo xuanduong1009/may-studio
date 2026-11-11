@@ -1,9 +1,10 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { asLocale } from "@/i18n/routing";
 import { CheckoutForm } from "@/components/checkout/checkout-form";
+import { asLocale } from "@/i18n/routing";
+import { bankTransferEnabled } from "@/lib/payments/vietqr";
 import { vnpayConfig } from "@/lib/payments/vnpay";
-import { getUserAddresses } from "@/lib/queries";
-import { getSession } from "@/lib/session";
+import { getUserAddresses } from "@/lib/server/queries/orders";
+import { getSession } from "@/lib/server/session";
 
 export const dynamic = "force-dynamic";
 
@@ -26,7 +27,7 @@ export default async function CheckoutPage({ params }: { params: Promise<{ local
         signedIn={!!session}
         defaults={{ name: session?.user.name, email: session?.user.email }}
         addresses={addresses.map((a) => ({ id: a.id, label: a.label, fullName: a.fullName, phone: a.phone, address: a.address, city: a.city, isDefault: a.isDefault }))}
-        payments={{ vnpay: !!vnpayConfig() }}
+        payments={{ vnpay: !!vnpayConfig(), bank: bankTransferEnabled() }}
       />
     </div>
   );

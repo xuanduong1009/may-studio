@@ -1,15 +1,17 @@
 import { ArrowRight, Package, PenLine } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { CancelOrderButton } from "@/components/account/cancel-order-button";
-import { OrderProgress } from "@/components/account/order-timeline";
-import { StatusBadge } from "@/components/account/status-badge";
+import { CancelOrderButton } from "@/components/orders/cancel-order-button";
+import { OrderProgress } from "@/components/orders/order-timeline";
+import { PaymentBadge } from "@/components/orders/payment-badge";
+import { StatusBadge } from "@/components/orders/status-badge";
 import { ProductImage } from "@/components/product/product-image";
 import { buttonClasses } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { Link, redirect } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
-import { db } from "@/lib/db";
-import { getSession } from "@/lib/session";
+import { getOrdersForUser } from "@/lib/server/queries/orders";
+import { getReviewedProductIds } from "@/lib/server/queries/reviews";
+import { getSession } from "@/lib/server/session";
 import { formatDate, formatPrice } from "@/lib/utils";
 
 export default async function AccountOrdersPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -18,17 +20,11 @@ export default async function AccountOrdersPage({ params }: { params: Promise<{ 
   const session = await getSession();
   if (!session) return redirect({ href: "/login?redirect=/account", locale });
 
-  const [t, tt, orders, myReviews] = await Promise.all([
+  const [t, orders, reviewed] = await Promise.all([
     getTranslations("Account"),
-    getTranslations("Track"),
-    db.query.orders.findMany({
-      where: (o, { eq }) => eq(o.userId, session.user.id),
-      with: { items: true, events: true },
-      orderBy: (o, { desc }) => desc(o.createdAt),
-    }),
-    db.query.reviews.findMany({ where: (r, { eq }) => eq(r.userId, session.user.id), columns: { productId: true } }),
+    getOrdersForUser(session.user.id),
+    getReviewedProductIds(session.user.id),
   ]);
-  const reviewed = new Set(myReviews.map((r) => r.productId));
 
   if (orders.length === 0) {
     return (
@@ -53,7 +49,7 @@ export default async function AccountOrdersPage({ params }: { params: Promise<{ 
                 <p className="text-xs text-muted">{formatDate(order.createdAt, locale, true)}</p>
               </div>
               <div className="flex items-center gap-2">
-                {order.paymentStatus === "paid" ? <span className="rounded-full bg-success/15 px-2.5 py-1 text-xs text-success">{tt("payment.paid")}</span> : null}
+                {order.paymentStatus === "paid" ? <PaymentBadge status="paid" /> : null}
                 <StatusBadge status={order.status} />
               </div>
             </header>

@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { GARMENT_KINDS } from "@/components/product/garment-art";
-import { COUPON_TYPES, PAYMENT_METHODS, REVIEW_FITS } from "@/lib/constants";
+import { COUPON_TYPES, GARMENT_KINDS, PAYMENT_METHODS, REVIEW_FITS } from "@/lib/constants";
 
 const phone = z
   .string()
@@ -37,6 +36,13 @@ export const orderItemsSchema = z
 
 const hex = z.string().trim().regex(/^#[0-9a-fA-F]{6}$/);
 
+/** A photo hosted by the site itself: a bundled file under /images/ or an admin upload. */
+const photoUrl = z
+  .string()
+  .trim()
+  .max(300)
+  .regex(/^\/(?:images\/(?:[\w-]+\/)*[\w-]+\.(?:jpe?g|png|webp|avif)|api\/images\/[A-Za-z0-9_-]{16})$/);
+
 export const productSchema = z
   .object({
     nameVi: z.string().trim().min(2).max(120),
@@ -60,11 +66,16 @@ export const productSchema = z
     featured: z.boolean(),
     isNew: z.boolean(),
     imageUrl: z.string().trim().url().max(500).nullable().or(z.literal("").transform(() => null)),
+    /** gallery in display order; colorHex null = shown for every colour */
+    images: z.array(z.object({ url: photoUrl, colorHex: hex.nullable() })).max(40).default([]),
   })
   .refine(
     (p) => p.variants.every((v) => p.colors.some((c) => c.hex.toLowerCase() === v.colorHex.toLowerCase()) && p.sizes.includes(v.size)),
     { path: ["variants"] },
-  );
+  )
+  .refine((p) => p.images.every((im) => !im.colorHex || p.colors.some((c) => c.hex.toLowerCase() === im.colorHex!.toLowerCase())), {
+    path: ["images"],
+  });
 
 export type ProductInput = z.input<typeof productSchema>;
 

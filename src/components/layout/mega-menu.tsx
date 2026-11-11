@@ -3,10 +3,10 @@
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
 import Image from "next/image";
-import { categoryPhoto } from "@/lib/editorial";
+import { useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { categoryPhoto } from "@/lib/photos/editorial";
 import { cn } from "@/lib/utils";
 
 export type MenuCategory = { slug: string; nameVi: string; nameEn: string; kind: string; color: string; productCount: number };

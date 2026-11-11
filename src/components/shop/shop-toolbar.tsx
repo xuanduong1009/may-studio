@@ -2,22 +2,16 @@
 
 import { Columns2, Columns3, Columns4, X } from "lucide-react";
 import { motion } from "motion/react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import Image from "next/image";
 import { useMounted } from "@/hooks/use-mounted";
-import { categoryPhoto } from "@/lib/editorial";
+import { categoryPhoto } from "@/lib/photos/editorial";
 import { PALETTE } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { useShopDensity } from "@/store/shop-density";
 import { useFilterNav } from "./shop-filters";
 
 type Category = { slug: string; nameVi: string; nameEn: string; productCount: number };
-
-/** How many columns the shopper prefers on large screens (remembered). */
-export const useShopDensity = create<{ cols: 2 | 3 | 4; setCols: (c: 2 | 3 | 4) => void }>()(
-  persist((set) => ({ cols: 3, setCols: (cols) => set({ cols }) }), { name: "may-density", storage: createJSONStorage(() => localStorage) }),
-);
 
 /** Big tappable category pills with a photo, the fastest way to browse. */
 export function CategoryChips({ categories }: { categories: Category[] }) {

@@ -1,11 +1,12 @@
 import { Pencil, Plus, Search } from "lucide-react";
-import { asLocale } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { DeleteProductButton } from "@/components/admin/delete-product-button";
 import { ProductImage } from "@/components/product/product-image";
 import { buttonClasses } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { getAdminProducts } from "@/lib/queries";
+import { asLocale } from "@/i18n/routing";
+import { primaryPhoto } from "@/lib/photos/gallery";
+import { getAdminProducts } from "@/lib/server/queries/admin";
 import { cn, formatPrice } from "@/lib/utils";
 
 export default async function AdminProducts({
@@ -53,7 +54,7 @@ export default async function AdminProducts({
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-3">
                     <div className="h-14 w-12 shrink-0 overflow-hidden rounded-lg">
-                      <ProductImage kind={p.kind} color={p.colors[0]?.hex ?? "#ccc"} imageUrl={p.imageUrl} alt="" />
+                      <ProductImage kind={p.kind} color={p.colors[0]?.hex ?? "#ccc"} imageUrl={primaryPhoto(p.images, p.colors[0]?.hex) ?? p.imageUrl} alt="" sizes="48px" />
                     </div>
                     <div className="min-w-0">
                       <Link href={`/product/${p.slug}`} className="block truncate font-medium hover:underline">

@@ -66,6 +66,20 @@ export function bankConfig(): BankConfig | null {
   };
 }
 
+/**
+ * Demo bank transfer (a QR that only opens the order page, plus a "simulate
+ * transfer" button) is for local development only. In production nobody may
+ * mark an order paid without actually paying.
+ */
+export function bankDemoMode() {
+  return !bankConfig() && process.env.NODE_ENV !== "production";
+}
+
+/** Bank transfer is offered once the shop's account is configured (or in local demo mode). */
+export function bankTransferEnabled() {
+  return !!bankConfig() || bankDemoMode();
+}
+
 /** Transfer note for an order: the code without the dash, which banks often strip. */
 export function orderTransferNote(code: string) {
   return code.replace(/[^A-Za-z0-9]/g, "").toUpperCase();

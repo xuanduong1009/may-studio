@@ -3,7 +3,7 @@ import { AccountNav } from "@/components/account/account-nav";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { redirect } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
-import { getSession } from "@/lib/session";
+import { getSession } from "@/lib/server/session";
 import { formatDate } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";

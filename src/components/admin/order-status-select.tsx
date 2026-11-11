@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { updateOrderStatus } from "@/app/actions/admin";
-import { STATUS_STYLES } from "@/components/account/status-badge";
+import { STATUS_STYLES } from "@/components/orders/status-badge";
 import { useRouter } from "@/i18n/navigation";
 import { STATUS_FLOW, type OrderStatus } from "@/lib/constants";
 import { cn } from "@/lib/utils";

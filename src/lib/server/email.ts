@@ -2,7 +2,7 @@ import "server-only";
 import type { Order, OrderItem, OrderStatus } from "@/lib/db/schema";
 import { bankConfig, orderTransferNote } from "@/lib/payments/vietqr";
 import { site } from "@/lib/site";
-import { formatPrice } from "@/lib/utils";
+import { escapeHtml as esc, formatPrice } from "@/lib/utils";
 
 /**
  * Transactional email through Resend's HTTP API (no SDK needed).
@@ -40,8 +40,6 @@ export async function sendEmail(message: { to: string; subject: string; html: st
 /* ------------------------------------------------------------------ */
 /* Templates (inline styles: email clients ignore stylesheets)          */
 /* ------------------------------------------------------------------ */
-
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 function layout(title: string, body: string) {
   return `<!doctype html><html><body style="margin:0;background:#f7f4ee;font-family:Helvetica,Arial,sans-serif;color:#1c1b19">

@@ -2,8 +2,8 @@ import { setRequestLocale } from "next-intl/server";
 import { AddressBook } from "@/components/account/address-book";
 import { redirect } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
-import { getUserAddresses } from "@/lib/queries";
-import { getSession } from "@/lib/session";
+import { getUserAddresses } from "@/lib/server/queries/orders";
+import { getSession } from "@/lib/server/session";
 
 export default async function AddressesPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = asLocale((await params).locale);

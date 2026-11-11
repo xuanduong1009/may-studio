@@ -1,10 +1,10 @@
 import { Eye } from "lucide-react";
-import { asLocale } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { redirect } from "@/i18n/navigation";
-import { canViewAdmin, getSession } from "@/lib/session";
-import { notFound } from "next/navigation";
+import { asLocale } from "@/i18n/routing";
+import { canViewAdmin, getSession } from "@/lib/server/session";
 
 export const dynamic = "force-dynamic";
 

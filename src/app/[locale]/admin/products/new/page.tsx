@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { asLocale } from "@/i18n/routing";
 import { ProductForm } from "@/components/admin/product-form";
-import { getCategories } from "@/lib/queries";
+import { asLocale } from "@/i18n/routing";
+import { getCategories } from "@/lib/server/queries/catalog";
 
 export default async function NewProductPage({ params }: { params: Promise<{ locale: string }> }) {
   const locale = asLocale((await params).locale);

@@ -1,69 +1,27 @@
 import { ArrowRight, Leaf, RotateCcw, Truck } from "lucide-react";
-import { asLocale } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Campaign } from "@/components/home/campaign";
 import { CategoryList } from "@/components/home/category-list";
 import { Countdown } from "@/components/home/countdown";
-import { Manifesto } from "@/components/home/manifesto";
-import { ReviewsWall } from "@/components/home/reviews-wall";
-import { ShopTheLook, type Look } from "@/components/home/shop-the-look";
-import { Campaign } from "@/components/home/campaign";
 import { GalleryWall } from "@/components/home/gallery-wall";
 import { Hero } from "@/components/home/hero";
 import { Lookbook } from "@/components/home/lookbook";
+import { Manifesto } from "@/components/home/manifesto";
 import { Marquee } from "@/components/home/marquee";
 import { Newsletter } from "@/components/home/newsletter";
+import { ReviewsWall } from "@/components/home/reviews-wall";
+import { ShopTheLook, type Look } from "@/components/home/shop-the-look";
 import { ProductCard } from "@/components/product/product-card";
 import { buttonClasses } from "@/components/ui/button";
+import { EditorialImage } from "@/components/ui/editorial-image";
 import { Reveal, RevealText } from "@/components/ui/reveal";
 import { Link } from "@/i18n/navigation";
+import { asLocale } from "@/i18n/routing";
+import { EDITORIAL, HOME_CAMPAIGN, HOME_GALLERY, HOME_LOOKS } from "@/lib/photos/editorial";
+import { primaryPhoto } from "@/lib/photos/gallery";
+import { getCategories, getFeaturedProducts, getNewProducts, getProductsBySlugs, getSaleProducts } from "@/lib/server/queries/catalog";
+import { getHighlightReviews } from "@/lib/server/queries/reviews";
 import { PALETTE } from "@/lib/site";
-import { EDITORIAL } from "@/lib/editorial";
-import { EditorialImage } from "@/components/ui/editorial-image";
-import { primaryPhoto } from "@/lib/photos";
-import { getCategories, getFeaturedProducts, getHighlightReviews, getNewProducts, getProductsBySlugs, getSaleProducts } from "@/lib/queries";
-
-const px = (id: number) => `/images/pexels/${id}.jpg`;
-
-/** Shop-the-look photos and where each product sits on them (% of the photo). */
-const LOOKS = [
-  {
-    photo: px(18173600),
-    spots: [
-      { slug: "blazer-linen", color: "cream", x: 34, y: 47 },
-      { slug: "quan-ong-suong-linen", color: "sand", x: 58, y: 74 },
-    ],
-  },
-  {
-    photo: px(9558927),
-    spots: [
-      { slug: "mu-luoi-trai", color: "white", x: 46, y: 41 },
-      { slug: "ao-thun-co-tron-basic", color: "white", x: 60, y: 70 },
-      { slug: "quan-kaki-dang-dung", color: "sand", x: 55, y: 89 },
-    ],
-  },
-] as const;
-
-const CAMPAIGN = [
-  { id: 5120189, href: "/shop?category=ao-khoac", position: "50% 45%" },
-  { id: 30251203, href: "/shop?category=vay-dam", position: "50% 55%" },
-  { id: 19747454, href: "/shop?new=1", position: "50% 60%" },
-  { id: 28036390, href: "/shop", position: "50% 40%" },
-];
-
-const GALLERY: { id: number; w: number; h: number; likes: number }[] = [
-  { id: 21620267, w: 1200, h: 1600, likes: 4821 },
-  { id: 8343181, w: 1200, h: 800, likes: 2140 },
-  { id: 7956307, w: 1200, h: 2133, likes: 6302 },
-  { id: 21904524, w: 1200, h: 1800, likes: 3987 },
-  { id: 28232666, w: 1200, h: 1800, likes: 5210 },
-  { id: 9467305, w: 1200, h: 1553, likes: 1876 },
-  { id: 19357654, w: 1200, h: 1500, likes: 2655 },
-  { id: 8360771, w: 1200, h: 1800, likes: 3120 },
-  { id: 7100132, w: 1200, h: 1800, likes: 2789 },
-  { id: 348274, w: 1200, h: 1800, likes: 4410 },
-  { id: 17776995, w: 1200, h: 2132, likes: 3302 },
-  { id: 18269866, w: 1200, h: 1800, likes: 2957 },
-];
 
 export const dynamic = "force-dynamic";
 
@@ -77,12 +35,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     getFeaturedProducts(8),
     getNewProducts(4),
     getSaleProducts(8),
-    getProductsBySlugs(LOOKS.flatMap((l) => l.spots.map((s) => s.slug))),
+    getProductsBySlugs(HOME_LOOKS.flatMap((l) => l.spots.map((s) => s.slug))),
     getHighlightReviews(14),
     getTranslations("Reviews"),
   ]);
 
-  const looks: Look[] = LOOKS.map((l, i) => ({
+  const looks: Look[] = HOME_LOOKS.map((l, i) => ({
     photo: l.photo,
     alt: t(`lookAlt${i + 1}` as "lookAlt1"),
     spots: l.spots.flatMap((spot) => {
@@ -123,7 +81,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         eyebrow={t("campaignEyebrow")}
         title={t("campaignTitle")}
         cta={t("campaignCta")}
-        slides={CAMPAIGN.map((c, i) => ({ src: px(c.id), href: c.href, position: c.position, title: campaignText[i]?.title ?? "", text: campaignText[i]?.text ?? "" }))}
+        slides={HOME_CAMPAIGN.map((c, i) => ({ ...c, title: campaignText[i]?.title ?? "", text: campaignText[i]?.text ?? "" }))}
       />
 
       <Lookbook />
@@ -181,7 +139,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       />
 
       <GalleryWall
-        shots={GALLERY.map((g) => ({ src: px(g.id), w: g.w, h: g.h, likes: g.likes }))}
+        shots={HOME_GALLERY}
         title={t("galleryTitle")}
         sub={t("gallerySub")}
         cta={t("galleryCta")}

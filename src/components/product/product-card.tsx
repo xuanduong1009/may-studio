@@ -5,19 +5,19 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from
 import { useLocale, useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import { flyToCart } from "@/components/cart/fly-to-cart";
 import { Price } from "@/components/ui/price";
 import { Stars } from "@/components/ui/stars";
 import { useMounted } from "@/hooks/use-mounted";
 import { Link } from "@/i18n/navigation";
-import { flyToCart } from "@/lib/fly-to-cart";
 import { stockOf } from "@/lib/inventory";
-import { photosForColor } from "@/lib/photos";
+import { photosForColor } from "@/lib/photos/gallery";
 import { discountPercent } from "@/lib/pricing";
-import type { ProductCardData } from "@/lib/queries";
+import type { ProductCardData } from "@/lib/server/queries/catalog";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/store/cart";
-import { useWishlist } from "@/store/wishlist";
 import { useQuickView } from "@/store/quick-view";
+import { useWishlist } from "@/store/wishlist";
 import { ProductImage } from "./product-image";
 
 export function ProductCard({ product }: { product: ProductCardData }) {

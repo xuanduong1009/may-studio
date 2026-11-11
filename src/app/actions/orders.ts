@@ -2,18 +2,18 @@
 
 import { and, eq, gte, inArray, isNull, lt, or, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
 import { db } from "@/lib/db";
 import { addresses, coupons, orderItems, orders, products, productVariants } from "@/lib/db/schema";
-import { orderConfirmationEmail, sendEmail } from "@/lib/email";
 import { variantKey } from "@/lib/inventory";
-import { primaryPhoto } from "@/lib/photos";
-import { afterResponse, canAccessOrder, changeOrderStatus, checkCoupon, generateOrderCode, logEvent, markOrderPaid } from "@/lib/orders";
-import { bankConfig } from "@/lib/payments/vietqr";
+import { canAccessOrder } from "@/lib/order-access";
+import { bankDemoMode, bankTransferEnabled } from "@/lib/payments/vietqr";
 import { buildVnpayUrl, codeToTxnRef, vnpayConfig } from "@/lib/payments/vnpay";
+import { primaryPhoto } from "@/lib/photos/gallery";
 import { computeTotals, expressAvailable, type CouponCheck } from "@/lib/pricing";
-import { allow } from "@/lib/rate-limit";
-import { getSession } from "@/lib/session";
+import { orderConfirmationEmail, sendEmail } from "@/lib/server/email";
+import { afterResponse, changeOrderStatus, checkCoupon, generateOrderCode, logEvent, markOrderPaid } from "@/lib/server/orders";
+import { allow, clientIp } from "@/lib/server/rate-limit";
+import { getSession } from "@/lib/server/session";
 import { site } from "@/lib/site";
 import { checkoutSchema, orderItemsSchema, type CheckoutInput } from "@/lib/validators";
 
@@ -32,11 +32,6 @@ class StockError extends Error {
   }
 }
 class CouponError extends Error {}
-
-async function clientIp() {
-  const h = await headers();
-  return (h.get("x-forwarded-for") ?? "").split(",")[0].trim() || h.get("x-real-ip") || "127.0.0.1";
-}
 
 async function vnpayUrlFor(order: { code: string; total: number }, locale: string) {
   const config = vnpayConfig();
@@ -78,6 +73,7 @@ export async function placeOrder(
 
   if (data.shippingMethod === "express" && !expressAvailable(data.city)) return { ok: false, error: "express" };
   if (data.paymentMethod === "vnpay" && !vnpayConfig()) return { ok: false, error: "payment" };
+  if (data.paymentMethod === "bank" && !bankTransferEnabled()) return { ok: false, error: "payment" };
 
   const session = await getSession();
   const ids = [...new Set(items.map((i) => i.productId))];
@@ -252,11 +248,11 @@ export async function cancelOrder(code: string, contact?: string) {
 }
 
 /**
- * Demo mode only (no bank account configured): pretends the bank webhook
- * arrived so visitors can see the automatic payment confirmation.
+ * Local demo mode only (no bank account configured, not production): pretends
+ * the bank webhook arrived so the automatic payment confirmation can be tested.
  */
 export async function simulateBankPayment(code: string) {
-  if (bankConfig()) return { ok: false as const };
+  if (!bankDemoMode()) return { ok: false as const };
   if (!(await allow("orderAction"))) return { ok: false as const };
   const order = await db.query.orders.findFirst({ where: eq(orders.code, String(code).toUpperCase()) });
   if (!order || order.paymentMethod !== "bank") return { ok: false as const };

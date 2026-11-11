@@ -1,12 +1,11 @@
 "use client";
-
 import { Check, SlidersHorizontal, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
-import { useLenis } from "lenis/react";
+import { useState, useTransition } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { ALL_SIZES, PALETTE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -154,12 +153,8 @@ export function FilterSidebar({ categories }: { categories: Category[] }) {
 export function FilterSheet({ categories, count }: { categories: Category[]; count: number }) {
   const t = useTranslations("Shop");
   const [open, setOpen] = useState(false);
-  const lenis = useLenis();
 
-  useEffect(() => {
-    if (open) lenis?.stop();
-    else lenis?.start();
-  }, [open, lenis]);
+  useScrollLock(open);
 
   return (
     <>

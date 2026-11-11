@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { ProductGrid } from "@/components/shop/product-grid";
 import { ActiveFilters, CategoryChips, DensityToggle } from "@/components/shop/shop-toolbar";
 import { FilterSheet, FilterSidebar, SortSelect } from "@/components/shop/shop-filters";
-import { getCategories, searchProducts, type ShopFilters as Filters } from "@/lib/queries";
+import { getCategories, searchProducts, type ShopFilters as Filters } from "@/lib/server/queries/catalog";
 
 export const dynamic = "force-dynamic";
 

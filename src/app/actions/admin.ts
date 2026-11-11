@@ -1,14 +1,17 @@
 "use server";
 
+import { randomBytes } from "node:crypto";
 import { and, eq, notInArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { coupons, ORDER_STATUSES, orders, products, productVariants, reviews, user } from "@/lib/db/schema";
+import { coupons, ORDER_STATUSES, orders, productImages, products, productVariants, reviews, user } from "@/lib/db/schema";
 import { variantKey } from "@/lib/inventory";
-import { changeOrderStatus, logEvent, markOrderPaid } from "@/lib/orders";
-import { refreshProductRating } from "@/lib/reviews";
-import { getSession, isAdmin, type Session } from "@/lib/session";
+import { IMAGE_ROUTE, MAX_IMAGE_BYTES, sniffImageType } from "@/lib/photos/uploads";
+import { afterResponse, changeOrderStatus, logEvent, markOrderPaid } from "@/lib/server/orders";
+import { pruneUnusedImages } from "@/lib/server/photo-cleanup";
+import { refreshProductRating } from "@/lib/server/reviews";
+import { getSession, isAdmin, type Session } from "@/lib/server/session";
 import { couponSchema, productSchema, type CouponInput, type ProductInput } from "@/lib/validators";
 
 export type ActionResult =
@@ -52,6 +55,7 @@ export async function saveProduct(productId: number | null, input: ProductInput)
   const data = {
     ...rest,
     colors: rest.colors.map((c) => ({ ...c, hex: c.hex.toLowerCase() })),
+    images: rest.images.map((im) => ({ url: im.url, colorHex: im.colorHex ? im.colorHex.toLowerCase() : null })),
     compareAtPrice: rest.compareAtPrice && rest.compareAtPrice > rest.price ? rest.compareAtPrice : null,
     stock: matrix.reduce((s, v) => s + v.stock, 0),
   };
@@ -83,11 +87,32 @@ export async function saveProduct(productId: number | null, input: ProductInput)
       return pid;
     });
     refresh();
+    afterResponse(pruneUnusedImages);
     return { ok: true, id: savedId };
   } catch (err) {
     console.error("saveProduct failed", err);
     return { ok: false, error: "generic" };
   }
+}
+
+export type UploadResult = { ok: true; url: string } | { ok: false; error: "readonly" | "unauthorized" | "invalid" | "tooLarge" };
+
+/**
+ * Stores one product photo (already shrunk in the browser) and returns its URL.
+ * The file type is checked from its bytes; only JPEG, PNG and WebP are accepted.
+ */
+export async function uploadProductImage(formData: FormData): Promise<UploadResult> {
+  const g = await guard();
+  if (!g.ok) return { ok: false, error: "error" in g.result && g.result.error === "readonly" ? "readonly" : "unauthorized" };
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) return { ok: false, error: "invalid" };
+  if (file.size > MAX_IMAGE_BYTES) return { ok: false, error: "tooLarge" };
+  const data = Buffer.from(await file.arrayBuffer());
+  const mime = sniffImageType(data);
+  if (!mime) return { ok: false, error: "invalid" };
+  const imageId = randomBytes(12).toString("base64url");
+  await db.insert(productImages).values({ id: imageId, mime, data, size: data.length });
+  return { ok: true, url: `${IMAGE_ROUTE}${imageId}` };
 }
 
 export async function deleteProduct(productId: number): Promise<ActionResult> {
@@ -96,6 +121,7 @@ export async function deleteProduct(productId: number): Promise<ActionResult> {
   try {
     await db.delete(products).where(eq(products.id, id.parse(productId)));
     refresh();
+    afterResponse(pruneUnusedImages);
     return { ok: true };
   } catch (err) {
     console.error("deleteProduct failed", err);

@@ -2,8 +2,8 @@
 
 import { ArrowUpRight, Eye, Plus } from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { ProductImage } from "@/components/product/product-image";
 import { Price } from "@/components/ui/price";

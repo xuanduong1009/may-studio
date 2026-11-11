@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllProductSlugs } from "@/lib/queries";
+import { getAllProductSlugs } from "@/lib/server/queries/catalog";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";

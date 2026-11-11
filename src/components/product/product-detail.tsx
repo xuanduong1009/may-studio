@@ -5,28 +5,28 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { useLenis } from "lenis/react";
+import { flyToCart } from "@/components/cart/fly-to-cart";
 import { Button } from "@/components/ui/button";
 import { Price } from "@/components/ui/price";
 import { Stars } from "@/components/ui/stars";
 import { useMounted } from "@/hooks/use-mounted";
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { useRouter } from "@/i18n/navigation";
 import type { Product } from "@/lib/db/schema";
-import { flyToCart } from "@/lib/fly-to-cart";
+import { recommendSize } from "@/lib/fit";
 import { colorStock, LOW_STOCK_THRESHOLD, stockOf, type StockMap } from "@/lib/inventory";
+import { photosForColor } from "@/lib/photos/gallery";
 import { discountPercent, FREE_SHIPPING_THRESHOLD } from "@/lib/pricing";
-import { photosForColor } from "@/lib/photos";
 import { SIZE_GUIDE } from "@/lib/site";
 import { cn, formatPrice } from "@/lib/utils";
 import { useCart } from "@/store/cart";
-import { useWishlist } from "@/store/wishlist";
-import { useRecentlyViewed } from "@/store/recently-viewed";
 import { useFitProfile } from "@/store/fit-profile";
-import { recommendSize } from "@/lib/fit";
-import { Lightbox } from "./lightbox";
-import { SizeFinder } from "./size-finder";
+import { useRecentlyViewed } from "@/store/recently-viewed";
+import { useWishlist } from "@/store/wishlist";
 import type { GarmentView } from "./garment-art";
+import { Lightbox } from "./lightbox";
 import { ProductImage } from "./product-image";
+import { SizeFinder } from "./size-finder";
 
 type Props = {
   product: Pick<
@@ -593,11 +593,7 @@ function Accordion({ title, children, defaultOpen }: { title: string; children: 
 
 function SizeGuide({ open, onClose }: { open: boolean; onClose: () => void }) {
   const t = useTranslations("Product");
-  const lenis = useLenis();
-  useEffect(() => {
-    if (open) lenis?.stop();
-    else lenis?.start();
-  }, [open, lenis]);
+  useScrollLock(open);
 
   return (
     <AnimatePresence>

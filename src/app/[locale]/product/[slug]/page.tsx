@@ -1,16 +1,17 @@
 import { ChevronRight } from "lucide-react";
-import { asLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/product/product-card";
 import { ProductDetail } from "@/components/product/product-detail";
-import { ProductReviews } from "@/components/product/reviews";
 import { RecentlyViewed } from "@/components/product/recently-viewed";
+import { ProductReviews } from "@/components/product/reviews";
 import { Reveal, RevealText } from "@/components/ui/reveal";
 import { Link } from "@/i18n/navigation";
-import { getCompleteTheLook, getProductBySlug, getProductReviews, getRelatedProducts, getReviewEligibility } from "@/lib/queries";
-import { getSession } from "@/lib/session";
+import { asLocale } from "@/i18n/routing";
+import { getCompleteTheLook, getProductBySlug, getRelatedProducts } from "@/lib/server/queries/catalog";
+import { getProductReviews, getReviewEligibility } from "@/lib/server/queries/reviews";
+import { getSession } from "@/lib/server/session";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";

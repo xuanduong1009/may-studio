@@ -1,11 +1,11 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { ArrowUpRight, Check, Loader2, Minus, Plus, ShoppingBag, Sparkles, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useLenis } from "lenis/react";
 import { Button } from "@/components/ui/button";
 import { Price } from "@/components/ui/price";
 import { Stars } from "@/components/ui/stars";
@@ -13,7 +13,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import type { ProductColor, ProductPhoto } from "@/lib/db/schema";
 import { recommendSize } from "@/lib/fit";
 import { colorStock, stockOf, type StockMap } from "@/lib/inventory";
-import { photosForColor } from "@/lib/photos";
+import { photosForColor } from "@/lib/photos/gallery";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/store/cart";
 import { useFitProfile } from "@/store/fit-profile";

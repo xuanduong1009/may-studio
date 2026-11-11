@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getOrdersForExport } from "@/lib/queries";
-import { canViewAdmin, getSession } from "@/lib/session";
+import { getOrdersForExport } from "@/lib/server/queries/admin";
+import { canViewAdmin, getSession } from "@/lib/server/session";
 
 function csvCell(value: unknown) {
   const s = value === null || value === undefined ? "" : String(value);
