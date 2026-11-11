@@ -24,10 +24,10 @@ export function CategoryList({ categories, title, cta }: { categories: Category[
   const rotate = useTransform(useVelocity(sx), [-1500, 1500], [-14, 14]);
 
   return (
-    <section id="categories" className="container-x scroll-mt-24 py-20">
-      <div className="mb-8 flex items-end justify-between">
-        <h2 className="font-display text-4xl sm:text-5xl">{title}</h2>
-        <Link href="/shop" className="text-sm text-muted underline-offset-4 hover:text-foreground hover:underline">
+    <section id="categories" className="container-x scroll-mt-24 py-14 sm:py-20">
+      <div className="mb-6 flex items-end justify-between gap-4 sm:mb-8">
+        <h2 className="font-display text-3xl sm:text-5xl">{title}</h2>
+        <Link href="/shop" className="shrink-0 text-sm text-muted underline-offset-4 hover:text-foreground hover:underline">
           {cta}
         </Link>
       </div>
@@ -47,17 +47,17 @@ export function CategoryList({ categories, title, cta }: { categories: Category[
               href={`/shop?category=${c.slug}`}
               onPointerEnter={(e) => e.pointerType === "mouse" && setActive(c)}
               data-cursor={locale === "vi" ? "Xem" : "View"}
-              className="group flex items-center gap-4 py-5 sm:py-7"
+              className="group flex items-center gap-3 py-3 sm:gap-4 sm:py-7"
             >
-              <span className="w-8 text-xs text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-              <span className="relative size-14 shrink-0 overflow-hidden rounded-xl md:hidden">
+              <span className="hidden w-8 text-xs text-muted tabular-nums sm:block">{String(i + 1).padStart(2, "0")}</span>
+              <span className="relative size-11 shrink-0 overflow-hidden rounded-lg sm:size-14 sm:rounded-xl md:hidden">
                 <Image src={categoryPhoto(c.slug)} alt="" fill sizes="56px" className="object-cover" />
               </span>
-              <span className="flex-1 font-display text-3xl transition-all duration-500 ease-out-expo group-hover:translate-x-4 group-hover:italic sm:text-5xl lg:text-6xl">
+              <span className="min-w-0 flex-1 font-display text-xl leading-snug transition-all duration-500 ease-out-expo group-hover:translate-x-4 group-hover:italic sm:text-4xl md:text-5xl lg:text-6xl">
                 {locale === "vi" ? c.nameVi : c.nameEn}
               </span>
-              <span className="text-sm text-muted tabular-nums">{c.productCount}</span>
-              <ArrowUpRight size={22} className="text-muted transition-all duration-500 group-hover:rotate-45 group-hover:text-accent" />
+              <span className="text-xs text-muted tabular-nums sm:text-sm">{c.productCount}</span>
+              <ArrowUpRight className="size-[18px] shrink-0 text-muted transition-all duration-500 group-hover:rotate-45 group-hover:text-accent sm:size-[22px]" />
             </Link>
           </li>
         ))}
