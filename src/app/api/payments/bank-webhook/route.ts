@@ -4,8 +4,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { orders } from "@/lib/db/schema";
-import { logEvent, markOrderPaid } from "@/lib/orders";
 import { extractOrderCode } from "@/lib/payments/vietqr";
+import { logEvent, markOrderPaid } from "@/lib/server/orders";
 
 /**
  * Bank transfer webhook (SePay format). SePay watches the shop's bank account

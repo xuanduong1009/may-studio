@@ -7,14 +7,14 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { saveProduct } from "@/app/actions/admin";
 import { ProductPhotos } from "@/components/admin/product-photos";
-import { GARMENT_KINDS } from "@/components/product/garment-art";
 import { ProductImage } from "@/components/product/product-image";
 import { Button, buttonClasses } from "@/components/ui/button";
 import { Price } from "@/components/ui/price";
 import { Link, useRouter } from "@/i18n/navigation";
+import { GARMENT_KINDS, type GarmentKind } from "@/lib/constants";
 import type { Product, ProductColor, ProductVariant } from "@/lib/db/schema";
 import { variantKey } from "@/lib/inventory";
-import { photosForColor } from "@/lib/photos";
+import { photosForColor } from "@/lib/photos/gallery";
 import { ALL_SIZES, PALETTE } from "@/lib/site";
 import { cn, slugify } from "@/lib/utils";
 
@@ -39,7 +39,7 @@ export function ProductForm({ product, categories }: { product?: Product & { var
     price: product?.price ?? 300000,
     compareAtPrice: product?.compareAtPrice ?? null,
     categoryId: product?.categoryId ?? categories[0]?.id ?? 1,
-    kind: (product?.kind ?? "tee") as (typeof GARMENT_KINDS)[number],
+    kind: (product?.kind ?? "tee") as GarmentKind,
     colors: product?.colors ?? ([{ nameVi: PALETTE[2].nameVi, nameEn: PALETTE[2].nameEn, hex: PALETTE[2].hex }] as ProductColor[]),
     sizes: product?.sizes ?? ["S", "M", "L"],
     featured: product?.featured ?? false,

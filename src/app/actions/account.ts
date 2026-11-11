@@ -5,9 +5,9 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { addresses, reviews } from "@/lib/db/schema";
-import { findPurchase, refreshProductRating } from "@/lib/reviews";
-import { allow } from "@/lib/rate-limit";
-import { getSession } from "@/lib/session";
+import { allow } from "@/lib/server/rate-limit";
+import { findPurchase, refreshProductRating } from "@/lib/server/reviews";
+import { getSession } from "@/lib/server/session";
 import { addressSchema, reviewSchema, type AddressInput, type ReviewInput } from "@/lib/validators";
 
 type Result = { ok: true } | { ok: false; error: "unauthorized" | "invalid" | "notPurchased" | "duplicate" | "rateLimited" | "generic"; fields?: string[] };

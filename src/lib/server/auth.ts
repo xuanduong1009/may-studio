@@ -1,12 +1,10 @@
 import { betterAuth } from "better-auth";
-import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { APIError, createAuthMiddleware, getSessionFromCtx } from "better-auth/api";
 import { nextCookies } from "better-auth/next-js";
+import { DEMO_EMAILS } from "@/lib/constants";
 import { db } from "@/lib/db";
 import * as schema from "@/lib/db/schema";
-
-/** Public demo accounts: their password is printed in the README, so it must not change. */
-const LOCKED_EMAILS = ["demo@may.studio", "viewer@may.studio"];
 
 function adminEmails() {
   return (process.env.ADMIN_EMAILS ?? "")
@@ -40,7 +38,7 @@ export const auth = betterAuth({
     revokeSessionsOnPasswordReset: true,
     sendResetPassword: async ({ user, url }) => {
       // loaded lazily so scripts that import auth (the seed) don't pull in server-only modules
-      const { sendEmail, resetPasswordEmail } = await import("@/lib/email");
+      const { sendEmail, resetPasswordEmail } = await import("@/lib/server/email");
       await sendEmail(resetPasswordEmail(user.email, user.name, url));
       if (!process.env.RESEND_API_KEY) console.info(`[email:dev] reset link for ${user.email}: ${url}`);
     },
@@ -77,7 +75,7 @@ export const auth = betterAuth({
     before: createAuthMiddleware(async (ctx) => {
       if (ctx.path !== "/change-password") return;
       const session = await getSessionFromCtx(ctx);
-      if (session && LOCKED_EMAILS.includes(session.user.email.toLowerCase())) {
+      if (session && DEMO_EMAILS.includes(session.user.email.toLowerCase())) {
         throw new APIError("FORBIDDEN", { message: "Demo accounts cannot change their password" });
       }
     }),

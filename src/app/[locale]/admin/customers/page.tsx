@@ -2,8 +2,8 @@ import { Search } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { RoleSelect } from "@/components/admin/moderation";
 import { asLocale } from "@/i18n/routing";
-import { getCustomers } from "@/lib/queries";
-import { getSession } from "@/lib/session";
+import { getCustomers } from "@/lib/server/queries/admin";
+import { getSession } from "@/lib/server/session";
 import { formatDate, formatPrice } from "@/lib/utils";
 
 export default async function AdminCustomers({

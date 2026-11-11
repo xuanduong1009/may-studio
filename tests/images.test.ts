@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { imageIdFromUrl, isImageId, sniffImageType } from "@/lib/images";
+import { imageIdFromUrl, isImageId, sniffImageType } from "@/lib/photos/uploads";
 import { productSchema } from "@/lib/validators";
 
 const bytes = (...b: number[]) => new Uint8Array(b);

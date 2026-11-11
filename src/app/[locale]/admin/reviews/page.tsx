@@ -5,7 +5,7 @@ import { GarmentArt } from "@/components/product/garment-art";
 import { Stars } from "@/components/ui/stars";
 import { Link } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
-import { getAdminReviews } from "@/lib/queries";
+import { getAdminReviews } from "@/lib/server/queries/admin";
 import { cn, formatDate } from "@/lib/utils";
 
 export default async function AdminReviews({

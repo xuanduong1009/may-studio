@@ -1,18 +1,19 @@
 import { PackageSearch, Search } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { StatusBadge } from "@/components/account/status-badge";
-import { CancelOrderButton } from "@/components/account/cancel-order-button";
-import { OrderEventLog, OrderProgress } from "@/components/account/order-timeline";
+import { CancelOrderButton } from "@/components/orders/cancel-order-button";
+import { OrderEventLog, OrderProgress } from "@/components/orders/order-timeline";
+import { PaymentBadge } from "@/components/orders/payment-badge";
+import { StatusBadge } from "@/components/orders/status-badge";
 import { ProductImage } from "@/components/product/product-image";
 import { buttonClasses } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { Link } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
-import { canAccessOrder } from "@/lib/orders";
-import { getOrderByCode } from "@/lib/queries";
-import { allow } from "@/lib/rate-limit";
-import { getSession } from "@/lib/session";
-import { cn, formatDate, formatPrice } from "@/lib/utils";
+import { canAccessOrder } from "@/lib/order-access";
+import { getOrderByCode } from "@/lib/server/queries/orders";
+import { allow } from "@/lib/server/rate-limit";
+import { getSession } from "@/lib/server/session";
+import { formatDate, formatPrice } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -92,14 +93,7 @@ export default async function TrackPage({
                 <p className="text-sm text-muted">{formatDate(order.createdAt, locale, true)}</p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <span
-                  className={cn(
-                    "rounded-full px-3 py-1 text-xs font-medium",
-                    order.paymentStatus === "paid" ? "bg-success/15 text-success" : order.paymentStatus === "refunded" ? "bg-subtle text-muted" : "bg-amber-500/15 text-amber-700 dark:text-amber-300",
-                  )}
-                >
-                  {t(`payment.${order.paymentStatus}`)}
-                </span>
+                <PaymentBadge status={order.paymentStatus} />
                 <StatusBadge status={order.status} />
               </div>
             </div>

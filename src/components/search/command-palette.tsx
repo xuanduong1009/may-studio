@@ -1,10 +1,10 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { ArrowRight, Clock, CornerDownLeft, Loader2, Search, Tag, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useLenis } from "lenis/react";
 import { ProductImage } from "@/components/product/product-image";
 import { Price } from "@/components/ui/price";
 import { useRouter } from "@/i18n/navigation";
@@ -15,6 +15,9 @@ type Result = {
   categories: { slug: string; nameVi: string; nameEn: string }[];
   total: number;
 };
+
+/** Window event that opens the search palette from elsewhere (the mobile tab bar). */
+export const OPEN_SEARCH = "may:open-search";
 
 const RECENT_KEY = "may-recent-searches";
 const TRENDING = ["Linen", "Hoodie", "Sơ mi", "Tote", "Đầm", "Jean"];

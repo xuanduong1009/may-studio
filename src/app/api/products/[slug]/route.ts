@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getProductBySlug } from "@/lib/queries";
+import { getProductBySlug } from "@/lib/server/queries/catalog";
 
 /** Product data for the quick-view modal. */
 export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {

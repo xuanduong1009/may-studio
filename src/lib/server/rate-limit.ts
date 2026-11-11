@@ -19,9 +19,10 @@ export const LIMITS = {
 
 export type LimitName = keyof typeof LIMITS;
 
+/** The visitor's IP (Vercel sets x-real-ip, other proxies x-forwarded-for); 127.0.0.1 when there is none. */
 export async function clientIp() {
   const h = await headers();
-  return h.get("x-real-ip") ?? h.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  return h.get("x-real-ip") || h.get("x-forwarded-for")?.split(",")[0]?.trim() || "127.0.0.1";
 }
 
 /** Counts one hit; returns false once the client is over the limit for the current window. */

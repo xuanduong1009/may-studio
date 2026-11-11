@@ -5,7 +5,7 @@ import { ProductImage } from "@/components/product/product-image";
 import { Link } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
 import { ORDER_STATUSES } from "@/lib/db/schema";
-import { getAdminOrders } from "@/lib/queries";
+import { getAdminOrders } from "@/lib/server/queries/admin";
 import { cn, formatDate, formatPrice } from "@/lib/utils";
 
 export default async function AdminOrders({

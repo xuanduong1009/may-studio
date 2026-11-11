@@ -1,14 +1,15 @@
 import { AlertTriangle, Banknote, Download, Hourglass, ReceiptText, ShoppingCart, Users } from "lucide-react";
-import { asLocale } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { StatusBadge } from "@/components/account/status-badge";
-import { Bar, CountUp, RevenueChart } from "@/components/admin/charts";
+import { Bar, RevenueChart } from "@/components/admin/charts";
 import { LowStock } from "@/components/admin/low-stock";
+import { StatusBadge } from "@/components/orders/status-badge";
 import { ProductImage } from "@/components/product/product-image";
+import { CountUp } from "@/components/ui/count-up";
 import { Reveal } from "@/components/ui/reveal";
 import { Link } from "@/i18n/navigation";
+import { asLocale } from "@/i18n/routing";
 import { ORDER_STATUSES } from "@/lib/db/schema";
-import { getDashboardStats, getLowStockVariants } from "@/lib/queries";
+import { getDashboardStats, getLowStockVariants } from "@/lib/server/queries/admin";
 import { formatDate, formatPrice } from "@/lib/utils";
 
 export default async function AdminDashboard({ params }: { params: Promise<{ locale: string }> }) {

@@ -1,12 +1,12 @@
 import { Pencil, Plus, Search } from "lucide-react";
-import { asLocale } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { DeleteProductButton } from "@/components/admin/delete-product-button";
 import { ProductImage } from "@/components/product/product-image";
 import { buttonClasses } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { primaryPhoto } from "@/lib/photos";
-import { getAdminProducts } from "@/lib/queries";
+import { asLocale } from "@/i18n/routing";
+import { primaryPhoto } from "@/lib/photos/gallery";
+import { getAdminProducts } from "@/lib/server/queries/admin";
 import { cn, formatPrice } from "@/lib/utils";
 
 export default async function AdminProducts({

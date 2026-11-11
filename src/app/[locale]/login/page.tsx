@@ -1,8 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { asLocale } from "@/i18n/routing";
 import { AuthForm } from "@/components/auth/auth-form";
 import { redirect } from "@/i18n/navigation";
-import { getSession } from "@/lib/session";
+import { asLocale } from "@/i18n/routing";
+import { getSession } from "@/lib/server/session";
 
 export const dynamic = "force-dynamic";
 

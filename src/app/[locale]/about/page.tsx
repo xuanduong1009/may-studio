@@ -1,15 +1,15 @@
 import { ArrowRight, Clock, MapPin } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { CountUp } from "@/components/admin/charts";
-import { Manifesto } from "@/components/home/manifesto";
 import Image from "next/image";
-import { EditorialImage } from "@/components/ui/editorial-image";
-import { EDITORIAL } from "@/lib/editorial";
+import { Manifesto } from "@/components/home/manifesto";
 import { buttonClasses } from "@/components/ui/button";
+import { CountUp } from "@/components/ui/count-up";
+import { EditorialImage } from "@/components/ui/editorial-image";
 import { Magnetic } from "@/components/ui/magnetic";
 import { Reveal, RevealText } from "@/components/ui/reveal";
 import { Link } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
+import { EDITORIAL } from "@/lib/photos/editorial";
 import { site } from "@/lib/site";
 
 export async function generateMetadata() {

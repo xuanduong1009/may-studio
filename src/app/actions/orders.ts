@@ -2,18 +2,18 @@
 
 import { and, eq, gte, inArray, isNull, lt, or, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
 import { db } from "@/lib/db";
 import { addresses, coupons, orderItems, orders, products, productVariants } from "@/lib/db/schema";
-import { orderConfirmationEmail, sendEmail } from "@/lib/email";
 import { variantKey } from "@/lib/inventory";
-import { primaryPhoto } from "@/lib/photos";
-import { afterResponse, canAccessOrder, changeOrderStatus, checkCoupon, generateOrderCode, logEvent, markOrderPaid } from "@/lib/orders";
+import { canAccessOrder } from "@/lib/order-access";
 import { bankDemoMode, bankTransferEnabled } from "@/lib/payments/vietqr";
 import { buildVnpayUrl, codeToTxnRef, vnpayConfig } from "@/lib/payments/vnpay";
+import { primaryPhoto } from "@/lib/photos/gallery";
 import { computeTotals, expressAvailable, type CouponCheck } from "@/lib/pricing";
-import { allow } from "@/lib/rate-limit";
-import { getSession } from "@/lib/session";
+import { orderConfirmationEmail, sendEmail } from "@/lib/server/email";
+import { afterResponse, changeOrderStatus, checkCoupon, generateOrderCode, logEvent, markOrderPaid } from "@/lib/server/orders";
+import { allow, clientIp } from "@/lib/server/rate-limit";
+import { getSession } from "@/lib/server/session";
 import { site } from "@/lib/site";
 import { checkoutSchema, orderItemsSchema, type CheckoutInput } from "@/lib/validators";
 
@@ -32,11 +32,6 @@ class StockError extends Error {
   }
 }
 class CouponError extends Error {}
-
-async function clientIp() {
-  const h = await headers();
-  return (h.get("x-forwarded-for") ?? "").split(",")[0].trim() || h.get("x-real-ip") || "127.0.0.1";
-}
 
 async function vnpayUrlFor(order: { code: string; total: number }, locale: string) {
   const config = vnpayConfig();

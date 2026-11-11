@@ -8,7 +8,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm, type UseFormRegisterReturn } from "react-hook-form";
 import { toast } from "sonner";
 import { placeOrder, previewCoupon } from "@/app/actions/orders";
-import { CartLine } from "@/components/cart/cart-drawer";
+import { CartLine } from "@/components/cart/cart-line";
 import { buttonClasses } from "@/components/ui/button";
 import { useMounted } from "@/hooks/use-mounted";
 import { Link, useRouter } from "@/i18n/navigation";

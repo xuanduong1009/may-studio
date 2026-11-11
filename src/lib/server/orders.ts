@@ -2,7 +2,7 @@ import "server-only";
 import { randomInt } from "node:crypto";
 import { and, eq, sql } from "drizzle-orm";
 import { after } from "next/server";
-import { db } from "@/lib/db";
+import { db, type Executor } from "@/lib/db";
 import {
   coupons,
   orderEvents,
@@ -14,13 +14,8 @@ import {
   type Order,
   type OrderStatus,
 } from "@/lib/db/schema";
-import { orderStatusEmail, paymentReceivedEmail, sendEmail } from "@/lib/email";
 import { evaluateCoupon, normalizeCoupon } from "@/lib/pricing";
-
-export { canAccessOrder } from "@/lib/order-access";
-
-type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
-type Executor = typeof db | Tx;
+import { orderStatusEmail, paymentReceivedEmail, sendEmail } from "@/lib/server/email";
 
 /** Runs work after the response is sent (emails must never slow down or break a checkout). */
 export function afterResponse(task: () => Promise<unknown>) {

@@ -4,11 +4,11 @@ import { SearchX } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { ProductCard } from "@/components/product/product-card";
-import type { ProductCardData } from "@/lib/queries";
-import { useFilterNav } from "./shop-filters";
-import { useShopDensity } from "./shop-toolbar";
 import { useMounted } from "@/hooks/use-mounted";
+import type { ProductCardData } from "@/lib/server/queries/catalog";
 import { cn } from "@/lib/utils";
+import { useShopDensity } from "@/store/shop-density";
+import { useFilterNav } from "./shop-filters";
 
 /** Grid that animates items in/out and re-flows smoothly when filters change. */
 export function ProductGrid({ products }: { products: ProductCardData[] }) {

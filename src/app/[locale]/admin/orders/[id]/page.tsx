@@ -1,15 +1,16 @@
 import { ArrowLeft, Mail, MapPin, Phone, UserRound } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { OrderEventLog, OrderProgress } from "@/components/account/order-timeline";
 import { ConfirmPaymentButton, OrderNoteForm, PrintButton } from "@/components/admin/order-actions";
 import { OrderStatusSelect } from "@/components/admin/order-status-select";
+import { OrderEventLog, OrderProgress } from "@/components/orders/order-timeline";
+import { PaymentBadge } from "@/components/orders/payment-badge";
 import { ProductImage } from "@/components/product/product-image";
 import { Link } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
-import { getOrderDetail } from "@/lib/queries";
+import { getOrderDetail } from "@/lib/server/queries/admin";
 import { site } from "@/lib/site";
-import { cn, formatDate, formatPrice } from "@/lib/utils";
+import { formatDate, formatPrice } from "@/lib/utils";
 
 export default async function AdminOrderDetail({ params }: { params: Promise<{ locale: string; id: string }> }) {
   const { locale: raw, id } = await params;
@@ -136,14 +137,7 @@ export default async function AdminOrderDetail({ params }: { params: Promise<{ l
               <h2 className="font-medium">{tc("payment")}</h2>
               <div className="flex items-center justify-between">
                 <span className="text-muted">{tc(order.paymentMethod)}</span>
-                <span
-                  className={cn(
-                    "rounded-full px-2.5 py-1 text-xs font-medium",
-                    order.paymentStatus === "paid" ? "bg-success/15 text-success" : order.paymentStatus === "refunded" ? "bg-subtle text-muted" : "bg-amber-500/15 text-amber-700 dark:text-amber-300",
-                  )}
-                >
-                  {tt(`payment.${order.paymentStatus}`)}
-                </span>
+                <PaymentBadge status={order.paymentStatus} />
               </div>
               {order.paidAt ? (
                 <p className="text-xs text-muted">

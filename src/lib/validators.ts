@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { GARMENT_KINDS } from "@/components/product/garment-art";
-import { COUPON_TYPES, PAYMENT_METHODS, REVIEW_FITS } from "@/lib/constants";
+import { COUPON_TYPES, GARMENT_KINDS, PAYMENT_METHODS, REVIEW_FITS } from "@/lib/constants";
 
 const phone = z
   .string()

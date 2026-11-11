@@ -1,9 +1,10 @@
 "use server";
 
-import { allow } from "@/lib/rate-limit";
 import { z } from "zod";
-import { sendEmail } from "@/lib/email";
+import { sendEmail } from "@/lib/server/email";
+import { allow } from "@/lib/server/rate-limit";
 import { site } from "@/lib/site";
+import { escapeHtml as esc } from "@/lib/utils";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2).max(80),
@@ -15,8 +16,6 @@ const contactSchema = z.object({
 });
 
 export type ContactInput = z.input<typeof contactSchema>;
-
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 /** Sends a contact-form message to the shop inbox. */
 export async function sendContactMessage(input: ContactInput): Promise<{ ok: boolean; fields?: string[] }> {

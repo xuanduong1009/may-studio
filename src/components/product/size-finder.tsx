@@ -1,11 +1,10 @@
 "use client";
-
 import { Sparkles, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { useLenis } from "lenis/react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { recommendSize, type FitPreference } from "@/lib/fit";
 import { cn } from "@/lib/utils";
 import { useFitProfile } from "@/store/fit-profile";
@@ -13,17 +12,13 @@ import { useFitProfile } from "@/store/fit-profile";
 /** Modal that turns height, weight and fit preference into a size, live. */
 export function SizeFinder({ open, onClose, sizes, onPick }: { open: boolean; onClose: () => void; sizes: string[]; onPick: (size: string) => void }) {
   const t = useTranslations("Fit");
-  const lenis = useLenis();
   const saved = useFitProfile((s) => s.profile);
   const save = useFitProfile((s) => s.save);
   const [height, setHeight] = useState(saved?.height ?? 165);
   const [weight, setWeight] = useState(saved?.weight ?? 55);
   const [fit, setFit] = useState<FitPreference>(saved?.fit ?? "regular");
 
-  useEffect(() => {
-    if (open) lenis?.stop();
-    else lenis?.start();
-  }, [open, lenis]);
+  useScrollLock(open);
 
   const result = recommendSize({ height, weight, fit }, sizes);
 

@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { productImages } from "@/lib/db/schema";
-import { isImageId } from "@/lib/images";
+import { isImageId } from "@/lib/photos/uploads";
 
 /** Product photos uploaded from the admin. An id never changes content, so browsers and the CDN keep it for a year. */
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {

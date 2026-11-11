@@ -174,29 +174,46 @@ Demo coupons: `MAY10`, `WELCOME50K` (from 400K), `FREESHIP`. `BLACKFRIDAY` is sc
 ```
 src/
   app/
-    [locale]/          pages: home, shop, product, checkout (+ success), track, account/*, login,
-                       register, forgot/reset password, wishlist, admin/* (dashboard, products,
-                       orders, coupons, customers, reviews)
-    actions/           server actions: orders, account, admin
-    api/               auth, search, payments (VNPay IPN/return, bank webhook),
-                       order payment status, admin CSV export, uploaded product photos
-  components/          home/, product/, shop/, search/, cart/, checkout/, account/, admin/, layout/, ui/
-  lib/
-    db/                schema (products, variants, orders, events, coupons, reviews, addresses…) + client
-    payments/          vietqr.ts (EMVCo payload + CRC), vnpay.ts (signing + verification)
-    orders.ts          order state machine, payments, restocking, coupon checks
-    pricing.ts         pure pricing & coupon rules (shared by client and server)
-    email.ts           Resend client + bilingual templates
-    images.ts          upload checks (file signature, ids); product-images.ts cleans up unused photos
-    auth.ts, session.ts, queries.ts, validators.ts, inventory.ts, site.ts
-  i18n/                routing, navigation, request config
-  store/               cart, wishlist, recently viewed (Zustand)
-  proxy.ts             locale routing (Next.js 16 "proxy", formerly middleware)
-messages/              vi.json, en.json
-scripts/seed.ts        sample catalogue, plus demo data (coupons, orders with history, reviews) unless --catalog
-tests/                 unit tests
-.github/workflows/     CI
+    [locale]/            pages: home, shop, product, checkout (+ success), track, account/*, login,
+                         register, forgot/reset password, wishlist, admin/* (dashboard, products,
+                         orders, coupons, customers, reviews)
+    actions/             server actions (writes): orders, account, admin, contact
+    api/                 route handlers: auth, search, quick-view product, payments (VNPay IPN/return,
+                         bank webhook), order payment status, admin CSV export, uploaded photos
+  components/
+    ui/                  building blocks: button, price, stars, reveal, count-up, cursor…
+    layout/              header, mega menu, footer, mobile tab bar, intro
+    home/ shop/ product/ search/ cart/ checkout/ help/ auth/
+    orders/              shared by account, tracking and admin: status & payment badges, timeline
+    account/  admin/     screens of the customer area and the back office
+  hooks/                 use-mounted, use-scroll-lock
+  store/                 Zustand stores kept in the browser: cart, wishlist, recently viewed, fit, grid
+  i18n/                  routing, locale-aware navigation, request config
+  lib/                   code that runs anywhere (browser, server, tests):
+    constants.ts           enums shared by schema, validators and UI (order statuses, garment kinds…)
+    pricing.ts             prices, shipping and coupon rules
+    inventory.ts fit.ts    stock per colour × size, size recommendation
+    validators.ts          Zod schemas for every form and action input
+    site.ts utils.ts       store settings, palette, formatting helpers
+    db/                    Drizzle schema and client
+    payments/              vietqr.ts (EMVCo payload + CRC), vnpay.ts (signing + verification)
+    photos/                gallery.ts (photos per colour), editorial.ts (mood photos), uploads.ts (upload checks)
+    server/              server-only code:
+      auth.ts session.ts   Better Auth config, current user and roles
+      orders.ts            order state machine, payments, restocking, coupon checks
+      reviews.ts           rating sync, verified purchases
+      email.ts             Resend client + bilingual templates
+      rate-limit.ts        database-backed rate limits, client IP
+      photo-cleanup.ts     removes uploaded photos nothing uses
+      queries/             reads, by area: catalog.ts, reviews.ts, orders.ts, admin.ts
+  proxy.ts               locale routing (Next.js 16 "proxy", formerly middleware)
+messages/                vi.json, en.json (type-checked keys)
+scripts/                 seed.ts (+ seed-data.ts: sample catalogue), set-password.ts, share.ps1
+tests/                   unit tests (Node test runner)
+.github/workflows/       CI
 ```
+
+Where things go: pages read through `lib/server/queries/*` and write through `app/actions/*`; anything that imports `lib/server` stays on the server (client components may only `import type` from it), and everything else in `lib/` is safe for the browser and for unit tests.
 
 ## Scripts
 

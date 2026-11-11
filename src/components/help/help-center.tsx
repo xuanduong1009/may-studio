@@ -7,7 +7,7 @@ import { useMemo, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { sendContactMessage, type ContactInput } from "@/app/actions/contact";
 import { Button } from "@/components/ui/button";
-import { cn, slugify } from "@/lib/utils";
+import { cn, searchText } from "@/lib/utils";
 
 type Group = { title: string; items: { q: string; a: string }[] };
 
@@ -16,14 +16,14 @@ export function FaqSearch({ groups }: { groups: Group[] }) {
   const t = useTranslations("Help");
   const [q, setQ] = useState("");
   const [openKey, setOpenKey] = useState<string | null>(null);
-  const needle = slugify(q).replace(/-/g, " ");
+  const needle = searchText(q);
 
   const filtered = useMemo(
     () =>
       groups
         .map((g) => ({
           ...g,
-          items: needle ? g.items.filter((it) => slugify(`${it.q} ${it.a}`).replace(/-/g, " ").includes(needle)) : g.items,
+          items: needle ? g.items.filter((it) => searchText(`${it.q} ${it.a}`).includes(needle)) : g.items,
         }))
         .filter((g) => g.items.length > 0),
     [groups, needle],

@@ -1,7 +1,7 @@
 import "server-only";
 import { headers } from "next/headers";
 import { cache } from "react";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/server/auth";
 
 /** Session for the current request (deduplicated per render). */
 export const getSession = cache(async () => {

@@ -2,13 +2,13 @@
 
 import { ArrowDown, ArrowRight, ArrowUpRight, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
 import { useIntroDone } from "@/components/layout/intro";
 import { buttonClasses } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
 import { Link } from "@/i18n/navigation";
-import { EDITORIAL } from "@/lib/editorial";
+import { EDITORIAL } from "@/lib/photos/editorial";
 import { formatPrice } from "@/lib/utils";
 import { CloudCanvas } from "./cloud-canvas";
 

@@ -6,12 +6,12 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { coupons, ORDER_STATUSES, orders, productImages, products, productVariants, reviews, user } from "@/lib/db/schema";
-import { IMAGE_ROUTE, MAX_IMAGE_BYTES, sniffImageType } from "@/lib/images";
 import { variantKey } from "@/lib/inventory";
-import { afterResponse, changeOrderStatus, logEvent, markOrderPaid } from "@/lib/orders";
-import { pruneUnusedImages } from "@/lib/product-images";
-import { refreshProductRating } from "@/lib/reviews";
-import { getSession, isAdmin, type Session } from "@/lib/session";
+import { IMAGE_ROUTE, MAX_IMAGE_BYTES, sniffImageType } from "@/lib/photos/uploads";
+import { afterResponse, changeOrderStatus, logEvent, markOrderPaid } from "@/lib/server/orders";
+import { pruneUnusedImages } from "@/lib/server/photo-cleanup";
+import { refreshProductRating } from "@/lib/server/reviews";
+import { getSession, isAdmin, type Session } from "@/lib/server/session";
 import { couponSchema, productSchema, type CouponInput, type ProductInput } from "@/lib/validators";
 
 export type ActionResult =

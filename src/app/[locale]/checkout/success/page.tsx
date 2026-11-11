@@ -11,7 +11,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { Link } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
 import { bankConfig, bankDemoMode, buildVietQrPayload, orderTransferNote } from "@/lib/payments/vietqr";
-import { getOrderByCode } from "@/lib/queries";
+import { getOrderByCode } from "@/lib/server/queries/orders";
 import { site } from "@/lib/site";
 import { formatPrice } from "@/lib/utils";
 

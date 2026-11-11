@@ -1,9 +1,7 @@
 import "server-only";
 import { and, desc, eq, sql } from "drizzle-orm";
-import { db } from "@/lib/db";
+import { db, type Executor } from "@/lib/db";
 import { orderItems, orders, products, reviews } from "@/lib/db/schema";
-
-type Executor = typeof db | Parameters<Parameters<typeof db.transaction>[0]>[0];
 
 /** Keeps products.rating / reviewCount in sync with the visible reviews. */
 export async function refreshProductRating(ex: Executor, productId: number) {

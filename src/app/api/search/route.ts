@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { searchSuggestions } from "@/lib/queries";
-import { allow } from "@/lib/rate-limit";
+import { searchSuggestions } from "@/lib/server/queries/catalog";
+import { allow } from "@/lib/server/rate-limit";
 
 /** Instant search used by the Ctrl+K palette. */
 export async function GET(req: NextRequest) {

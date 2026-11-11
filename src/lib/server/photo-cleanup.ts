@@ -2,7 +2,7 @@ import "server-only";
 import { inArray, like, lt } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { orderItems, productImages, products } from "@/lib/db/schema";
-import { IMAGE_ROUTE, imageIdFromUrl } from "@/lib/images";
+import { IMAGE_ROUTE, imageIdFromUrl } from "@/lib/photos/uploads";
 
 /**
  * Deletes uploaded photos that no product and no past order uses any more

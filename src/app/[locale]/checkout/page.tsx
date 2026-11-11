@@ -1,10 +1,10 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { asLocale } from "@/i18n/routing";
 import { CheckoutForm } from "@/components/checkout/checkout-form";
+import { asLocale } from "@/i18n/routing";
 import { bankTransferEnabled } from "@/lib/payments/vietqr";
 import { vnpayConfig } from "@/lib/payments/vnpay";
-import { getUserAddresses } from "@/lib/queries";
-import { getSession } from "@/lib/session";
+import { getUserAddresses } from "@/lib/server/queries/orders";
+import { getSession } from "@/lib/server/session";
 
 export const dynamic = "force-dynamic";
 

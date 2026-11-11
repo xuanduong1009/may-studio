@@ -3,13 +3,12 @@
 import { Heart, Home, Search, Store, User } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
+import { OPEN_SEARCH } from "@/components/search/command-palette";
 import { useMounted } from "@/hooks/use-mounted";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useWishlist } from "@/store/wishlist";
-
-export const OPEN_SEARCH = "may:open-search";
 
 /** App-style bottom navigation on phones. */
 export function MobileTabBar() {
