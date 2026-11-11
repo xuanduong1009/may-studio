@@ -11,8 +11,10 @@
     "db:push": "drizzle-kit push",
     "db:push:prod": "node --env-file=.env.vercel.local node_modules/drizzle-kit/bin.cjs push",
     "db:seed": "tsx scripts/seed.ts",
+    "db:seed:catalog": "tsx scripts/seed.ts --catalog",
+    "db:seed:catalog:prod": "node --env-file=.env.vercel.local --import tsx scripts/seed.ts --catalog",
     "setup": "npm run db:push && npm run db:seed",
-    "test": "tsx --test tests/pricing.test.ts tests/payments.test.ts tests/domain.test.ts",
+    "test": "tsx --test tests/pricing.test.ts tests/payments.test.ts tests/domain.test.ts tests/images.test.ts",
     "share": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/share.ps1",
     "set-password": "tsx scripts/set-password.ts"
   },

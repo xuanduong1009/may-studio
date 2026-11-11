@@ -431,13 +431,27 @@
       "colorsHint": "Mỗi dòng: Tên Việt | Tên Anh | #mãmàu",
       "sizes": "Size",
       "stock": "Tồn kho",
-      "imageUrl": "Link ảnh thật (không bắt buộc)",
+      "imageUrl": "Hoặc link ảnh từ trang khác (không bắt buộc)",
       "featured": "Nổi bật",
       "isNew": "Hàng mới",
       "preview": "Xem trước",
       "stockMatrix": "Tồn kho theo màu × size (tổng {total})",
       "fillAll": "Điền tất cả ô:",
-      "apply": "Áp dụng"
+      "apply": "Áp dụng",
+      "photos": "Ảnh sản phẩm ({count})",
+      "photosHint": "Ảnh đầu tiên của mỗi màu hiện trên thẻ sản phẩm. Ảnh “Mọi màu” hiện cho tất cả các màu. Ảnh được tự thu nhỏ trước khi tải lên.",
+      "newPhotosFor": "Ảnh mới thuộc màu",
+      "allColors": "Mọi màu",
+      "addPhotos": "Thêm ảnh",
+      "dropPhotos": "Bấm hoặc kéo thả ảnh vào đây",
+      "uploading": "Đang tải {count} ảnh…",
+      "photoColor": "Màu của ảnh",
+      "moveLeft": "Đưa lên trước",
+      "moveRight": "Đưa ra sau",
+      "removePhoto": "Bỏ ảnh",
+      "photoFailed": "Không tải được ảnh lên, thử lại nhé.",
+      "photoTooLarge": "Ảnh quá lớn.",
+      "photoUnsupported": "Không đọc được ảnh “{name}”. Hãy dùng JPG, PNG hoặc WebP."
     },
     "table": {
       "product": "Sản phẩm",
@@ -454,7 +468,7 @@
     },
     "statusUpdated": "Đã cập nhật trạng thái",
     "invalid": "Dữ liệu chưa hợp lệ, vui lòng kiểm tra lại.",
-    "readonly": "Chế độ demo chỉ xem: bạn có thể xem mọi trang quản trị nhưng không thể thay đổi dữ liệu.",
+    "readonly": "Tài khoản chỉ xem: bạn có thể xem mọi trang quản trị nhưng không thể thay đổi dữ liệu.",
     "noData": "Chưa có dữ liệu",
     "coupons": "Mã giảm giá",
     "customersNav": "Khách hàng",
@@ -550,8 +564,7 @@
     "about": "Câu chuyện thương hiệu",
     "stores": "Cửa hàng",
     "careers": "Tuyển dụng",
-    "rights": "© {year} MÂY Studio. Dự án demo phục vụ học tập.",
-    "demo": "Đây là cửa hàng demo: không có giao dịch thật."
+    "rights": "© {year} MÂY Studio. Bảo lưu mọi quyền."
   },
   "Common": {
     "loading": "Đang tải…",

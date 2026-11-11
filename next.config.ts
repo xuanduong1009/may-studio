@@ -32,14 +32,23 @@ const nextConfig: NextConfig = {
   images: {
     // only our own files and Pexels go through the image optimizer (no open proxy for other hosts)
     remotePatterns: [{ protocol: "https", hostname: "images.pexels.com" }],
+    // bundled photos and admin uploads, without query strings
+    localPatterns: [
+      { pathname: "/images/**", search: "" },
+      { pathname: "/api/images/**", search: "" },
+    ],
     // product photos never change under the same name: keep optimized copies for a month
     minimumCacheTTL: 2_678_400,
   },
   poweredByHeader: false,
-  // "npm run share" serves the local build through a Cloudflare tunnel; let server actions accept that origin
-  // (local only: Vercel deployments keep the strict same-origin check)
   experimental: {
-    serverActions: { allowedOrigins: process.env.VERCEL ? [] : ["*.trycloudflare.com"] },
+    serverActions: {
+      // "npm run share" serves the local build through a Cloudflare tunnel; let server actions accept that origin
+      // (local only: Vercel deployments keep the strict same-origin check)
+      allowedOrigins: process.env.VERCEL ? [] : ["*.trycloudflare.com"],
+      // admin photo uploads (shrunk in the browser first; Vercel accepts bodies up to 4.5 MB)
+      bodySizeLimit: "4mb",
+    },
   },
   async headers() {
     return [

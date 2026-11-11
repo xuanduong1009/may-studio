@@ -29,7 +29,7 @@ export function CheckoutForm({
   defaults: { name?: string; email?: string };
   signedIn: boolean;
   addresses: SavedAddress[];
-  payments: { vnpay: boolean };
+  payments: { vnpay: boolean; bank: boolean };
 }) {
   const t = useTranslations("Checkout");
   const locale = useLocale();
@@ -245,7 +245,9 @@ export function CheckoutForm({
         <Section step={3} title={t("payment")}>
           <div className="grid gap-3 sm:grid-cols-2">
             <Choice selected={paymentMethod === "cod"} onSelect={() => setValue("paymentMethod", "cod")} icon={<Banknote size={20} />} title={t("cod")} meta={t("codNote")} />
-            <Choice selected={paymentMethod === "bank"} onSelect={() => setValue("paymentMethod", "bank")} icon={<QrCode size={20} />} title={t("bank")} meta={t("bankNote")} />
+            {payments.bank ? (
+              <Choice selected={paymentMethod === "bank"} onSelect={() => setValue("paymentMethod", "bank")} icon={<QrCode size={20} />} title={t("bank")} meta={t("bankNote")} />
+            ) : null}
             {payments.vnpay ? (
               <Choice
                 selected={paymentMethod === "vnpay"}
@@ -253,7 +255,7 @@ export function CheckoutForm({
                 icon={<CreditCard size={20} />}
                 title={t("vnpay")}
                 meta={t("vnpayNote")}
-                className="sm:col-span-2"
+                className={payments.bank ? "sm:col-span-2" : undefined}
               />
             ) : null}
           </div>
@@ -317,7 +319,6 @@ export function CheckoutForm({
                 </motion.div>
               )}
             </AnimatePresence>
-            <p className="mt-2 text-xs text-muted">MAY10 · WELCOME50K · FREESHIP</p>
           </div>
 
           <dl className="mt-5 space-y-2.5 border-t border-border pt-5 text-sm">

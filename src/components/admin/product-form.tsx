@@ -6,12 +6,15 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { saveProduct } from "@/app/actions/admin";
-import { GARMENT_KINDS, GarmentArt } from "@/components/product/garment-art";
+import { ProductPhotos } from "@/components/admin/product-photos";
+import { GARMENT_KINDS } from "@/components/product/garment-art";
+import { ProductImage } from "@/components/product/product-image";
 import { Button, buttonClasses } from "@/components/ui/button";
 import { Price } from "@/components/ui/price";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { Product, ProductColor, ProductVariant } from "@/lib/db/schema";
 import { variantKey } from "@/lib/inventory";
+import { photosForColor } from "@/lib/photos";
 import { ALL_SIZES, PALETTE } from "@/lib/site";
 import { cn, slugify } from "@/lib/utils";
 
@@ -42,6 +45,7 @@ export function ProductForm({ product, categories }: { product?: Product & { var
     featured: product?.featured ?? false,
     isNew: product?.isNew ?? true,
     imageUrl: product?.imageUrl ?? "",
+    images: product?.images ?? [],
   });
 
   const set = <K extends keyof typeof v>(key: K, value: (typeof v)[K]) => setV((prev) => ({ ...prev, [key]: value }));
@@ -56,6 +60,17 @@ export function ProductForm({ product, categories }: { product?: Product & { var
   const [fillValue, setFillValue] = useState("");
   const bad = (key: string) => errors.includes(key);
   const preview = v.colors[previewIndex % Math.max(v.colors.length, 1)] ?? { hex: "#ccc", nameVi: "", nameEn: "" };
+  const previewPhoto = photosForColor(v.images, preview.hex)[0]?.url ?? (v.imageUrl || null);
+
+  function removeColor(index: number) {
+    const hex = v.colors[index]?.hex.toLowerCase();
+    // photos of a removed colour stay, shown for every colour
+    setV((prev) => ({
+      ...prev,
+      colors: prev.colors.filter((_, j) => j !== index),
+      images: prev.images.map((im) => (im.colorHex?.toLowerCase() === hex ? { ...im, colorHex: null } : im)),
+    }));
+  }
 
   function addColor(c: ProductColor) {
     if (v.colors.some((x) => x.hex.toLowerCase() === c.hex.toLowerCase())) return;
@@ -174,7 +189,7 @@ export function ProductForm({ product, categories }: { product?: Product & { var
                     {locale === "vi" ? c.nameVi : c.nameEn}
                     <button
                       type="button"
-                      onClick={() => set("colors", v.colors.filter((_, j) => j !== i))}
+                      onClick={() => removeColor(i)}
                       className="grid size-5 place-items-center rounded-full hover:bg-border"
                       aria-label="Remove"
                     >
@@ -295,6 +310,15 @@ export function ProductForm({ product, categories }: { product?: Product & { var
           </div>
         </Label>
 
+        <Label text={f("photos", { count: v.images.length })}>
+          <ProductPhotos
+            photos={v.images}
+            colors={v.colors}
+            invalid={bad("images")}
+            onChange={(update) => setV((prev) => ({ ...prev, images: update(prev.images) }))}
+          />
+        </Label>
+
         <Label text={f("imageUrl")}>
           <input className={input("imageUrl")} value={v.imageUrl} onChange={(e) => set("imageUrl", e.target.value)} placeholder="https://…" />
         </Label>
@@ -309,17 +333,12 @@ export function ProductForm({ product, categories }: { product?: Product & { var
       <aside className="space-y-4 xl:sticky xl:top-28 xl:self-start">
         <p className="text-xs font-semibold tracking-[0.18em] text-muted uppercase">{f("preview")}</p>
         <div className="overflow-hidden rounded-3xl border border-border bg-card p-3">
-          <div className="aspect-[5/6] overflow-hidden rounded-2xl">
-            {v.imageUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={v.imageUrl} alt="" className="h-full w-full object-cover" />
-            ) : (
-              <AnimatePresence mode="wait">
-                <motion.div key={`${v.kind}-${preview.hex}`} initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="h-full w-full">
-                  <GarmentArt kind={v.kind} color={preview.hex} className="h-full w-full" />
-                </motion.div>
-              </AnimatePresence>
-            )}
+          <div className="aspect-[3/4] overflow-hidden rounded-2xl">
+            <AnimatePresence mode="wait">
+              <motion.div key={`${v.kind}-${preview.hex}-${previewPhoto}`} initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="relative h-full w-full">
+                <ProductImage kind={v.kind} color={preview.hex} imageUrl={previewPhoto} alt="" sizes="320px" />
+              </motion.div>
+            </AnimatePresence>
           </div>
           <div className="mt-3 flex gap-1.5 px-1">
             {v.colors.map((c, i) => (

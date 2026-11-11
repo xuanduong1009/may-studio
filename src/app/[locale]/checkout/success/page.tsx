@@ -10,7 +10,7 @@ import { buttonClasses } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { Link } from "@/i18n/navigation";
 import { asLocale } from "@/i18n/routing";
-import { bankConfig, buildVietQrPayload, orderTransferNote } from "@/lib/payments/vietqr";
+import { bankConfig, bankDemoMode, buildVietQrPayload, orderTransferNote } from "@/lib/payments/vietqr";
 import { getOrderByCode } from "@/lib/queries";
 import { site } from "@/lib/site";
 import { formatPrice } from "@/lib/utils";
@@ -46,11 +46,12 @@ export default async function SuccessPage({
   const trackHref = `/track?code=${order.code}&contact=${encodeURIComponent(order.email)}`;
 
   // VietQR: a real, scannable payment QR when the shop's bank account is
-  // configured; in demo mode a harmless QR that opens the order page instead.
+  // configured; in local demo mode a harmless QR that opens the order page instead.
   let qrSvg = "";
   const bank = bankConfig();
   const note = orderTransferNote(order.code);
-  if (order.paymentMethod === "bank") {
+  const showBank = order.paymentMethod === "bank" && (!!bank || bankDemoMode());
+  if (showBank) {
     const content = bank
       ? buildVietQrPayload({ bin: bank.bin, accountNumber: bank.accountNumber, amount: order.total, note })
       : `${await requestOrigin()}${locale === "en" ? "/en" : ""}${trackHref}`;
@@ -82,7 +83,7 @@ export default async function SuccessPage({
         ) : null}
       </Reveal>
 
-      {order.paymentMethod === "bank" && order.status !== "cancelled" ? (
+      {showBank && order.status !== "cancelled" ? (
         <BankTransfer
           code={order.code}
           amount={order.total}

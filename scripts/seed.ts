@@ -1,9 +1,13 @@
 /**
- * Seeds the database with demo categories, products, users and orders.
- * Usage: npm run db:seed   (run "npm run db:push" first to create the tables)
+ * Seeds the database. Run "npm run db:push" first to create the tables.
  *
- * Safe to re-run: store data (products, orders, reviews, coupons, addresses)
- * is replaced; existing user accounts are kept.
+ *   npm run db:seed           full demo: sample catalogue + demo accounts, 72 orders, reviews, coupons
+ *   npm run db:seed:catalog   launch mode: sample catalogue only, ready to take real orders.
+ *                             Removes demo orders, reviews and coupons and the two public demo
+ *                             accounts; real customer accounts and their address books are kept.
+ *
+ * Store data (products, orders, reviews, coupons) is replaced on every run. On a hosted
+ * database the script refuses to run while orders from real customers exist, unless --force.
  */
 try {
   process.loadEnvFile(".env.local");
@@ -19,7 +23,7 @@ async function main() {
   const { PALETTE } = await import("../src/lib/site");
   const { auth } = await import("../src/lib/auth");
   const { computeTotals } = await import("../src/lib/pricing");
-  const { eq } = await import("drizzle-orm");
+  const { eq, inArray, sql } = await import("drizzle-orm");
 
   const color = (key: Palette[number]["key"]) => {
     const p = PALETTE.find((c) => c.key === key)!;
@@ -37,7 +41,37 @@ async function main() {
   };
   const pick = <T,>(arr: readonly T[]) => arr[Math.floor(rand() * arr.length)];
 
-  console.log("→ Clearing store data…");
+  const CATALOG = process.argv.includes("--catalog");
+  const FORCE = process.argv.includes("--force");
+  /** accounts whose passwords are public (README, git history) */
+  const DEMO_EMAILS = ["demo@may.studio", "viewer@may.studio"];
+  const adminEmail = (process.env.ADMIN_EMAILS ?? "admin@may.studio").split(",")[0].trim().toLowerCase();
+
+  async function ensureUser(email: string, password: string, name: string) {
+    const existing = await db.query.user.findFirst({ where: eq(s.user.email, email) });
+    if (existing) return existing.id;
+    const res = await auth.api.signUpEmail({ body: { email, password, name } });
+    return res.user.id;
+  }
+
+  // safety checks, before anything is deleted
+  const hosted = !(process.env.DATABASE_URL ?? "file:local.db").startsWith("file:");
+  if (hosted && !FORCE) {
+    // orders created by this script use example.com addresses or the demo account
+    const [{ n }] = await db
+      .select({ n: sql<number>`count(*)` })
+      .from(s.orders)
+      .where(sql`${s.orders.email} not like '%@example.com' and ${s.orders.email} <> 'demo@may.studio'`);
+    if (Number(n) > 0) {
+      throw new Error(`This database has ${n} order(s) from real customers, and seeding deletes every order. Re-run with --force only if you really mean it.`);
+    }
+  }
+  const adminExists = !!(await db.query.user.findFirst({ where: eq(s.user.email, adminEmail), columns: { id: true } }));
+  if (CATALOG && !adminExists && (process.env.SEED_ADMIN_PASSWORD ?? "").length < 12) {
+    throw new Error(`Set SEED_ADMIN_PASSWORD to a strong password (12+ characters) to create the admin account ${adminEmail}.`);
+  }
+
+  console.log(CATALOG ? "→ Clearing demo data (launch mode)…" : "→ Clearing store data…");
   await db.delete(s.orderEvents);
   await db.delete(s.orderItems);
   await db.delete(s.orders);
@@ -46,7 +80,8 @@ async function main() {
   await db.delete(s.products);
   await db.delete(s.categories);
   await db.delete(s.coupons);
-  await db.delete(s.addresses);
+  // launch mode keeps real customers' address books
+  if (!CATALOG) await db.delete(s.addresses);
 
   console.log("→ Categories…");
   const cats = await db
@@ -391,6 +426,24 @@ async function main() {
     variantCount += values.length;
   }
 
+  if (CATALOG) {
+    console.log("→ Accounts…");
+    const adminId = await ensureUser(adminEmail, process.env.SEED_ADMIN_PASSWORD ?? "", "Admin MÂY");
+    await db.update(s.user).set({ role: "admin" }).where(eq(s.user.id, adminId));
+    // remove the public demo accounts before real customers arrive
+    const ids = (await db.select({ id: s.user.id }).from(s.user).where(inArray(s.user.email, DEMO_EMAILS))).map((u) => u.id);
+    if (ids.length) {
+      await db.delete(s.session).where(inArray(s.session.userId, ids));
+      await db.delete(s.account).where(inArray(s.account.userId, ids));
+      await db.delete(s.addresses).where(inArray(s.addresses.userId, ids));
+      await db.delete(s.user).where(inArray(s.user.id, ids));
+    }
+    console.log(`✓ Ready to sell: ${cats.length} categories, ${inserted.length} sample products (${variantCount} variants). No orders, reviews or coupons.`);
+    console.log(`  Admin: ${adminEmail}${adminExists ? " (existing account, password unchanged)" : " (created with SEED_ADMIN_PASSWORD)"}`);
+    if (ids.length) console.log(`  Removed ${ids.length} public demo account(s).`);
+    return;
+  }
+
   console.log("→ Coupons…");
   const couponRows = await db
     .insert(s.coupons)
@@ -406,13 +459,6 @@ async function main() {
   const rules = new Map(couponRows.map((c) => [c.code, c]));
 
   console.log("→ Users…");
-  async function ensureUser(email: string, password: string, name: string) {
-    const existing = await db.query.user.findFirst({ where: eq(s.user.email, email) });
-    if (existing) return existing.id;
-    const res = await auth.api.signUpEmail({ body: { email, password, name } });
-    return res.user.id;
-  }
-  const adminEmail = (process.env.ADMIN_EMAILS ?? "admin@may.studio").split(",")[0].trim();
   const adminId = await ensureUser(adminEmail, process.env.SEED_ADMIN_PASSWORD ?? "admin12345", "Admin MÂY");
   await db.update(s.user).set({ role: "admin" }).where(eq(s.user.id, adminId));
   const demoId = await ensureUser("demo@may.studio", "demo12345", "Nguyễn Minh Anh");
@@ -588,7 +634,7 @@ async function main() {
   }
 
   console.log(`✓ Seeded ${cats.length} categories, ${inserted.length} products (${variantCount} variants), ${couponRows.length} coupons, 72 orders, ${reviewTotal} reviews.`);
-  console.log(`  Admin: ${adminEmail} / ${process.env.SEED_ADMIN_PASSWORD ?? "admin12345"}`);
+  console.log(`  Admin: ${adminEmail}${adminExists ? " (existing account, password unchanged)" : " / password from SEED_ADMIN_PASSWORD"}`);
   console.log("  Demo customer: demo@may.studio / demo12345");
   console.log("  Read-only admin: viewer@may.studio / viewer12345");
 }
