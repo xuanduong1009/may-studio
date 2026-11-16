@@ -17,6 +17,7 @@
     "db:seed:catalog:prod": "node --env-file=.env.vercel.local --import tsx scripts/seed.ts --catalog",
     "setup": "npm run db:push && npm run db:seed",
     "test": "tsx --test tests/pricing.test.ts tests/payments.test.ts tests/domain.test.ts tests/images.test.ts",
+    "test:e2e": "playwright test",
     "share": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/share.ps1",
     "set-password": "tsx scripts/set-password.ts"
   },
@@ -44,6 +45,7 @@
     "zustand": "5.0.16"
   },
   "devDependencies": {
+    "@playwright/test": "1.65.1",
     "@tailwindcss/postcss": "4.3.3",
     "@types/node": "20.19.43",
     "@types/qrcode": "1.5.6",
