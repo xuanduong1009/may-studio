@@ -1,0 +1,19 @@
+# Runs the store with Docker:
+#   BETTER_AUTH_SECRET=<long random string> SEED_ADMIN_PASSWORD=<12+ characters> docker compose up --build
+# then open http://localhost:3000 and sign in as ADMIN_EMAILS with SEED_ADMIN_PASSWORD.
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET to a long random string}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:?set SEED_ADMIN_PASSWORD (12+ characters) for the first start}
+      ADMIN_EMAILS: ${ADMIN_EMAILS:-admin@may.studio}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
+    volumes:
+      - may-data:/data
+    restart: unless-stopped
+
+volumes:
+  may-data:

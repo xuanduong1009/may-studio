@@ -109,7 +109,8 @@ A full-stack clothing store built with **Next.js 16**, **TypeScript** and **SQLi
 - **Role-based access & abuse protection:** `user` / `admin` / read-only `viewer`, checked in every server action. Database-backed rate limits (they hold across serverless instances) on sign-in, sign-up, password reset, order placement, coupon checks, order lookups, the contact form, reviews and search. Demo accounts cannot change their password. Order lookups never reveal whether a code exists. CSV export guards against formula injection.
 - **Security headers:** a Content-Security-Policy with no third-party scripts, frames or form targets, plus `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` and HSTS. The image optimizer only accepts the site's own files and Pexels, so it cannot be used as an open proxy.
 - **Type-safe i18n:** about 500 translation keys checked at compile time in both languages.
-- **Tests & CI:** unit tests for pricing, coupon rules, the VietQR payload, VNPay signing, validators, stock helpers, order access and size recommendation (Node's built-in test runner). GitHub Actions runs type check, tests, a seeded database and a production build on every push.
+- **Tests & CI:** unit tests for pricing, coupon rules, the VietQR payload, VNPay signing, validators, stock helpers, order access and size recommendation (Node's built-in test runner). Playwright end-to-end tests drive a real browser through the storefront, a full checkout (including the stock decrement and order tracking), form validation and admin access control, on desktop and on a mobile viewport. GitHub Actions runs type check, formatting, unit tests, a production build with the end-to-end suite against it, and builds and smoke-tests the Docker image on every push.
+- **Docker:** a multi-stage image that creates and fills its own SQLite database on the first start, so `docker compose up` gives a working store with nothing else installed.
 
 ## Tech stack
 
@@ -124,7 +125,8 @@ A full-stack clothing store built with **Next.js 16**, **TypeScript** and **SQLi
 | i18n | next-intl (`/` Vietnamese, `/en` English) |
 | Forms & validation | React Hook Form, Zod |
 | State | Zustand (cart, wishlist and recently viewed, persisted in `localStorage`) |
-| Quality | Node test runner + tsx, GitHub Actions |
+| Quality | Node test runner + tsx (unit), Playwright (end-to-end), Prettier, GitHub Actions |
+| Delivery | Vercel + Turso, or Docker (`docker compose`) |
 
 ## Getting started
 
@@ -136,6 +138,7 @@ cp .env.example .env.local        # then set BETTER_AUTH_SECRET to a long random
 npm run setup                     # creates the tables and seeds demo data
 npm run dev                       # http://localhost:3000
 npm test                          # unit tests
+npm run test:e2e                  # end-to-end tests (see below)
 ```
 
 Everything works locally without any third-party account. In development, bank transfer runs in demo mode: the VietQR block has a "Simulate transfer" button that triggers the same code path as the bank webhook. In production, bank transfer is only offered once the `BANK_*` variables are set, and the simulate button never appears. Emails are printed to the terminal until `RESEND_API_KEY` is set.
@@ -158,6 +161,23 @@ Demo coupons: `MAY10`, `WELCOME50K` (from 400K), `FREESHIP`. `BLACKFRIDAY` is sc
 | Automatic bank confirmation | `SEPAY_WEBHOOK_KEY` | Point a [SePay](https://sepay.vn) webhook at `/api/payments/bank-webhook` |
 | VNPay | `VNPAY_TMN_CODE`, `VNPAY_HASH_SECRET`, `VNPAY_URL` | Free sandbox: [sandbox.vnpayment.vn/devreg](https://sandbox.vnpayment.vn/devreg/). IPN URL: `/api/payments/vnpay/ipn` |
 | Email | `RESEND_API_KEY`, `EMAIL_FROM` | [resend.com](https://resend.com), free tier |
+
+### End-to-end tests
+
+```bash
+npx playwright install chromium   # once
+npm run test:e2e
+```
+
+The suite (`e2e/`) starts its own server on port 3100 with a throwaway database, `e2e.db`, that is recreated and seeded before every run, so it never touches `local.db`. Locally it uses the dev server; in CI it runs against the production build. It covers the home page, category filters, search, the language switch and the 404 page (desktop and a Pixel 7 viewport), a full checkout that checks the stock goes down by one and the order can be tracked, phone validation, admin sign-in and a customer being kept out of the back office. A failed run keeps a trace in `playwright-report/` (`npx playwright show-report`).
+
+## Running with Docker
+
+```bash
+BETTER_AUTH_SECRET=<long random string> SEED_ADMIN_PASSWORD=<12+ characters> docker compose up --build
+```
+
+Then open http://localhost:3000 and sign in with `admin@may.studio` (or `ADMIN_EMAILS`) and `SEED_ADMIN_PASSWORD`. On the first start the container creates `/data/may.db` on the `may-data` volume and fills it with the sample catalogue and the admin account (no demo orders or accounts). Later starts reuse it. To use Turso instead, pass `DATABASE_URL` (`libsql://…`) and `DATABASE_AUTH_TOKEN`, after running `npm run db:push` against it. Payment and email integrations take the same variables as above.
 
 ## Deploying (Vercel + Turso, both free tiers)
 
@@ -214,7 +234,9 @@ src/
 messages/                vi.json, en.json (type-checked keys)
 scripts/                 seed.ts (+ seed-data.ts: sample catalogue), set-password.ts, share.ps1
 tests/                   unit tests (Node test runner)
-.github/workflows/       CI
+e2e/                     end-to-end tests (Playwright) and the script that prepares their database
+Dockerfile docker/       production image and its start script (first-start database setup)
+.github/workflows/       CI: checks, end-to-end tests, Docker image
 ```
 
 Where things go: pages read through `lib/server/queries/*` and write through `app/actions/*`; anything that imports `lib/server` stays on the server (client components may only `import type` from it), and everything else in `lib/` is safe for the browser and for unit tests.
@@ -230,6 +252,7 @@ Code style: Prettier (140 columns, Tailwind classes sorted). VS Code formats on 
 | `npm run typecheck` | TypeScript check |
 | `npm run format` / `format:check` | Format all code with Prettier / check that it is formatted |
 | `npm test` | Unit tests |
+| `npm run test:e2e` | End-to-end tests in Chromium, desktop and mobile (own server and database) |
 | `npm run db:push` | Create or update tables from the schema (`db:push:prod` for the production database) |
 | `npm run db:seed` | Full demo: sample catalogue, demo accounts, orders, reviews and coupons |
 | `npm run db:seed:catalog` | Ready to sell: sample catalogue and the admin account only; removes demo orders, reviews, coupons and the public demo accounts (`db:seed:catalog:prod` for the production database) |

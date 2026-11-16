@@ -25,3 +25,8 @@ build/
 npm-debug.log*
 *.tsbuildinfo
 .vercel
+
+# Playwright
+/playwright-report
+/test-results
+/blob-report

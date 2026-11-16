@@ -1,0 +1,15 @@
+# keep the build context small and free of secrets and personal files
+.git
+.next
+node_modules
+*.db
+*.db-*
+.env*
+!.env.example
+playwright-report
+test-results
+blob-report
+docs
+.vscode
+AGENTS.md
+CV_*

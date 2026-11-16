@@ -24,9 +24,47 @@ jobs:
       - run: npm ci
       - name: Type check
         run: npm run typecheck
+      - name: Formatting
+        run: npm run format:check
       - name: Unit tests
         run: npm test
       - name: Create and seed a throwaway database
         run: npm run setup
       - name: Production build
         run: npm run build
+      - name: Install the Playwright browser
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end tests (desktop and mobile, production build)
+        run: npm run test:e2e
+      - name: Keep the Playwright report when something fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate docker-compose.yml
+        run: docker compose config --quiet
+        env:
+          BETTER_AUTH_SECRET: ci-only-secret
+          SEED_ADMIN_PASSWORD: ci-admin-password
+      - name: Build the image
+        run: docker build -t may-studio .
+      - name: Start a container and check that the store answers
+        run: |
+          docker run -d --name may -p 3000:3000 \
+            -e BETTER_AUTH_SECRET=ci-only-secret-not-used-in-production-0123456789 \
+            -e SEED_ADMIN_PASSWORD=ci-admin-password \
+            may-studio
+          for i in $(seq 1 90); do curl -fs http://localhost:3000/ > /dev/null && break; sleep 2; done
+          curl -fs http://localhost:3000/ | grep -q "MÂY"
+          curl -fs "http://localhost:3000/api/search?q=ao" | grep -q '"products"'
+          curl -fs http://localhost:3000/shop > /dev/null
+      - name: Container logs
+        if: always()
+        run: docker logs may || true
