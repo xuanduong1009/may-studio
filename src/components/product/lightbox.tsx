@@ -1,11 +1,11 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { useLenis } from "lenis/react";
 import { cn } from "@/lib/utils";
 
 /** Fullscreen photo viewer: arrows, keyboard (← → Esc), swipe and a thumbnail strip. */

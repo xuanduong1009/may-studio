@@ -1,9 +1,9 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { asLocale } from "@/i18n/routing";
 import { Suspense } from "react";
 import { ProductGrid } from "@/components/shop/product-grid";
-import { ActiveFilters, CategoryChips, DensityToggle } from "@/components/shop/shop-toolbar";
 import { FilterSheet, FilterSidebar, SortSelect } from "@/components/shop/shop-filters";
+import { ActiveFilters, CategoryChips, DensityToggle } from "@/components/shop/shop-toolbar";
+import { asLocale } from "@/i18n/routing";
 import { getCategories, searchProducts, type ShopFilters as Filters } from "@/lib/server/queries/catalog";
 
 export const dynamic = "force-dynamic";

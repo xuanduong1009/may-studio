@@ -1,8 +1,8 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { animate, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { useLenis } from "lenis/react";
 import { usePathname } from "@/i18n/navigation";
 
 const ease = [0.76, 0, 0.24, 1] as const;

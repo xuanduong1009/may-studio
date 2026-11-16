@@ -1,3 +1,4 @@
+import "../globals.css";
 import type { Metadata, Viewport } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -9,12 +10,11 @@ import { Header } from "@/components/layout/header";
 import { IntroGate } from "@/components/layout/intro";
 import { MobileTabBar } from "@/components/layout/mobile-tabbar";
 import { QuickView } from "@/components/product/quick-view";
-import { Cursor } from "@/components/ui/cursor";
 import { Providers } from "@/components/providers";
+import { Cursor } from "@/components/ui/cursor";
 import { routing } from "@/i18n/routing";
 import { getCategories } from "@/lib/server/queries/catalog";
 import { site } from "@/lib/site";
-import "../globals.css";
 
 const sans = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],

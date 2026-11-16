@@ -1,41 +1,23 @@
 "use client";
 
-import {
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Expand,
-  Heart,
-  Minus,
-  Plus,
-  RotateCcw,
-  Ruler,
-  Share2,
-  ShieldCheck,
-  ShoppingBag,
-  Sparkles,
-  Truck,
-  X,
-} from "lucide-react";
+import { Check, Expand, Heart, Minus, Plus, Ruler, Share2, ShoppingBag, Sparkles } from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { flyToCart } from "@/components/cart/fly-to-cart";
+import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Price } from "@/components/ui/price";
 import { Stars } from "@/components/ui/stars";
 import { useMounted } from "@/hooks/use-mounted";
-import { useScrollLock } from "@/hooks/use-scroll-lock";
 import { useRouter } from "@/i18n/navigation";
 import type { Product } from "@/lib/db/schema";
 import { recommendSize } from "@/lib/fit";
 import { colorStock, LOW_STOCK_THRESHOLD, stockOf, type StockMap } from "@/lib/inventory";
 import { photosForColor } from "@/lib/photos/gallery";
-import { discountPercent, FREE_SHIPPING_THRESHOLD } from "@/lib/pricing";
-import { SIZE_GUIDE } from "@/lib/site";
-import { cn, formatPrice } from "@/lib/utils";
+import { discountPercent } from "@/lib/pricing";
+import { cn } from "@/lib/utils";
 import { useCart } from "@/store/cart";
 import { useFitProfile } from "@/store/fit-profile";
 import { useRecentlyViewed } from "@/store/recently-viewed";
@@ -44,6 +26,9 @@ import type { GarmentView } from "./garment-art";
 import { Lightbox } from "./lightbox";
 import { ProductImage } from "./product-image";
 import { SizeFinder } from "./size-finder";
+import { SizeGuide } from "./size-guide";
+import { TrustBlock } from "./trust-block";
+import { GalleryArrow, ZoomImage } from "./zoom-image";
 
 type Props = {
   product: Pick<
@@ -562,211 +547,5 @@ export function ProductDetail({ product }: Props) {
         }}
       />
     </div>
-  );
-}
-
-/** Main image with a hover magnifier that follows the cursor. */
-function ZoomImage({
-  children,
-  refEl,
-  onOpen,
-  onSwipe,
-}: {
-  children: React.ReactNode;
-  refEl: React.RefObject<HTMLDivElement | null>;
-  onOpen?: () => void;
-  onSwipe: (dir: number) => void;
-}) {
-  const [zoom, setZoom] = useState<{ x: number; y: number } | null>(null);
-  const touch = useRef<{ x: number; moved: boolean } | null>(null);
-  return (
-    <div
-      ref={refEl}
-      data-cursor="Zoom"
-      className="group/zoom relative aspect-[3/4] flex-1 cursor-zoom-in touch-pan-y overflow-hidden rounded-3xl bg-[#efe8dd] dark:bg-subtle"
-      onClick={(e) => {
-        if ((e.target as HTMLElement).closest("button")) return;
-        if (touch.current?.moved) return;
-        onOpen?.();
-      }}
-      onPointerDown={(e) => {
-        if (e.pointerType !== "mouse") touch.current = { x: e.clientX, moved: false };
-      }}
-      onPointerUp={(e) => {
-        const start = touch.current;
-        if (!start || e.pointerType === "mouse") return;
-        const dx = e.clientX - start.x;
-        if (Math.abs(dx) > 40) {
-          start.moved = true;
-          onSwipe(dx < 0 ? 1 : -1);
-        }
-        setTimeout(() => (touch.current = null), 0);
-      }}
-      onPointerMove={(e) => {
-        if (e.pointerType !== "mouse") return;
-        const r = e.currentTarget.getBoundingClientRect();
-        setZoom({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 });
-      }}
-      onPointerLeave={() => setZoom(null)}
-    >
-      <div
-        className="absolute inset-0 transition-transform duration-300 ease-out"
-        style={{
-          transform: zoom ? "scale(1.9)" : "scale(1)",
-          transformOrigin: zoom ? `${zoom.x}% ${zoom.y}%` : "center",
-        }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function GalleryArrow({ side, label, onClick }: { side: "left" | "right"; label: string; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      aria-label={label}
-      className={cn(
-        "absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/80 text-[#1a1714] opacity-0 shadow-sm backdrop-blur transition-opacity group-hover/zoom:opacity-100 focus-visible:opacity-100 max-lg:hidden",
-        side === "left" ? "left-4" : "right-4",
-      )}
-    >
-      {side === "left" ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
-    </button>
-  );
-}
-
-/** Delivery estimate, free returns and payment methods, right under the buy buttons. */
-function TrustBlock() {
-  const t = useTranslations("Product");
-  const locale = useLocale();
-  const mounted = useMounted();
-  const fmt = new Intl.DateTimeFormat(locale === "vi" ? "vi-VN" : "en-GB", { weekday: "short", day: "numeric", month: "numeric" });
-  const inDays = (d: number) => fmt.format(new Date(Date.now() + d * 86_400_000));
-  const rows = [
-    {
-      icon: Truck,
-      title: mounted ? t("deliveryBy", { from: inDays(2), to: inDays(4) }) : t("deliveryDays"),
-      hint: t("freeShipOver", { amount: formatPrice(FREE_SHIPPING_THRESHOLD, locale) }),
-    },
-    { icon: RotateCcw, title: t("returnsTitle"), hint: t("returnsHint") },
-    { icon: ShieldCheck, title: t("secureTitle"), hint: "COD · VietQR · VNPay" },
-  ];
-  return (
-    <ul className="mt-8 divide-y divide-border rounded-2xl border border-border">
-      {rows.map((r) => (
-        <li key={r.hint} className="flex items-start gap-4 px-5 py-4">
-          <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full bg-subtle">
-            <r.icon size={17} strokeWidth={1.6} />
-          </span>
-          <div className="text-sm">
-            <p className="font-medium">{r.title}</p>
-            <p className="mt-0.5 text-muted">{r.hint}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Accordion({ title, children, defaultOpen }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(!!defaultOpen);
-  return (
-    <div className="border-b border-border">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between py-5 text-left font-medium"
-      >
-        {title}
-        <motion.span animate={{ rotate: open ? 180 : 0 }}>
-          <ChevronDown size={18} />
-        </motion.span>
-      </button>
-      <AnimatePresence initial={false}>
-        {open ? (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="pb-5">{children}</div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-function SizeGuide({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const t = useTranslations("Product");
-  useScrollLock(open);
-
-  return (
-    <AnimatePresence>
-      {open ? (
-        <div className="fixed inset-0 z-[80] grid place-items-center p-4" onKeyDown={(e) => e.key === "Escape" && onClose()}>
-          <motion.div
-            className="absolute inset-0 bg-black/50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label={t("sizeGuide")}
-            className="relative w-full max-w-lg rounded-3xl bg-background p-6 shadow-2xl sm:p-8"
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 350, damping: 30 }}
-          >
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 grid size-10 place-items-center rounded-full hover:bg-subtle"
-              aria-label="Close"
-              autoFocus
-            >
-              <X size={18} />
-            </button>
-            <h2 className="font-display text-3xl">{t("sizeGuide")}</h2>
-            <p className="mt-2 text-sm text-muted">{t("sizeGuideIntro")}</p>
-            <div className="mt-6 overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left text-muted">
-                    <th className="py-2 font-medium">{t("size")}</th>
-                    <th className="py-2 font-medium">{t("chest")}</th>
-                    <th className="py-2 font-medium">{t("waist")}</th>
-                    <th className="py-2 font-medium">{t("height")}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {SIZE_GUIDE.map((r, i) => (
-                    <motion.tr
-                      key={r.size}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05 }}
-                      className="border-b border-border/60"
-                    >
-                      <td className="py-3 font-semibold">{r.size}</td>
-                      <td className="py-3 tabular-nums">{r.chest}</td>
-                      <td className="py-3 tabular-nums">{r.waist}</td>
-                      <td className="py-3 tabular-nums">{r.height}</td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
-        </div>
-      ) : null}
-    </AnimatePresence>
   );
 }
