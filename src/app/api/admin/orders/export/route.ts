@@ -16,7 +16,24 @@ export async function GET(req: NextRequest) {
 
   const status = req.nextUrl.searchParams.get("status") ?? undefined;
   const rows = await getOrdersForExport(status);
-  const header = ["code", "created_at", "status", "payment_method", "payment_status", "customer", "phone", "email", "address", "city", "items", "subtotal", "shipping", "discount", "coupon", "total"];
+  const header = [
+    "code",
+    "created_at",
+    "status",
+    "payment_method",
+    "payment_status",
+    "customer",
+    "phone",
+    "email",
+    "address",
+    "city",
+    "items",
+    "subtotal",
+    "shipping",
+    "discount",
+    "coupon",
+    "total",
+  ];
   const lines = rows.map((o) =>
     [
       o.code,

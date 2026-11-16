@@ -45,17 +45,13 @@ export const useCart = create<CartState>()(
           const key = `${item.productId}:${item.color.hex}:${item.size}`;
           const existing = state.items.find((i) => i.key === key);
           const items = existing
-            ? state.items.map((i) =>
-                i.key === key ? { ...i, quantity: Math.min(i.quantity + quantity, item.maxQuantity) } : i,
-              )
+            ? state.items.map((i) => (i.key === key ? { ...i, quantity: Math.min(i.quantity + quantity, item.maxQuantity) } : i))
             : [...state.items, { ...item, key, quantity: Math.min(quantity, item.maxQuantity) }];
           return { items, bump: state.bump + 1 };
         }),
       setQuantity: (key, quantity) =>
         set((state) => ({
-          items: state.items.map((i) =>
-            i.key === key ? { ...i, quantity: Math.max(1, Math.min(quantity, i.maxQuantity)) } : i,
-          ),
+          items: state.items.map((i) => (i.key === key ? { ...i, quantity: Math.max(1, Math.min(quantity, i.maxQuantity)) } : i)),
         })),
       remove: (key) => set((state) => ({ items: state.items.filter((i) => i.key !== key) })),
       clear: () => set({ items: [] }),

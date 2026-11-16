@@ -112,7 +112,9 @@ function FilterBody({ categories }: { categories: Category[] }) {
               )}
               style={{ background: c.hex }}
             >
-              {active("color", c.key) ? <Check size={14} className={c.key === "white" || c.key === "cream" ? "text-black" : "text-white"} /> : null}
+              {active("color", c.key) ? (
+                <Check size={14} className={c.key === "white" || c.key === "cream" ? "text-black" : "text-white"} />
+              ) : null}
             </button>
           ))}
         </div>
@@ -168,7 +170,13 @@ export function FilterSheet({ categories, count }: { categories: Category[]; cou
       <AnimatePresence>
         {open ? (
           <div className="fixed inset-0 z-[70] lg:hidden">
-            <motion.div className="absolute inset-0 bg-black/40" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} />
+            <motion.div
+              className="absolute inset-0 bg-black/40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+            />
             <motion.div
               className="absolute inset-x-0 bottom-0 flex max-h-[85vh] flex-col rounded-t-[2rem] bg-background"
               initial={{ y: "100%" }}
@@ -183,7 +191,11 @@ export function FilterSheet({ categories, count }: { categories: Category[]; cou
               <div className="mx-auto mt-3 h-1.5 w-12 rounded-full bg-border" />
               <div className="flex items-center justify-between px-6 py-4">
                 <h2 className="font-display text-2xl">{t("filters")}</h2>
-                <button onClick={() => setOpen(false)} className="grid size-10 place-items-center rounded-full hover:bg-subtle" aria-label="Close">
+                <button
+                  onClick={() => setOpen(false)}
+                  className="grid size-10 place-items-center rounded-full hover:bg-subtle"
+                  aria-label="Close"
+                >
                   <X size={20} />
                 </button>
               </div>
@@ -191,7 +203,10 @@ export function FilterSheet({ categories, count }: { categories: Category[]; cou
                 <FilterBody categories={categories} />
               </div>
               <div className="border-t border-border p-4">
-                <button onClick={() => setOpen(false)} className="h-12 w-full rounded-full bg-foreground text-sm font-medium text-background">
+                <button
+                  onClick={() => setOpen(false)}
+                  className="h-12 w-full rounded-full bg-foreground text-sm font-medium text-background"
+                >
                   {t("showResults", { count })}
                 </button>
               </div>

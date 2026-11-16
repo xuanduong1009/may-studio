@@ -73,7 +73,12 @@ export function BankTransfer({
     <div className="mx-auto mt-10 max-w-xl overflow-hidden rounded-3xl border border-border bg-card text-left">
       <AnimatePresence mode="wait" initial={false}>
         {paid ? (
-          <motion.div key="paid" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center gap-3 px-6 py-12 text-center">
+          <motion.div
+            key="paid"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex flex-col items-center gap-3 px-6 py-12 text-center"
+          >
             <motion.span
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 0 }}
@@ -90,7 +95,9 @@ export function BankTransfer({
             <div className="relative mx-auto w-full max-w-[200px]">
               <div className="overflow-hidden rounded-2xl border border-border bg-white p-2" dangerouslySetInnerHTML={{ __html: qrSvg }} />
               {!bank ? (
-                <span className="absolute top-2 -right-2 rotate-12 rounded-full bg-amber-500 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white uppercase">Demo</span>
+                <span className="absolute top-2 -right-2 rotate-12 rounded-full bg-amber-500 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-white uppercase">
+                  Demo
+                </span>
               ) : null}
             </div>
             <div className="space-y-3 text-sm">

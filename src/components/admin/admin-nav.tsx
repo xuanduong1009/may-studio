@@ -32,7 +32,11 @@ export function AdminNav() {
               )}
             >
               {l.active ? (
-                <motion.span layoutId="admin-nav" className="absolute inset-0 -z-10 rounded-xl bg-foreground" transition={{ type: "spring", stiffness: 400, damping: 35 }} />
+                <motion.span
+                  layoutId="admin-nav"
+                  className="absolute inset-0 -z-10 rounded-xl bg-foreground"
+                  transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                />
               ) : null}
               <l.icon size={17} />
               {l.label}
@@ -40,7 +44,10 @@ export function AdminNav() {
           </li>
         ))}
         <li className="lg:mt-6">
-          <Link href="/" className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm whitespace-nowrap text-muted hover:text-foreground">
+          <Link
+            href="/"
+            className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm whitespace-nowrap text-muted hover:text-foreground"
+          >
             <ArrowLeft size={17} /> {t("backToStore")}
           </Link>
         </li>

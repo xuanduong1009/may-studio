@@ -44,15 +44,28 @@ export function CartLine({ item, compact }: { item: CartItem; compact?: boolean 
           {!compact ? (
             <div className="mt-auto flex items-center justify-between pt-3">
               <div className="flex items-center rounded-full border border-border">
-                <button className="grid size-8 place-items-center disabled:opacity-30" onClick={() => setQuantity(item.key, item.quantity - 1)} disabled={item.quantity <= 1} aria-label="-">
+                <button
+                  className="grid size-8 place-items-center disabled:opacity-30"
+                  onClick={() => setQuantity(item.key, item.quantity - 1)}
+                  disabled={item.quantity <= 1}
+                  aria-label="-"
+                >
                   <Minus size={14} />
                 </button>
                 <span className="w-8 text-center text-sm tabular-nums">{item.quantity}</span>
-                <button className="grid size-8 place-items-center disabled:opacity-30" onClick={() => setQuantity(item.key, item.quantity + 1)} disabled={item.quantity >= item.maxQuantity} aria-label="+">
+                <button
+                  className="grid size-8 place-items-center disabled:opacity-30"
+                  onClick={() => setQuantity(item.key, item.quantity + 1)}
+                  disabled={item.quantity >= item.maxQuantity}
+                  aria-label="+"
+                >
                   <Plus size={14} />
                 </button>
               </div>
-              <button onClick={() => remove(item.key)} className="flex items-center gap-1 text-xs text-muted transition-colors hover:text-danger">
+              <button
+                onClick={() => remove(item.key)}
+                className="flex items-center gap-1 text-xs text-muted transition-colors hover:text-danger"
+              >
                 <Trash2 size={14} /> {t("remove")}
               </button>
             </div>

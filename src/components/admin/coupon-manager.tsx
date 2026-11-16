@@ -90,20 +90,28 @@ export function CouponManager({ coupons, now }: { coupons: Coupon[]; now: number
         </Button>
       </div>
 
-      <AnimatePresence>{editing ? <CouponForm key={editing.id ?? "new"} initial={editing} onClose={() => setEditing(null)} /> : null}</AnimatePresence>
+      <AnimatePresence>
+        {editing ? <CouponForm key={editing.id ?? "new"} initial={editing} onClose={() => setEditing(null)} /> : null}
+      </AnimatePresence>
 
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {coupons.map((c) => {
           const state = couponState(c, now);
           const pct = c.usageLimit ? Math.min(100, (c.usedCount / c.usageLimit) * 100) : 0;
           return (
-            <motion.div layout key={c.id} className={cn("relative overflow-hidden rounded-3xl border border-border bg-card p-5", state !== "live" && "opacity-70")}>
+            <motion.div
+              layout
+              key={c.id}
+              className={cn("relative overflow-hidden rounded-3xl border border-border bg-card p-5", state !== "live" && "opacity-70")}
+            >
               {/* ticket notches */}
               <span className="absolute top-1/2 -left-3 size-6 -translate-y-1/2 rounded-full border border-border bg-background" />
               <span className="absolute top-1/2 -right-3 size-6 -translate-y-1/2 rounded-full border border-border bg-background" />
               <div className="flex items-start justify-between gap-2">
                 <p className="font-mono text-xl font-bold tracking-wider">{c.code}</p>
-                <span className={cn("rounded-full px-2.5 py-0.5 text-[11px] font-medium", STATE_STYLE[state])}>{t(`couponState.${state}`)}</span>
+                <span className={cn("rounded-full px-2.5 py-0.5 text-[11px] font-medium", STATE_STYLE[state])}>
+                  {t(`couponState.${state}`)}
+                </span>
               </div>
               <p className="mt-1 font-display text-2xl text-accent">{describe(c)}</p>
               <p className="mt-1 text-sm text-muted">{locale === "vi" ? c.descriptionVi : c.descriptionEn}</p>
@@ -124,10 +132,22 @@ export function CouponManager({ coupons, now }: { coupons: Coupon[]; now: number
                 <Button size="sm" variant="ghost" onClick={() => setEditing({ id: c.id, form: fromCoupon(c) })}>
                   <Pencil size={14} /> {t("edit")}
                 </Button>
-                <Button size="sm" variant="ghost" disabled={busy} onClick={() => start(async () => handle(await toggleCoupon(c.id, !c.active), t("saved")))}>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled={busy}
+                  onClick={() => start(async () => handle(await toggleCoupon(c.id, !c.active), t("saved")))}
+                >
                   <Power size={14} /> {c.active ? t("deactivate") : t("activate")}
                 </Button>
-                <Button size="sm" variant="ghost" disabled={busy} className="ml-auto text-danger hover:bg-danger/10" onClick={() => start(async () => handle(await deleteCoupon(c.id), t("deletedCoupon")))} aria-label={t("delete")}>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled={busy}
+                  className="ml-auto text-danger hover:bg-danger/10"
+                  onClick={() => start(async () => handle(await deleteCoupon(c.id), t("deletedCoupon")))}
+                  aria-label={t("delete")}
+                >
                   <Trash2 size={14} />
                 </Button>
               </div>
@@ -176,19 +196,40 @@ function CouponForm({ initial, onClose }: { initial: { id: number | null; form: 
     });
   }
 
-  const input = (k: string) => cn("h-11 w-full rounded-xl border bg-background px-4 text-sm outline-none focus:border-foreground", bad.includes(k) ? "border-danger" : "border-border");
+  const input = (k: string) =>
+    cn(
+      "h-11 w-full rounded-xl border bg-background px-4 text-sm outline-none focus:border-foreground",
+      bad.includes(k) ? "border-danger" : "border-border",
+    );
 
   return (
-    <motion.form onSubmit={submit} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+    <motion.form
+      onSubmit={submit}
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      className="overflow-hidden"
+    >
       <div className="grid gap-4 rounded-3xl border border-border bg-card p-5 sm:grid-cols-2 sm:p-7 lg:grid-cols-4">
         <div className="flex items-center justify-between sm:col-span-2 lg:col-span-4">
           <h2 className="font-display text-2xl">{initial.id ? t("editCoupon") : t("newCoupon")}</h2>
-          <button type="button" onClick={onClose} className="grid size-9 place-items-center rounded-full hover:bg-subtle" aria-label={t("cancel")}>
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid size-9 place-items-center rounded-full hover:bg-subtle"
+            aria-label={t("cancel")}
+          >
             <X size={16} />
           </button>
         </div>
         <L text={t("couponFields.code")}>
-          <input className={cn(input("code"), "font-mono uppercase")} value={v.code} onChange={(e) => set("code", e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))} maxLength={20} required />
+          <input
+            className={cn(input("code"), "font-mono uppercase")}
+            value={v.code}
+            onChange={(e) => set("code", e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
+            maxLength={20}
+            required
+          />
         </L>
         <L text={t("couponFields.type")}>
           <select className={input("type")} value={v.type} onChange={(e) => set("type", e.target.value as Form["type"])}>
@@ -199,19 +240,47 @@ function CouponForm({ initial, onClose }: { initial: { id: number | null; form: 
         </L>
         {v.type !== "freeship" ? (
           <L text={v.type === "percent" ? t("couponFields.percent") : t("couponFields.amount")}>
-            <input className={input("value")} type="number" min={0} value={v.value} onChange={(e) => set("value", e.target.value)} required />
+            <input
+              className={input("value")}
+              type="number"
+              min={0}
+              value={v.value}
+              onChange={(e) => set("value", e.target.value)}
+              required
+            />
           </L>
         ) : null}
         {v.type === "percent" ? (
           <L text={t("couponFields.maxDiscount")}>
-            <input className={input("maxDiscount")} type="number" min={0} step={1000} value={v.maxDiscount} onChange={(e) => set("maxDiscount", e.target.value)} />
+            <input
+              className={input("maxDiscount")}
+              type="number"
+              min={0}
+              step={1000}
+              value={v.maxDiscount}
+              onChange={(e) => set("maxDiscount", e.target.value)}
+            />
           </L>
         ) : null}
         <L text={t("couponFields.minSubtotal")}>
-          <input className={input("minSubtotal")} type="number" min={0} step={1000} value={v.minSubtotal} onChange={(e) => set("minSubtotal", e.target.value)} />
+          <input
+            className={input("minSubtotal")}
+            type="number"
+            min={0}
+            step={1000}
+            value={v.minSubtotal}
+            onChange={(e) => set("minSubtotal", e.target.value)}
+          />
         </L>
         <L text={t("couponFields.usageLimit")}>
-          <input className={input("usageLimit")} type="number" min={1} value={v.usageLimit} onChange={(e) => set("usageLimit", e.target.value)} placeholder="∞" />
+          <input
+            className={input("usageLimit")}
+            type="number"
+            min={1}
+            value={v.usageLimit}
+            onChange={(e) => set("usageLimit", e.target.value)}
+            placeholder="∞"
+          />
         </L>
         <L text={t("couponFields.startsAt")}>
           <input className={input("startsAt")} type="datetime-local" value={v.startsAt} onChange={(e) => set("startsAt", e.target.value)} />
@@ -220,13 +289,28 @@ function CouponForm({ initial, onClose }: { initial: { id: number | null; form: 
           <input className={input("endsAt")} type="datetime-local" value={v.endsAt} onChange={(e) => set("endsAt", e.target.value)} />
         </L>
         <L text={t("couponFields.descriptionVi")} className="sm:col-span-2">
-          <input className={input("descriptionVi")} value={v.descriptionVi} onChange={(e) => set("descriptionVi", e.target.value)} maxLength={200} />
+          <input
+            className={input("descriptionVi")}
+            value={v.descriptionVi}
+            onChange={(e) => set("descriptionVi", e.target.value)}
+            maxLength={200}
+          />
         </L>
         <L text={t("couponFields.descriptionEn")} className="sm:col-span-2">
-          <input className={input("descriptionEn")} value={v.descriptionEn} onChange={(e) => set("descriptionEn", e.target.value)} maxLength={200} />
+          <input
+            className={input("descriptionEn")}
+            value={v.descriptionEn}
+            onChange={(e) => set("descriptionEn", e.target.value)}
+            maxLength={200}
+          />
         </L>
         <label className="flex cursor-pointer items-center gap-2.5 text-sm sm:col-span-2 lg:col-span-4">
-          <input type="checkbox" checked={v.active} onChange={(e) => set("active", e.target.checked)} className="size-4 accent-[var(--accent)]" />
+          <input
+            type="checkbox"
+            checked={v.active}
+            onChange={(e) => set("active", e.target.checked)}
+            className="size-4 accent-[var(--accent)]"
+          />
           {t("couponFields.active")}
         </label>
         <div className="flex gap-2 sm:col-span-2 lg:col-span-4">

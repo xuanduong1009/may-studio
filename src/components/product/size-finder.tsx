@@ -10,7 +10,17 @@ import { cn } from "@/lib/utils";
 import { useFitProfile } from "@/store/fit-profile";
 
 /** Modal that turns height, weight and fit preference into a size, live. */
-export function SizeFinder({ open, onClose, sizes, onPick }: { open: boolean; onClose: () => void; sizes: string[]; onPick: (size: string) => void }) {
+export function SizeFinder({
+  open,
+  onClose,
+  sizes,
+  onPick,
+}: {
+  open: boolean;
+  onClose: () => void;
+  sizes: string[];
+  onPick: (size: string) => void;
+}) {
   const t = useTranslations("Fit");
   const saved = useFitProfile((s) => s.profile);
   const save = useFitProfile((s) => s.save);
@@ -26,7 +36,13 @@ export function SizeFinder({ open, onClose, sizes, onPick }: { open: boolean; on
     <AnimatePresence>
       {open ? (
         <div className="fixed inset-0 z-[85] grid place-items-center p-4" onKeyDown={(e) => e.key === "Escape" && onClose()}>
-          <motion.div className="absolute inset-0 bg-black/50 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
+          <motion.div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -37,7 +53,12 @@ export function SizeFinder({ open, onClose, sizes, onPick }: { open: boolean; on
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 350, damping: 30 }}
           >
-            <button onClick={onClose} className="absolute top-4 right-4 z-10 grid size-10 place-items-center rounded-full hover:bg-subtle" aria-label={t("close")} autoFocus>
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 z-10 grid size-10 place-items-center rounded-full hover:bg-subtle"
+              aria-label={t("close")}
+              autoFocus
+            >
               <X size={18} />
             </button>
             <div className="p-6 sm:p-8">
@@ -57,7 +78,10 @@ export function SizeFinder({ open, onClose, sizes, onPick }: { open: boolean; on
                     key={f}
                     onClick={() => setFit(f)}
                     aria-pressed={fit === f}
-                    className={cn("rounded-2xl border px-2 py-3 text-sm transition-colors", fit === f ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground")}
+                    className={cn(
+                      "rounded-2xl border px-2 py-3 text-sm transition-colors",
+                      fit === f ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground",
+                    )}
                   >
                     {t(`fits.${f}`)}
                   </button>
@@ -99,7 +123,21 @@ export function SizeFinder({ open, onClose, sizes, onPick }: { open: boolean; on
   );
 }
 
-function Slider({ label, unit, min, max, value, onChange }: { label: string; unit: string; min: number; max: number; value: number; onChange: (v: number) => void }) {
+function Slider({
+  label,
+  unit,
+  min,
+  max,
+  value,
+  onChange,
+}: {
+  label: string;
+  unit: string;
+  min: number;
+  max: number;
+  value: number;
+  onChange: (v: number) => void;
+}) {
   return (
     <label className="mt-6 block">
       <span className="flex items-baseline justify-between text-sm">

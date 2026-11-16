@@ -1,6 +1,23 @@
 "use client";
 
-import { Check, ChevronDown, ChevronLeft, ChevronRight, Expand, Heart, Minus, Plus, RotateCcw, Ruler, Share2, ShieldCheck, ShoppingBag, Sparkles, Truck, X } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Expand,
+  Heart,
+  Minus,
+  Plus,
+  RotateCcw,
+  Ruler,
+  Share2,
+  ShieldCheck,
+  ShoppingBag,
+  Sparkles,
+  Truck,
+  X,
+} from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
@@ -31,8 +48,23 @@ import { SizeFinder } from "./size-finder";
 type Props = {
   product: Pick<
     Product,
-    | "id" | "slug" | "nameVi" | "nameEn" | "descriptionVi" | "descriptionEn" | "price" | "compareAtPrice"
-    | "kind" | "colors" | "sizes" | "stock" | "isNew" | "rating" | "reviewCount" | "imageUrl" | "images"
+    | "id"
+    | "slug"
+    | "nameVi"
+    | "nameEn"
+    | "descriptionVi"
+    | "descriptionEn"
+    | "price"
+    | "compareAtPrice"
+    | "kind"
+    | "colors"
+    | "sizes"
+    | "stock"
+    | "isNew"
+    | "rating"
+    | "reviewCount"
+    | "imageUrl"
+    | "images"
   > & { stockMap: StockMap };
 };
 
@@ -42,7 +74,10 @@ export function ProductDetail({ product }: Props) {
   const router = useRouter();
   const mounted = useMounted();
   const [colorIndex, setColorIndex] = useState(() =>
-    Math.max(0, product.colors.findIndex((c) => colorStock(product.stockMap, c.hex, product.sizes) > 0)),
+    Math.max(
+      0,
+      product.colors.findIndex((c) => colorStock(product.stockMap, c.hex, product.sizes) > 0),
+    ),
   );
   const [size, setSize] = useState<string | null>(product.sizes.length === 1 ? product.sizes[0] : null);
   const [qty, setQty] = useState(1);
@@ -190,21 +225,23 @@ export function ProductDetail({ product }: Props) {
                   </button>
                 ))
               : null}
-            {photos.length ? null : views.map((v) => (
-              <button
-                key={v.key}
-                role="tab"
-                aria-selected={view === v.key}
-                aria-label={v.label}
-                onClick={() => setView(v.key)}
-                className={cn(
-                  "relative aspect-[5/6] w-20 overflow-hidden rounded-xl border-2 transition-all sm:w-24",
-                  view === v.key ? "border-foreground" : "border-transparent opacity-60 hover:opacity-100",
-                )}
-              >
-                <ProductImage kind={product.kind} color={color.hex} imageUrl={product.imageUrl} view={v.key} alt="" />
-              </button>
-            ))}
+            {photos.length
+              ? null
+              : views.map((v) => (
+                  <button
+                    key={v.key}
+                    role="tab"
+                    aria-selected={view === v.key}
+                    aria-label={v.label}
+                    onClick={() => setView(v.key)}
+                    className={cn(
+                      "relative aspect-[5/6] w-20 overflow-hidden rounded-xl border-2 transition-all sm:w-24",
+                      view === v.key ? "border-foreground" : "border-transparent opacity-60 hover:opacity-100",
+                    )}
+                  >
+                    <ProductImage kind={product.kind} color={color.hex} imageUrl={product.imageUrl} view={v.key} alt="" />
+                  </button>
+                ))}
           </div>
           <ZoomImage refEl={imageRef} onOpen={photos.length ? () => setViewer(current) : undefined} onSwipe={stepPhoto}>
             <AnimatePresence mode="wait" initial={false}>
@@ -216,12 +253,26 @@ export function ProductDetail({ product }: Props) {
                 transition={{ duration: 0.35 }}
                 className="absolute inset-0"
               >
-                <ProductImage kind={product.kind} color={color.hex} imageUrl={photo} view={view} alt={name} sizes="(min-width: 1024px) 50vw, 100vw" priority />
+                <ProductImage
+                  kind={product.kind}
+                  color={color.hex}
+                  imageUrl={photo}
+                  view={view}
+                  alt={name}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  priority
+                />
               </motion.div>
             </AnimatePresence>
             <div className="pointer-events-none absolute top-4 left-4 flex gap-2">
-              {off > 0 ? <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">{t("sale", { percent: off })}</span> : null}
-              {product.isNew ? <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-semibold uppercase">{t("new")}</span> : null}
+              {off > 0 ? (
+                <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
+                  {t("sale", { percent: off })}
+                </span>
+              ) : null}
+              {product.isNew ? (
+                <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-semibold uppercase">{t("new")}</span>
+              ) : null}
             </div>
             {photos.length ? (
               <span className="pointer-events-none absolute right-4 bottom-4 flex items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-xs text-[#1a1714] backdrop-blur">
@@ -252,7 +303,11 @@ export function ProductDetail({ product }: Props) {
             >
               <Heart size={18} className={cn(mounted && wished && "fill-accent text-accent")} />
             </motion.button>
-            <button onClick={share} aria-label={t("share")} className="grid size-11 place-items-center rounded-full border border-border hover:border-foreground">
+            <button
+              onClick={share}
+              aria-label={t("share")}
+              className="grid size-11 place-items-center rounded-full border border-border hover:border-foreground"
+            >
               <Share2 size={18} />
             </button>
           </div>
@@ -285,7 +340,11 @@ export function ProductDetail({ product }: Props) {
                 className="relative grid size-11 place-items-center rounded-full"
               >
                 {i === colorIndex ? (
-                  <motion.span layoutId="color-ring" className="absolute inset-0 rounded-full border-2 border-foreground" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+                  <motion.span
+                    layoutId="color-ring"
+                    className="absolute inset-0 rounded-full border-2 border-foreground"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
                 ) : null}
                 <span className="size-8 rounded-full border border-foreground/20" style={{ background: c.hex }} />
                 {colorStock(product.stockMap, c.hex, product.sizes) <= 0 ? (
@@ -304,10 +363,16 @@ export function ProductDetail({ product }: Props) {
             </p>
             {product.sizes[0] !== "FREE" ? (
               <span className="flex items-center gap-4">
-                <button onClick={() => setFinderOpen(true)} className="flex items-center gap-1.5 text-accent underline-offset-4 hover:underline">
+                <button
+                  onClick={() => setFinderOpen(true)}
+                  className="flex items-center gap-1.5 text-accent underline-offset-4 hover:underline"
+                >
                   <Sparkles size={14} /> {suggestion ? t("yourSize", { size: suggestion.size }) : t("findSize")}
                 </button>
-                <button onClick={() => setGuideOpen(true)} className="flex items-center gap-1.5 text-muted underline underline-offset-4 hover:text-foreground">
+                <button
+                  onClick={() => setGuideOpen(true)}
+                  className="flex items-center gap-1.5 text-muted underline underline-offset-4 hover:text-foreground"
+                >
                   <Ruler size={14} /> {t("sizeGuide")}
                 </button>
               </span>
@@ -335,10 +400,18 @@ export function ProductDetail({ product }: Props) {
                   )}
                 >
                   {size === s ? (
-                    <motion.span layoutId="size-pill" className="absolute inset-0 -z-10 rounded-xl bg-foreground" transition={{ type: "spring", stiffness: 500, damping: 35 }} />
+                    <motion.span
+                      layoutId="size-pill"
+                      className="absolute inset-0 -z-10 rounded-xl bg-foreground"
+                      transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                    />
                   ) : null}
-                  {out ? <span aria-hidden className="absolute inset-0 m-auto h-px w-[120%] -translate-x-[8%] -rotate-[20deg] bg-border" /> : null}
-                  {suggestion?.size === s ? <span aria-label={t("suggested")} className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-accent" /> : null}
+                  {out ? (
+                    <span aria-hidden className="absolute inset-0 m-auto h-px w-[120%] -translate-x-[8%] -rotate-[20deg] bg-border" />
+                  ) : null}
+                  {suggestion?.size === s ? (
+                    <span aria-label={t("suggested")} className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-accent" />
+                  ) : null}
                   <span className="relative">{s}</span>
                 </button>
               );
@@ -360,7 +433,12 @@ export function ProductDetail({ product }: Props) {
                 {t("lowStock", { count: available })}
               </p>
               <div className="mt-2 h-1 w-48 overflow-hidden rounded-full bg-subtle">
-                <motion.div className="h-full bg-accent" initial={{ width: 0 }} animate={{ width: `${(available / 10) * 100}%` }} transition={{ duration: 1 }} />
+                <motion.div
+                  className="h-full bg-accent"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(available / 10) * 100}%` }}
+                  transition={{ duration: 1 }}
+                />
               </div>
             </div>
           ) : (
@@ -373,24 +451,46 @@ export function ProductDetail({ product }: Props) {
         {/* Quantity + add */}
         <div ref={addBtnRef} className="mt-6 flex flex-wrap gap-3">
           <div className="flex h-14 items-center rounded-full border border-border">
-            <button className="grid h-full w-12 place-items-center disabled:opacity-30" onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={qty <= 1 || soldOut} aria-label="-">
+            <button
+              className="grid h-full w-12 place-items-center disabled:opacity-30"
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+              disabled={qty <= 1 || soldOut}
+              aria-label="-"
+            >
               <Minus size={16} />
             </button>
             <span className="w-8 text-center tabular-nums" aria-label={t("quantity")}>
               {qty}
             </span>
-            <button className="grid h-full w-12 place-items-center disabled:opacity-30" onClick={() => setQty((q) => Math.min(Math.max(1, available), q + 1))} disabled={qty >= available || variantSoldOut} aria-label="+">
+            <button
+              className="grid h-full w-12 place-items-center disabled:opacity-30"
+              onClick={() => setQty((q) => Math.min(Math.max(1, available), q + 1))}
+              disabled={qty >= available || variantSoldOut}
+              aria-label="+"
+            >
               <Plus size={16} />
             </button>
           </div>
           <Button size="lg" className="min-w-52 flex-1" onClick={() => addToCart()} disabled={variantSoldOut}>
             <AnimatePresence mode="wait" initial={false}>
               {justAdded ? (
-                <motion.span key="ok" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} className="flex items-center gap-2">
+                <motion.span
+                  key="ok"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  className="flex items-center gap-2"
+                >
                   <Check size={18} /> {t("added")}
                 </motion.span>
               ) : (
-                <motion.span key="add" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} className="flex items-center gap-2">
+                <motion.span
+                  key="add"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  className="flex items-center gap-2"
+                >
                   <ShoppingBag size={18} /> {variantSoldOut ? t("soldOut") : t("addToCart")}
                 </motion.span>
               )}
@@ -574,7 +674,11 @@ function Accordion({ title, children, defaultOpen }: { title: string; children: 
   const [open, setOpen] = useState(!!defaultOpen);
   return (
     <div className="border-b border-border">
-      <button onClick={() => setOpen((o) => !o)} aria-expanded={open} className="flex w-full items-center justify-between py-5 text-left font-medium">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between py-5 text-left font-medium"
+      >
         {title}
         <motion.span animate={{ rotate: open ? 180 : 0 }}>
           <ChevronDown size={18} />
@@ -582,7 +686,13 @@ function Accordion({ title, children, defaultOpen }: { title: string; children: 
       </button>
       <AnimatePresence initial={false}>
         {open ? (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
             <div className="pb-5">{children}</div>
           </motion.div>
         ) : null}
@@ -599,7 +709,13 @@ function SizeGuide({ open, onClose }: { open: boolean; onClose: () => void }) {
     <AnimatePresence>
       {open ? (
         <div className="fixed inset-0 z-[80] grid place-items-center p-4" onKeyDown={(e) => e.key === "Escape" && onClose()}>
-          <motion.div className="absolute inset-0 bg-black/50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
+          <motion.div
+            className="absolute inset-0 bg-black/50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -610,7 +726,12 @@ function SizeGuide({ open, onClose }: { open: boolean; onClose: () => void }) {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 350, damping: 30 }}
           >
-            <button onClick={onClose} className="absolute top-4 right-4 grid size-10 place-items-center rounded-full hover:bg-subtle" aria-label="Close" autoFocus>
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 grid size-10 place-items-center rounded-full hover:bg-subtle"
+              aria-label="Close"
+              autoFocus
+            >
               <X size={18} />
             </button>
             <h2 className="font-display text-3xl">{t("sizeGuide")}</h2>
@@ -627,7 +748,13 @@ function SizeGuide({ open, onClose }: { open: boolean; onClose: () => void }) {
                 </thead>
                 <tbody>
                   {SIZE_GUIDE.map((r, i) => (
-                    <motion.tr key={r.size} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 + i * 0.05 }} className="border-b border-border/60">
+                    <motion.tr
+                      key={r.size}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + i * 0.05 }}
+                      className="border-b border-border/60"
+                    >
                       <td className="py-3 font-semibold">{r.size}</td>
                       <td className="py-3 tabular-nums">{r.chest}</td>
                       <td className="py-3 tabular-nums">{r.waist}</td>

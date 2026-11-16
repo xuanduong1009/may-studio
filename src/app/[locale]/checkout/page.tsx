@@ -26,7 +26,15 @@ export default async function CheckoutPage({ params }: { params: Promise<{ local
       <CheckoutForm
         signedIn={!!session}
         defaults={{ name: session?.user.name, email: session?.user.email }}
-        addresses={addresses.map((a) => ({ id: a.id, label: a.label, fullName: a.fullName, phone: a.phone, address: a.address, city: a.city, isDefault: a.isDefault }))}
+        addresses={addresses.map((a) => ({
+          id: a.id,
+          label: a.label,
+          fullName: a.fullName,
+          phone: a.phone,
+          address: a.address,
+          city: a.city,
+          isDefault: a.isDefault,
+        }))}
         payments={{ vnpay: !!vnpayConfig(), bank: bankTransferEnabled() }}
       />
     </div>

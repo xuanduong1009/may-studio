@@ -135,7 +135,7 @@ export function CheckoutForm({
   });
 
   if (!mounted) {
-    return <div className="skeleton h-[600px] rounded-3xl" />;
+    return <div className="h-[600px] skeleton rounded-3xl" />;
   }
 
   if (items.length === 0) {
@@ -199,11 +199,27 @@ export function CheckoutForm({
           <div className="grid gap-4 sm:grid-cols-2" onChange={() => setAddressId(null)}>
             <Field label={t("name")} error={err("name")} reg={register("name")} autoComplete="name" />
             <Field label={t("phone")} error={err("phone")} reg={register("phone")} autoComplete="tel" inputMode="tel" />
-            <Field label={t("email")} error={err("email")} reg={register("email")} autoComplete="email" type="email" className="sm:col-span-2" />
-            <Field label={t("address")} error={err("address")} reg={register("address")} autoComplete="street-address" className="sm:col-span-2" />
+            <Field
+              label={t("email")}
+              error={err("email")}
+              reg={register("email")}
+              autoComplete="email"
+              type="email"
+              className="sm:col-span-2"
+            />
+            <Field
+              label={t("address")}
+              error={err("address")}
+              reg={register("address")}
+              autoComplete="street-address"
+              className="sm:col-span-2"
+            />
             <label className="block sm:col-span-2">
               <span className="mb-1.5 block text-sm text-muted">{t("city")}</span>
-              <select {...register("city")} className="h-12 w-full rounded-xl border border-border bg-card px-4 outline-none focus:border-foreground">
+              <select
+                {...register("city")}
+                className="h-12 w-full rounded-xl border border-border bg-card px-4 outline-none focus:border-foreground"
+              >
                 {CITIES.map((c) => (
                   <option key={c}>{c}</option>
                 ))}
@@ -211,7 +227,11 @@ export function CheckoutForm({
             </label>
             <label className="block sm:col-span-2">
               <span className="mb-1.5 block text-sm text-muted">{t("note")}</span>
-              <textarea {...register("note")} rows={3} className="w-full resize-none rounded-xl border border-border bg-card px-4 py-3 outline-none focus:border-foreground" />
+              <textarea
+                {...register("note")}
+                rows={3}
+                className="w-full resize-none rounded-xl border border-border bg-card px-4 py-3 outline-none focus:border-foreground"
+              />
             </label>
             {signedIn && addressId === null ? (
               <label className="flex cursor-pointer items-center gap-2.5 text-sm sm:col-span-2">
@@ -244,9 +264,21 @@ export function CheckoutForm({
 
         <Section step={3} title={t("payment")}>
           <div className="grid gap-3 sm:grid-cols-2">
-            <Choice selected={paymentMethod === "cod"} onSelect={() => setValue("paymentMethod", "cod")} icon={<Banknote size={20} />} title={t("cod")} meta={t("codNote")} />
+            <Choice
+              selected={paymentMethod === "cod"}
+              onSelect={() => setValue("paymentMethod", "cod")}
+              icon={<Banknote size={20} />}
+              title={t("cod")}
+              meta={t("codNote")}
+            />
             {payments.bank ? (
-              <Choice selected={paymentMethod === "bank"} onSelect={() => setValue("paymentMethod", "bank")} icon={<QrCode size={20} />} title={t("bank")} meta={t("bankNote")} />
+              <Choice
+                selected={paymentMethod === "bank"}
+                onSelect={() => setValue("paymentMethod", "bank")}
+                icon={<QrCode size={20} />}
+                title={t("bank")}
+                meta={t("bankNote")}
+              />
             ) : null}
             {payments.vnpay ? (
               <Choice
@@ -284,7 +316,9 @@ export function CheckoutForm({
                   exit={{ opacity: 0 }}
                   className={cn(
                     "rounded-xl border border-dashed px-4 py-3 text-sm",
-                    couponShort ? "border-amber-500 bg-amber-500/10 text-amber-700 dark:text-amber-300" : "border-success bg-success/10 text-success",
+                    couponShort
+                      ? "border-amber-500 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                      : "border-success bg-success/10 text-success",
                   )}
                 >
                   <div className="flex items-center justify-between">
@@ -313,7 +347,12 @@ export function CheckoutForm({
                     aria-label={t("coupon")}
                     className="h-11 min-w-0 flex-1 rounded-xl border border-border bg-background px-4 text-sm uppercase outline-none placeholder:normal-case focus:border-foreground"
                   />
-                  <button type="button" onClick={applyCoupon} disabled={checking} className="grid h-11 min-w-20 place-items-center rounded-xl bg-subtle px-4 text-sm font-medium hover:bg-border">
+                  <button
+                    type="button"
+                    onClick={applyCoupon}
+                    disabled={checking}
+                    className="grid h-11 min-w-20 place-items-center rounded-xl bg-subtle px-4 text-sm font-medium hover:bg-border"
+                  >
                     {checking ? <Loader2 size={16} className="animate-spin" /> : t("apply")}
                   </button>
                 </motion.div>
@@ -403,13 +442,18 @@ function Field({
         {...props}
         aria-invalid={!!error}
         className={cn(
-          "h-12 w-full rounded-xl border bg-card px-4 outline-none transition-colors focus:border-foreground",
+          "h-12 w-full rounded-xl border bg-card px-4 transition-colors outline-none focus:border-foreground",
           error ? "border-danger" : "border-border",
         )}
       />
       <AnimatePresence>
         {error ? (
-          <motion.span initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-1 block text-xs text-danger">
+          <motion.span
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="mt-1 block text-xs text-danger"
+          >
             {error}
           </motion.span>
         ) : null}
@@ -452,7 +496,12 @@ function Choice({
         <span className="block text-sm font-medium">{title}</span>
         {meta ? <span className="mt-0.5 block text-xs text-muted">{meta}</span> : null}
       </span>
-      <span className={cn("grid size-5 place-items-center rounded-full border transition-all", selected ? "border-foreground bg-foreground text-background" : "border-border")}>
+      <span
+        className={cn(
+          "grid size-5 place-items-center rounded-full border transition-all",
+          selected ? "border-foreground bg-foreground text-background" : "border-border",
+        )}
+      >
         {selected ? <Check size={12} /> : null}
       </span>
     </button>

@@ -29,14 +29,32 @@ describe("uploaded image checks", () => {
 
 describe("product photo gallery validation", () => {
   const product = {
-    nameVi: "Áo", nameEn: "Tee", slug: "ao", descriptionVi: "", descriptionEn: "", price: 200_000, compareAtPrice: null,
-    categoryId: 1, kind: "tee", colors: [{ nameVi: "Đen", nameEn: "Black", hex: "#1c1c1c" }], sizes: ["M"],
-    variants: [{ colorHex: "#1c1c1c", size: "M", stock: 5 }], featured: false, isNew: false, imageUrl: null,
+    nameVi: "Áo",
+    nameEn: "Tee",
+    slug: "ao",
+    descriptionVi: "",
+    descriptionEn: "",
+    price: 200_000,
+    compareAtPrice: null,
+    categoryId: 1,
+    kind: "tee",
+    colors: [{ nameVi: "Đen", nameEn: "Black", hex: "#1c1c1c" }],
+    sizes: ["M"],
+    variants: [{ colorHex: "#1c1c1c", size: "M", stock: 5 }],
+    featured: false,
+    isNew: false,
+    imageUrl: null,
   };
   const withPhotos = (images: { url: string; colorHex: string | null }[]) => productSchema.safeParse({ ...product, images }).success;
 
   it("accepts uploads and bundled photos, per colour or shared", () => {
-    assert.equal(withPhotos([{ url: "/api/images/AbCdEfGh_-123456", colorHex: "#1C1C1C" }, { url: "/images/pexels/17858295.jpg", colorHex: null }]), true);
+    assert.equal(
+      withPhotos([
+        { url: "/api/images/AbCdEfGh_-123456", colorHex: "#1C1C1C" },
+        { url: "/images/pexels/17858295.jpg", colorHex: null },
+      ]),
+      true,
+    );
   });
   it("defaults to no photos", () => {
     const r = productSchema.safeParse(product);

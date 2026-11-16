@@ -25,7 +25,7 @@ export default function WishlistPage() {
       {!mounted ? (
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
           {Array.from({ length: 4 }, (_, i) => (
-            <div key={i} className="skeleton aspect-[5/6] rounded-2xl" />
+            <div key={i} className="aspect-[5/6] skeleton rounded-2xl" />
           ))}
         </div>
       ) : items.length === 0 ? (
@@ -41,7 +41,13 @@ export default function WishlistPage() {
         <motion.div layout className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-5 lg:grid-cols-4">
           <AnimatePresence mode="popLayout">
             {items.map((p) => (
-              <motion.div key={p.id} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.85 }}>
+              <motion.div
+                key={p.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.85 }}
+              >
                 <ProductCard product={p} />
               </motion.div>
             ))}

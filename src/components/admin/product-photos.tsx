@@ -87,7 +87,10 @@ export function ProductPhotos({
 
   return (
     <div
-      className={cn("rounded-xl border p-3 transition-colors", invalid ? "border-danger" : dragging ? "border-foreground bg-subtle/60" : "border-border")}
+      className={cn(
+        "rounded-xl border p-3 transition-colors",
+        invalid ? "border-danger" : dragging ? "border-foreground bg-subtle/60" : "border-border",
+      )}
       onDragOver={(e) => {
         e.preventDefault();
         setDragging(true);
@@ -106,7 +109,11 @@ export function ProductPhotos({
         {colors.length > 1 ? (
           <label className="flex items-center gap-2">
             {f("newPhotosFor")}
-            <select value={targetHex ?? ""} onChange={(e) => setTarget(e.target.value)} className="h-8 rounded-lg border border-border bg-card px-2 text-xs text-foreground outline-none focus:border-foreground">
+            <select
+              value={targetHex ?? ""}
+              onChange={(e) => setTarget(e.target.value)}
+              className="h-8 rounded-lg border border-border bg-card px-2 text-xs text-foreground outline-none focus:border-foreground"
+            >
               <option value="">{f("allColors")}</option>
               {colors.map((c) => (
                 <option key={c.hex} value={c.hex.toLowerCase()}>
@@ -123,10 +130,19 @@ export function ProductPhotos({
           {photos.map((p, i) => {
             const color = colorOf(p.colorHex);
             return (
-              <motion.li key={p.url} layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="min-w-0">
+              <motion.li
+                key={p.url}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="min-w-0"
+              >
                 <div className="relative aspect-[3/4] overflow-hidden rounded-lg border border-border bg-subtle">
                   <ProductImage kind="tee" color={color?.hex ?? "#d9cbb5"} imageUrl={p.url} alt="" sizes="160px" toned={false} />
-                  <span className="absolute top-1.5 left-1.5 rounded-full bg-background/90 px-1.5 py-0.5 text-[10px] font-semibold tabular-nums">{i + 1}</span>
+                  <span className="absolute top-1.5 left-1.5 rounded-full bg-background/90 px-1.5 py-0.5 text-[10px] font-semibold tabular-nums">
+                    {i + 1}
+                  </span>
                   <button
                     type="button"
                     onClick={() => onChange((prev) => prev.filter((x) => x.url !== p.url))}
@@ -138,13 +154,25 @@ export function ProductPhotos({
                   </button>
                 </div>
                 <div className="mt-1.5 flex items-center gap-1">
-                  <button type="button" onClick={() => move(i, i - 1)} disabled={i === 0} aria-label={f("moveLeft")} title={f("moveLeft")} className="grid size-7 shrink-0 place-items-center rounded-md hover:bg-subtle disabled:opacity-30">
+                  <button
+                    type="button"
+                    onClick={() => move(i, i - 1)}
+                    disabled={i === 0}
+                    aria-label={f("moveLeft")}
+                    title={f("moveLeft")}
+                    className="grid size-7 shrink-0 place-items-center rounded-md hover:bg-subtle disabled:opacity-30"
+                  >
                     <ChevronLeft size={14} />
                   </button>
-                  <span className="size-3 shrink-0 rounded-full border border-foreground/20" style={{ background: color?.hex ?? "conic-gradient(#d8a7a1,#a3b19b,#9cc3e0,#cdb48e,#d8a7a1)" }} />
+                  <span
+                    className="size-3 shrink-0 rounded-full border border-foreground/20"
+                    style={{ background: color?.hex ?? "conic-gradient(#d8a7a1,#a3b19b,#9cc3e0,#cdb48e,#d8a7a1)" }}
+                  />
                   <select
                     value={color ? p.colorHex!.toLowerCase() : ""}
-                    onChange={(e) => onChange((prev) => prev.map((x) => (x.url === p.url ? { ...x, colorHex: e.target.value || null } : x)))}
+                    onChange={(e) =>
+                      onChange((prev) => prev.map((x) => (x.url === p.url ? { ...x, colorHex: e.target.value || null } : x)))
+                    }
                     aria-label={f("photoColor")}
                     className="h-7 min-w-0 flex-1 rounded-md bg-transparent text-[11px] outline-none"
                   >
@@ -155,7 +183,14 @@ export function ProductPhotos({
                       </option>
                     ))}
                   </select>
-                  <button type="button" onClick={() => move(i, i + 1)} disabled={i === photos.length - 1} aria-label={f("moveRight")} title={f("moveRight")} className="grid size-7 shrink-0 place-items-center rounded-md hover:bg-subtle disabled:opacity-30">
+                  <button
+                    type="button"
+                    onClick={() => move(i, i + 1)}
+                    disabled={i === photos.length - 1}
+                    aria-label={f("moveRight")}
+                    title={f("moveRight")}
+                    className="grid size-7 shrink-0 place-items-center rounded-md hover:bg-subtle disabled:opacity-30"
+                  >
                     <ChevronRight size={14} />
                   </button>
                 </div>

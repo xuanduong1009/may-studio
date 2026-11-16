@@ -30,7 +30,10 @@ export default async function AdminDashboard({ params }: { params: Promise<{ loc
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display text-4xl">{t("dashboard")}</h1>
-        <a href="/api/admin/orders/export" className="flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:border-foreground">
+        <a
+          href="/api/admin/orders/export"
+          className="flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:border-foreground"
+        >
           <Download size={15} /> {t("exportCsv")}
         </a>
       </div>

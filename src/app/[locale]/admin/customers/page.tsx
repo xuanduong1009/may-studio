@@ -48,7 +48,9 @@ export default async function AdminCustomers({
               <tr key={c.id} className="border-b border-border/60 last:border-0">
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-3">
-                    <span className="grid size-9 shrink-0 place-items-center rounded-full bg-subtle font-semibold">{c.name.trim().charAt(0).toUpperCase()}</span>
+                    <span className="grid size-9 shrink-0 place-items-center rounded-full bg-subtle font-semibold">
+                      {c.name.trim().charAt(0).toUpperCase()}
+                    </span>
                     <span className="min-w-0">
                       <span className="block font-medium">{c.name}</span>
                       <span className="block truncate text-xs text-muted">{c.email}</span>

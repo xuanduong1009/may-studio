@@ -40,7 +40,10 @@ export function OrderStatusSelect({ orderId, status }: { orderId: number; status
             }
           });
         }}
-        className={cn("h-8 cursor-pointer appearance-none rounded-full border-0 px-3 pr-7 text-xs font-medium outline-none disabled:cursor-default", STATUS_STYLES[value])}
+        className={cn(
+          "h-8 cursor-pointer appearance-none rounded-full border-0 px-3 pr-7 text-xs font-medium outline-none disabled:cursor-default",
+          STATUS_STYLES[value],
+        )}
         aria-label={ta("table.status")}
       >
         {options.map((s) => (

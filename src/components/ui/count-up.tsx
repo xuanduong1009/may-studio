@@ -8,7 +8,8 @@ import { formatPrice } from "@/lib/utils";
 export function CountUp({ value, format = "number", locale }: { value: number; format?: "number" | "price"; locale: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
-  const fmt = (v: number) => (format === "price" ? formatPrice(Math.round(v), locale) : Math.round(v).toLocaleString(locale === "vi" ? "vi-VN" : "en-US"));
+  const fmt = (v: number) =>
+    format === "price" ? formatPrice(Math.round(v), locale) : Math.round(v).toLocaleString(locale === "vi" ? "vi-VN" : "en-US");
 
   useEffect(() => {
     if (!inView || !ref.current) return;

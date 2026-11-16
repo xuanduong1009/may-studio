@@ -55,7 +55,8 @@ export function ProductForm({ product, categories }: { product?: Product & { var
     Object.fromEntries((product?.variants ?? []).map((x) => [variantKey(x.colorHex, x.size), x.stock])),
   );
   const stockAt = (hex: string, size: string) => stock[variantKey(hex, size)] ?? (product ? 0 : 10);
-  const setStockAt = (hex: string, size: string, n: number) => setStock((prev) => ({ ...prev, [variantKey(hex, size)]: Math.max(0, Math.min(100_000, n || 0)) }));
+  const setStockAt = (hex: string, size: string, n: number) =>
+    setStock((prev) => ({ ...prev, [variantKey(hex, size)]: Math.max(0, Math.min(100_000, n || 0)) }));
   const total = v.colors.reduce((sum, c) => sum + v.sizes.reduce((s2, size) => s2 + stockAt(c.hex, size), 0), 0);
   const [fillValue, setFillValue] = useState("");
   const bad = (key: string) => errors.includes(key);
@@ -100,7 +101,10 @@ export function ProductForm({ product, categories }: { product?: Product & { var
   }
 
   const input = (key: string) =>
-    cn("h-11 w-full rounded-xl border bg-card px-4 text-sm outline-none focus:border-foreground", bad(key) ? "border-danger" : "border-border");
+    cn(
+      "h-11 w-full rounded-xl border bg-card px-4 text-sm outline-none focus:border-foreground",
+      bad(key) ? "border-danger" : "border-border",
+    );
 
   return (
     <form onSubmit={submit} className="grid gap-8 xl:grid-cols-[1fr_320px]">
@@ -132,19 +136,44 @@ export function ProductForm({ product, categories }: { product?: Product & { var
             />
           </Label>
           <Label text={f("descriptionVi")}>
-            <textarea rows={4} className={cn(input("descriptionVi"), "h-auto py-3")} value={v.descriptionVi} onChange={(e) => set("descriptionVi", e.target.value)} />
+            <textarea
+              rows={4}
+              className={cn(input("descriptionVi"), "h-auto py-3")}
+              value={v.descriptionVi}
+              onChange={(e) => set("descriptionVi", e.target.value)}
+            />
           </Label>
           <Label text={f("descriptionEn")}>
-            <textarea rows={4} className={cn(input("descriptionEn"), "h-auto py-3")} value={v.descriptionEn} onChange={(e) => set("descriptionEn", e.target.value)} />
+            <textarea
+              rows={4}
+              className={cn(input("descriptionEn"), "h-auto py-3")}
+              value={v.descriptionEn}
+              onChange={(e) => set("descriptionEn", e.target.value)}
+            />
           </Label>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
           <Label text={f("price")}>
-            <input type="number" min={1000} step={1000} className={input("price")} value={v.price} onChange={(e) => set("price", Number(e.target.value))} required />
+            <input
+              type="number"
+              min={1000}
+              step={1000}
+              className={input("price")}
+              value={v.price}
+              onChange={(e) => set("price", Number(e.target.value))}
+              required
+            />
           </Label>
           <Label text={f("compareAtPrice")}>
-            <input type="number" min={0} step={1000} className={input("compareAtPrice")} value={v.compareAtPrice ?? ""} onChange={(e) => set("compareAtPrice", e.target.value ? Number(e.target.value) : null)} />
+            <input
+              type="number"
+              min={0}
+              step={1000}
+              className={input("compareAtPrice")}
+              value={v.compareAtPrice ?? ""}
+              onChange={(e) => set("compareAtPrice", e.target.value ? Number(e.target.value) : null)}
+            />
           </Label>
           <Label text={f("category")}>
             <select className={input("categoryId")} value={v.categoryId} onChange={(e) => set("categoryId", Number(e.target.value))}>
@@ -162,7 +191,10 @@ export function ProductForm({ product, categories }: { product?: Product & { var
                   type="button"
                   key={k}
                   onClick={() => set("kind", k)}
-                  className={cn("rounded-full border px-3 py-1.5 text-xs capitalize transition-colors", v.kind === k ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground")}
+                  className={cn(
+                    "rounded-full border px-3 py-1.5 text-xs capitalize transition-colors",
+                    v.kind === k ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground",
+                  )}
                 >
                   {k}
                 </button>
@@ -224,8 +256,14 @@ export function ProductForm({ product, categories }: { product?: Product & { var
                 <button
                   type="button"
                   key={s}
-                  onClick={() => set("sizes", on ? v.sizes.filter((x) => x !== s) : ALL_SIZES.filter((x) => x === s || v.sizes.includes(x)))}
-                  className={cn("h-9 min-w-12 rounded-full border px-3 text-xs font-medium transition-colors", on ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground", bad("sizes") && "border-danger")}
+                  onClick={() =>
+                    set("sizes", on ? v.sizes.filter((x) => x !== s) : ALL_SIZES.filter((x) => x === s || v.sizes.includes(x)))
+                  }
+                  className={cn(
+                    "h-9 min-w-12 rounded-full border px-3 text-xs font-medium transition-colors",
+                    on ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground",
+                    bad("sizes") && "border-danger",
+                  )}
                 >
                   {s}
                 </button>
@@ -320,7 +358,12 @@ export function ProductForm({ product, categories }: { product?: Product & { var
         </Label>
 
         <Label text={f("imageUrl")}>
-          <input className={input("imageUrl")} value={v.imageUrl} onChange={(e) => set("imageUrl", e.target.value)} placeholder="https://…" />
+          <input
+            className={input("imageUrl")}
+            value={v.imageUrl}
+            onChange={(e) => set("imageUrl", e.target.value)}
+            placeholder="https://…"
+          />
         </Label>
 
         <div className="flex flex-wrap gap-6">
@@ -335,14 +378,29 @@ export function ProductForm({ product, categories }: { product?: Product & { var
         <div className="overflow-hidden rounded-3xl border border-border bg-card p-3">
           <div className="aspect-[3/4] overflow-hidden rounded-2xl">
             <AnimatePresence mode="wait">
-              <motion.div key={`${v.kind}-${preview.hex}-${previewPhoto}`} initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="relative h-full w-full">
+              <motion.div
+                key={`${v.kind}-${preview.hex}-${previewPhoto}`}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                className="relative h-full w-full"
+              >
                 <ProductImage kind={v.kind} color={preview.hex} imageUrl={previewPhoto} alt="" sizes="320px" />
               </motion.div>
             </AnimatePresence>
           </div>
           <div className="mt-3 flex gap-1.5 px-1">
             {v.colors.map((c, i) => (
-              <button type="button" key={c.hex} onClick={() => setPreviewIndex(i)} className={cn("size-4 rounded-full border border-foreground/20", i === previewIndex && "ring-1 ring-foreground ring-offset-2 ring-offset-card")} style={{ background: c.hex }} />
+              <button
+                type="button"
+                key={c.hex}
+                onClick={() => setPreviewIndex(i)}
+                className={cn(
+                  "size-4 rounded-full border border-foreground/20",
+                  i === previewIndex && "ring-1 ring-foreground ring-offset-2 ring-offset-card",
+                )}
+                style={{ background: c.hex }}
+              />
             ))}
           </div>
           <p className="mt-2 px-1 font-medium">{(locale === "vi" ? v.nameVi : v.nameEn) || "—"}</p>
@@ -384,8 +442,18 @@ function CustomColor({ onAdd }: { onAdd: (c: ProductColor) => void }) {
   const [hex, setHex] = useState("#7a8fa6");
   return (
     <span className="ml-1 flex items-center gap-1">
-      <input type="color" value={hex} onChange={(e) => setHex(e.target.value)} className="size-6 cursor-pointer rounded-full border-0 bg-transparent p-0" aria-label="Custom colour" />
-      <button type="button" onClick={() => onAdd({ nameVi: hex, nameEn: hex, hex })} className="rounded-full bg-subtle px-2 py-0.5 text-[11px] hover:bg-border">
+      <input
+        type="color"
+        value={hex}
+        onChange={(e) => setHex(e.target.value)}
+        className="size-6 cursor-pointer rounded-full border-0 bg-transparent p-0"
+        aria-label="Custom colour"
+      />
+      <button
+        type="button"
+        onClick={() => onAdd({ nameVi: hex, nameEn: hex, hex })}
+        className="rounded-full bg-subtle px-2 py-0.5 text-[11px] hover:bg-border"
+      >
         +
       </button>
     </span>

@@ -40,13 +40,7 @@
     "ctaShop": "Shop now",
     "ctaLookbook": "See the lookbook",
     "scroll": "Scroll",
-    "marquee": [
-      "Natural fabrics",
-      "Made in Saigon",
-      "30-day returns",
-      "2-hour city delivery",
-      "Minimal design"
-    ],
+    "marquee": ["Natural fabrics", "Made in Saigon", "30-day returns", "2-hour city delivery", "Minimal design"],
     "categoriesTitle": "Shop by category",
     "featuredTitle": "Customer favourites",
     "featuredSub": "The pieces people keep coming back for.",
@@ -101,11 +95,7 @@
     "socialProof": "2,000+ reviews",
     "manifestoEyebrow": "Manifesto",
     "manifesto": "We believe the best clothes are the ones you reach for every morning. Natural fabrics, honest stitching, just enough design — so you feel as light as a cloud.",
-    "manifestoHighlight": [
-      "every",
-      "morning",
-      "cloud"
-    ],
+    "manifestoHighlight": ["every", "morning", "cloud"],
     "quickView": "Quick view",
     "lookTitle": "One outfit, five pieces",
     "lookHint": "Tap a + to explore each piece",
@@ -807,10 +797,7 @@
     "lead": "MÂY started as a small sewing workshop in District 3 with a simple idea: make fewer pieces, and make them really well.",
     "manifestoEyebrow": "What we believe",
     "manifesto": "A good shirt should stay with you for years, not a season. So we choose fabrics carefully, sew slowly, and only release new pieces when they are truly needed.",
-    "manifestoHighlight": [
-      "years",
-      "slowly"
-    ],
+    "manifestoHighlight": ["years", "slowly"],
     "stats": [
       {
         "value": 7,

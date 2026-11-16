@@ -15,7 +15,7 @@ export function AccountNav() {
     { href: "/account/settings", label: t("settings"), icon: Settings },
   ];
   return (
-    <nav className="no-scrollbar mt-6 flex gap-1 overflow-x-auto">
+    <nav className="mt-6 no-scrollbar flex gap-1 overflow-x-auto">
       {tabs.map((tab) => {
         const active = pathname === tab.href;
         return (
@@ -27,7 +27,13 @@ export function AccountNav() {
               active ? "text-background" : "text-muted hover:text-foreground",
             )}
           >
-            {active ? <motion.span layoutId="account-tab" className="absolute inset-0 -z-10 rounded-full bg-foreground" transition={{ type: "spring", stiffness: 400, damping: 35 }} /> : null}
+            {active ? (
+              <motion.span
+                layoutId="account-tab"
+                className="absolute inset-0 -z-10 rounded-full bg-foreground"
+                transition={{ type: "spring", stiffness: 400, damping: 35 }}
+              />
+            ) : null}
             <tab.icon size={15} /> {tab.label}
           </Link>
         );

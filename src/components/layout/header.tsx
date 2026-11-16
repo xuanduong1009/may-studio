@@ -79,9 +79,7 @@ export function Header({ categories = [] }: { categories?: MenuCategory[] }) {
         <div
           className={cn(
             "border-b transition-[background-color,border-color,backdrop-filter] duration-500",
-            transparent
-              ? "border-transparent bg-transparent"
-              : "border-border/70 bg-background/75 backdrop-blur-xl backdrop-saturate-150",
+            transparent ? "border-transparent bg-transparent" : "border-border/70 bg-background/75 backdrop-blur-xl backdrop-saturate-150",
           )}
         >
           <nav className="container-x flex h-16 items-center gap-4 lg:h-[4.5rem]">
@@ -95,9 +93,7 @@ export function Header({ categories = [] }: { categories?: MenuCategory[] }) {
 
             <Link href="/" className="group flex items-baseline gap-1.5" aria-label="MÂY Studio">
               <span className="font-display text-2xl font-semibold tracking-[0.18em] lg:text-[1.7rem]">MÂY</span>
-              <span className="text-[10px] tracking-[0.3em] text-muted uppercase transition-colors group-hover:text-accent">
-                studio
-              </span>
+              <span className="text-[10px] tracking-[0.3em] text-muted uppercase transition-colors group-hover:text-accent">studio</span>
             </Link>
 
             <ul className="mx-auto hidden items-center gap-1 lg:flex">
@@ -190,12 +186,7 @@ function Badge({ count }: { count: number }) {
   );
 }
 
-function IconButton({
-  label,
-  children,
-  className,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { label: string }) {
+function IconButton({ label, children, className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { label: string }) {
   return (
     <button
       aria-label={label}
@@ -247,16 +238,27 @@ export function LanguageSwitch({ className }: { className?: string }) {
   }
 
   return (
-    <div role="group" aria-label={t("language")} className={cn("relative mx-1 flex h-8 items-center rounded-full bg-subtle p-0.5 text-[11px] font-semibold", className)}>
+    <div
+      role="group"
+      aria-label={t("language")}
+      className={cn("relative mx-1 flex h-8 items-center rounded-full bg-subtle p-0.5 text-[11px] font-semibold", className)}
+    >
       {(["vi", "en"] as const).map((l) => (
         <button
           key={l}
           onClick={() => change(l)}
           aria-pressed={locale === l}
-          className={cn("relative z-10 h-7 w-9 rounded-full uppercase transition-colors", locale === l ? "text-background" : "text-muted hover:text-foreground")}
+          className={cn(
+            "relative z-10 h-7 w-9 rounded-full uppercase transition-colors",
+            locale === l ? "text-background" : "text-muted hover:text-foreground",
+          )}
         >
           {locale === l ? (
-            <motion.span layoutId="lang-pill" className="absolute inset-0 -z-10 rounded-full bg-foreground" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+            <motion.span
+              layoutId="lang-pill"
+              className="absolute inset-0 -z-10 rounded-full bg-foreground"
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+            />
           ) : null}
           {l}
         </button>

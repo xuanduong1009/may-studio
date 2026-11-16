@@ -103,10 +103,23 @@ export function ProductCard({ product }: { product: ProductCardData }) {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <ProductImage kind={product.kind} color={color.hex} imageUrl={mainPhoto} alt={name} sizes="(min-width: 1024px) 25vw, 50vw" />
+                  <ProductImage
+                    kind={product.kind}
+                    color={color.hex}
+                    imageUrl={mainPhoto}
+                    alt={name}
+                    sizes="(min-width: 1024px) 25vw, 50vw"
+                  />
                   {photos[1] || !mainPhoto ? (
                     <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/card:opacity-100">
-                      <ProductImage kind={product.kind} color={color.hex} imageUrl={photos[1]?.url} view="back" alt="" sizes="(min-width: 1024px) 25vw, 50vw" />
+                      <ProductImage
+                        kind={product.kind}
+                        color={color.hex}
+                        imageUrl={photos[1]?.url}
+                        view="back"
+                        alt=""
+                        sizes="(min-width: 1024px) 25vw, 50vw"
+                      />
                     </div>
                   ) : null}
                 </motion.div>
@@ -225,7 +238,9 @@ export function ProductCard({ product }: { product: ProductCardData }) {
               style={{ background: c.hex }}
             />
           ))}
-          {product.colors.length > 1 ? <span className="ml-1 text-[11px] text-muted">{t("colorCount", { count: product.colors.length })}</span> : null}
+          {product.colors.length > 1 ? (
+            <span className="ml-1 text-[11px] text-muted">{t("colorCount", { count: product.colors.length })}</span>
+          ) : null}
         </div>
         <Link href={`/product/${product.slug}`} className="block">
           <h3 className="line-clamp-1 text-[15px] font-medium transition-colors group-hover/card:text-accent">{name}</h3>

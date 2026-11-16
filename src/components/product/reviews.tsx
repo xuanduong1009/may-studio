@@ -82,7 +82,10 @@ export function ProductReviews({ productId, slug, rating, reviewCount, data, eli
                     }}
                     disabled={!d.count}
                     aria-pressed={active}
-                    className={cn("group flex w-full items-center gap-3 rounded-lg px-1 py-0.5 text-sm transition-opacity disabled:opacity-40", filter && !active && "opacity-50")}
+                    className={cn(
+                      "group flex w-full items-center gap-3 rounded-lg px-1 py-0.5 text-sm transition-opacity disabled:opacity-40",
+                      filter && !active && "opacity-50",
+                    )}
                   >
                     <span className="flex w-8 items-center gap-1 tabular-nums">
                       {d.star} <Star size={12} className="fill-[#d4a24c] text-[#d4a24c]" />
@@ -133,7 +136,9 @@ export function ProductReviews({ productId, slug, rating, reviewCount, data, eli
                 {t("signinToReview")}
               </Link>
             ) : (
-              <p className="rounded-2xl bg-subtle px-4 py-3 text-sm text-muted">{eligibility === "reviewed" ? t("alreadyReviewed") : t("onlyBuyers")}</p>
+              <p className="rounded-2xl bg-subtle px-4 py-3 text-sm text-muted">
+                {eligibility === "reviewed" ? t("alreadyReviewed") : t("onlyBuyers")}
+              </p>
             )}
           </div>
         </div>
@@ -180,7 +185,9 @@ export function ProductReviews({ productId, slug, rating, reviewCount, data, eli
                   className="py-6"
                 >
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <span className="grid size-9 place-items-center rounded-full bg-subtle text-sm font-semibold">{r.authorName.trim().charAt(0).toUpperCase()}</span>
+                    <span className="grid size-9 place-items-center rounded-full bg-subtle text-sm font-semibold">
+                      {r.authorName.trim().charAt(0).toUpperCase()}
+                    </span>
                     <span className="font-medium">{r.authorName}</span>
                     {r.verified ? (
                       <span className="flex items-center gap-1 text-xs text-success">
@@ -267,7 +274,11 @@ function ReviewForm({ productId, onDone }: { productId: number; onDone: () => vo
                 aria-label={labels[n - 1]}
                 aria-pressed={rating === n}
               >
-                <Star size={30} strokeWidth={1.5} className={cn("transition-colors", (hover || rating) >= n ? "fill-[#d4a24c] text-[#d4a24c]" : "text-border")} />
+                <Star
+                  size={30}
+                  strokeWidth={1.5}
+                  className={cn("transition-colors", (hover || rating) >= n ? "fill-[#d4a24c] text-[#d4a24c]" : "text-border")}
+                />
               </motion.button>
             ))}
             <span className="ml-3 text-sm text-muted">{labels[(hover || rating) - 1] ?? ""}</span>
@@ -296,7 +307,10 @@ function ReviewForm({ productId, onDone }: { productId: number; onDone: () => vo
                 type="button"
                 key={f}
                 onClick={() => setFit(fit === f ? null : f)}
-                className={cn("rounded-full border px-4 py-1.5 text-sm transition-colors", fit === f ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground")}
+                className={cn(
+                  "rounded-full border px-4 py-1.5 text-sm transition-colors",
+                  fit === f ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground",
+                )}
               >
                 {t(`fit.${f}`)}
               </button>

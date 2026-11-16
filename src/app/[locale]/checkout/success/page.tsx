@@ -55,7 +55,12 @@ export default async function SuccessPage({
     const content = bank
       ? buildVietQrPayload({ bin: bank.bin, accountNumber: bank.accountNumber, amount: order.total, note })
       : `${await requestOrigin()}${locale === "en" ? "/en" : ""}${trackHref}`;
-    qrSvg = await QRCode.toString(content, { type: "svg", margin: 1, errorCorrectionLevel: "M", color: { dark: "#1c1b19", light: "#ffffff" } });
+    qrSvg = await QRCode.toString(content, {
+      type: "svg",
+      margin: 1,
+      errorCorrectionLevel: "M",
+      color: { dark: "#1c1b19", light: "#ffffff" },
+    });
   }
 
   return (

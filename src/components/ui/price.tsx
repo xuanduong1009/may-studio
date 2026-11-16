@@ -20,7 +20,7 @@ export function Price({
         {formatPrice(price, locale)}
       </span>
       {onSale ? (
-        <span className={cn("text-muted line-through tabular-nums", large ? "text-base" : "text-xs")}>
+        <span className={cn("text-muted tabular-nums line-through", large ? "text-base" : "text-xs")}>
           {formatPrice(compareAtPrice!, locale)}
         </span>
       ) : null}

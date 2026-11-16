@@ -23,7 +23,12 @@ export function MobileTabBar() {
     { href: "/shop", label: t("shop"), icon: Store, active: pathname.startsWith("/shop") || pathname.startsWith("/product") },
     { href: null, label: t("search"), icon: Search, active: false },
     { href: "/wishlist", label: t("wishlist"), icon: Heart, active: pathname === "/wishlist", badge: mounted ? wishCount : 0 },
-    { href: session ? "/account" : "/login", label: session ? t("account") : t("login"), icon: User, active: pathname.startsWith("/account") || pathname === "/login" },
+    {
+      href: session ? "/account" : "/login",
+      label: session ? t("account") : t("login"),
+      icon: User,
+      active: pathname.startsWith("/account") || pathname === "/login",
+    },
   ];
 
   return (
@@ -50,7 +55,10 @@ export function MobileTabBar() {
                 {tab.active ? <motion.span layoutId="tab-dot" className="absolute top-0 h-0.5 w-8 rounded-full bg-accent" /> : null}
               </>
             );
-            const cls = cn("relative flex h-[60px] flex-col items-center justify-center gap-1 transition-colors", tab.active ? "text-foreground" : "text-muted");
+            const cls = cn(
+              "relative flex h-[60px] flex-col items-center justify-center gap-1 transition-colors",
+              tab.active ? "text-foreground" : "text-muted",
+            );
             return (
               <li key={tab.label}>
                 {tab.href ? (

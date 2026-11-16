@@ -47,7 +47,9 @@ export function AddressBook({ items }: { items: Item[] }) {
               className={cn("relative rounded-3xl border bg-card p-5", a.isDefault ? "border-foreground" : "border-border")}
             >
               {a.isDefault ? (
-                <span className="absolute top-4 right-4 rounded-full bg-foreground px-2.5 py-0.5 text-[11px] text-background">{t("default")}</span>
+                <span className="absolute top-4 right-4 rounded-full bg-foreground px-2.5 py-0.5 text-[11px] text-background">
+                  {t("default")}
+                </span>
               ) : null}
               <MapPin size={18} className="text-accent" />
               <p className="mt-3 font-medium">
@@ -66,7 +68,13 @@ export function AddressBook({ items }: { items: Item[] }) {
                     <Star size={14} /> {t("makeDefault")}
                   </Button>
                 ) : null}
-                <Button size="sm" variant="ghost" disabled={busy} className="text-danger hover:bg-danger/10" onClick={() => run(() => deleteAddress(a.id), t("addressDeleted"))}>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled={busy}
+                  className="text-danger hover:bg-danger/10"
+                  onClick={() => run(() => deleteAddress(a.id), t("addressDeleted"))}
+                >
                   <Trash2 size={14} /> {t("remove")}
                 </Button>
               </div>
@@ -113,7 +121,11 @@ function AddressForm({ initial, onClose }: { initial: { id: number | null; value
     });
   }
 
-  const input = (k: string) => cn("h-11 w-full rounded-xl border bg-background px-4 text-sm outline-none focus:border-foreground", bad.includes(k) ? "border-danger" : "border-border");
+  const input = (k: string) =>
+    cn(
+      "h-11 w-full rounded-xl border bg-background px-4 text-sm outline-none focus:border-foreground",
+      bad.includes(k) ? "border-danger" : "border-border",
+    );
 
   return (
     <motion.form
@@ -127,15 +139,34 @@ function AddressForm({ initial, onClose }: { initial: { id: number | null; value
         <h2 className="font-display text-2xl sm:col-span-2">{initial.id ? t("editAddress") : t("addAddress")}</h2>
         <label className="block text-sm">
           <span className="mb-1.5 block text-muted">{tc("name")}</span>
-          <input className={input("fullName")} value={v.fullName} onChange={(e) => set("fullName", e.target.value)} autoComplete="name" required />
+          <input
+            className={input("fullName")}
+            value={v.fullName}
+            onChange={(e) => set("fullName", e.target.value)}
+            autoComplete="name"
+            required
+          />
         </label>
         <label className="block text-sm">
           <span className="mb-1.5 block text-muted">{tc("phone")}</span>
-          <input className={input("phone")} value={v.phone} onChange={(e) => set("phone", e.target.value)} autoComplete="tel" inputMode="tel" required />
+          <input
+            className={input("phone")}
+            value={v.phone}
+            onChange={(e) => set("phone", e.target.value)}
+            autoComplete="tel"
+            inputMode="tel"
+            required
+          />
         </label>
         <label className="block text-sm sm:col-span-2">
           <span className="mb-1.5 block text-muted">{tc("address")}</span>
-          <input className={input("address")} value={v.address} onChange={(e) => set("address", e.target.value)} autoComplete="street-address" required />
+          <input
+            className={input("address")}
+            value={v.address}
+            onChange={(e) => set("address", e.target.value)}
+            autoComplete="street-address"
+            required
+          />
         </label>
         <label className="block text-sm">
           <span className="mb-1.5 block text-muted">{tc("city")}</span>
@@ -147,10 +178,21 @@ function AddressForm({ initial, onClose }: { initial: { id: number | null; value
         </label>
         <label className="block text-sm">
           <span className="mb-1.5 block text-muted">{t("label")}</span>
-          <input className={input("label")} value={v.label} onChange={(e) => set("label", e.target.value)} placeholder={t("labelPlaceholder")} maxLength={30} />
+          <input
+            className={input("label")}
+            value={v.label}
+            onChange={(e) => set("label", e.target.value)}
+            placeholder={t("labelPlaceholder")}
+            maxLength={30}
+          />
         </label>
         <label className="flex cursor-pointer items-center gap-2.5 text-sm sm:col-span-2">
-          <input type="checkbox" checked={v.isDefault} onChange={(e) => set("isDefault", e.target.checked)} className="size-4 accent-[var(--accent)]" />
+          <input
+            type="checkbox"
+            checked={v.isDefault}
+            onChange={(e) => set("isDefault", e.target.checked)}
+            className="size-4 accent-[var(--accent)]"
+          />
           {t("setDefault")}
         </label>
         <div className="flex gap-2 sm:col-span-2">

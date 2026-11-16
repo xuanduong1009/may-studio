@@ -20,13 +20,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
   return { title: one(sp.sale) ? t("titleSale") : one(sp.new) ? t("titleNew") : t("title") };
 }
 
-export default async function ShopPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ locale: string }>;
-  searchParams: SearchParams;
-}) {
+export default async function ShopPage({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: SearchParams }) {
   const locale = asLocale((await params).locale);
   setRequestLocale(locale);
   const t = await getTranslations("Shop");

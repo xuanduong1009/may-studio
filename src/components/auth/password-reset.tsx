@@ -12,7 +12,12 @@ import { FloatingInput } from "./auth-form";
 function Shell({ title, sub, children }: { title: string; sub: string; children: React.ReactNode }) {
   return (
     <div className="flex min-h-[100svh] items-center justify-center px-4 pt-32 pb-16">
-      <motion.div className="w-full max-w-sm" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
+      <motion.div
+        className="w-full max-w-sm"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
         <h1 className="font-display text-4xl sm:text-5xl">{title}</h1>
         <p className="mt-3 text-muted">{sub}</p>
         {children}
@@ -41,7 +46,12 @@ export function ForgotPasswordForm() {
     <Shell title={t("forgotTitle")} sub={t("forgotSub")}>
       <AnimatePresence mode="wait">
         {sent ? (
-          <motion.div key="sent" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="mt-10 rounded-3xl bg-subtle p-6 text-center">
+          <motion.div
+            key="sent"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mt-10 rounded-3xl bg-subtle p-6 text-center"
+          >
             <MailCheck size={36} className="mx-auto text-success" />
             <p className="mt-3 font-medium">{t("forgotSent")}</p>
             <p className="mt-1 text-sm text-muted">{t("forgotSentHint", { email })}</p>
@@ -96,14 +106,34 @@ export function ResetPasswordForm({ token, invalid }: { token?: string; invalid?
   return (
     <Shell title={t("resetTitle")} sub={t("resetSub")}>
       {done ? (
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="mt-10 rounded-3xl bg-subtle p-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="mt-10 rounded-3xl bg-subtle p-6 text-center"
+        >
           <ShieldCheck size={36} className="mx-auto text-success" />
           <p className="mt-3 font-medium">{t("resetDone")}</p>
         </motion.div>
       ) : (
         <form onSubmit={submit} className="mt-10 space-y-5">
-          <FloatingInput label={t("newPassword")} type="password" value={password} onChange={setPassword} autoComplete="new-password" required minLength={8} />
-          <FloatingInput label={t("confirmPassword")} type="password" value={confirm} onChange={setConfirm} autoComplete="new-password" required minLength={8} />
+          <FloatingInput
+            label={t("newPassword")}
+            type="password"
+            value={password}
+            onChange={setPassword}
+            autoComplete="new-password"
+            required
+            minLength={8}
+          />
+          <FloatingInput
+            label={t("confirmPassword")}
+            type="password"
+            value={confirm}
+            onChange={setConfirm}
+            autoComplete="new-password"
+            required
+            minLength={8}
+          />
           {error ? <p className="rounded-xl bg-danger/10 px-4 py-3 text-sm text-danger">{error}</p> : null}
           <Button size="lg" className="w-full" disabled={loading}>
             {loading ? <Loader2 size={18} className="animate-spin" /> : null} {t("resetSubmit")}
