@@ -34,7 +34,10 @@ export const orderItemsSchema = z
   .min(1)
   .max(50);
 
-const hex = z.string().trim().regex(/^#[0-9a-fA-F]{6}$/);
+const hex = z
+  .string()
+  .trim()
+  .regex(/^#[0-9a-fA-F]{6}$/);
 
 /** A photo hosted by the site itself: a bundled file under /images/ or an admin upload. */
 const photoUrl = z
@@ -59,15 +62,29 @@ export const productSchema = z
     compareAtPrice: z.coerce.number().int().min(0).max(100_000_000).nullable(),
     categoryId: z.coerce.number().int().positive(),
     kind: z.enum(GARMENT_KINDS),
-    colors: z.array(z.object({ nameVi: z.string().trim().min(1).max(40), nameEn: z.string().trim().min(1).max(40), hex })).min(1).max(12),
+    colors: z
+      .array(z.object({ nameVi: z.string().trim().min(1).max(40), nameEn: z.string().trim().min(1).max(40), hex }))
+      .min(1)
+      .max(12),
     sizes: z.array(z.string().trim().min(1).max(10)).min(1).max(10),
     /** stock for every colour × size combination */
-    variants: z.array(z.object({ colorHex: hex, size: z.string().trim().min(1).max(10), stock: z.coerce.number().int().min(0).max(100_000) })).max(120),
+    variants: z
+      .array(z.object({ colorHex: hex, size: z.string().trim().min(1).max(10), stock: z.coerce.number().int().min(0).max(100_000) }))
+      .max(120),
     featured: z.boolean(),
     isNew: z.boolean(),
-    imageUrl: z.string().trim().url().max(500).nullable().or(z.literal("").transform(() => null)),
+    imageUrl: z
+      .string()
+      .trim()
+      .url()
+      .max(500)
+      .nullable()
+      .or(z.literal("").transform(() => null)),
     /** gallery in display order; colorHex null = shown for every colour */
-    images: z.array(z.object({ url: photoUrl, colorHex: hex.nullable() })).max(40).default([]),
+    images: z
+      .array(z.object({ url: photoUrl, colorHex: hex.nullable() }))
+      .max(40)
+      .default([]),
   })
   .refine(
     (p) => p.variants.every((v) => p.colors.some((c) => c.hex.toLowerCase() === v.colorHex.toLowerCase()) && p.sizes.includes(v.size)),

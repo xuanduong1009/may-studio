@@ -6,18 +6,17 @@ function clamp(n: number, min = 0, max = 255) {
 
 export function hexToRgb(hex: string): [number, number, number] {
   let h = hex.replace("#", "").trim();
-  if (h.length === 3) h = h.split("").map((c) => c + c).join("");
+  if (h.length === 3)
+    h = h
+      .split("")
+      .map((c) => c + c)
+      .join("");
   const n = parseInt(h || "000000", 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
 export function rgbToHex(r: number, g: number, b: number) {
-  return (
-    "#" +
-    [r, g, b]
-      .map((v) => clamp(Math.round(v)).toString(16).padStart(2, "0"))
-      .join("")
-  );
+  return "#" + [r, g, b].map((v) => clamp(Math.round(v)).toString(16).padStart(2, "0")).join("");
 }
 
 /** Mix a colour towards white (amount > 0) or black (amount < 0). amount in [-1, 1]. */

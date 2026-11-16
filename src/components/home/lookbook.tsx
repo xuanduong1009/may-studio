@@ -38,10 +38,23 @@ export function Lookbook() {
         <motion.div style={{ x }} className="flex h-full w-[400%] flex-1 pb-8 will-change-transform">
           {EDITORIAL.looks.map((src, i) => (
             <div key={src} className="flex h-full w-1/4 shrink-0 items-stretch px-4 sm:px-6 lg:px-10">
-              <article className="relative grid w-full overflow-hidden rounded-[2rem] lg:grid-cols-[1.25fr_1fr]" style={{ background: TONES[i] }}>
-                <Link href={LINKS[i]} data-cursor={locale === "vi" ? "Mua" : "Shop"} className="relative block overflow-hidden lg:m-4 lg:rounded-[1.5rem]">
-                  <motion.div className="absolute inset-y-0 inset-x-[-8%] will-change-transform" style={{ x: drift }}>
-                    <Image src={src} alt={items[i]?.title ?? ""} fill sizes="(min-width: 1024px) 45vw, 92vw" className="object-cover object-[50%_25%]" />
+              <article
+                className="relative grid w-full overflow-hidden rounded-[2rem] lg:grid-cols-[1.25fr_1fr]"
+                style={{ background: TONES[i] }}
+              >
+                <Link
+                  href={LINKS[i]}
+                  data-cursor={locale === "vi" ? "Mua" : "Shop"}
+                  className="relative block overflow-hidden lg:m-4 lg:rounded-[1.5rem]"
+                >
+                  <motion.div className="absolute inset-x-[-8%] inset-y-0 will-change-transform" style={{ x: drift }}>
+                    <Image
+                      src={src}
+                      alt={items[i]?.title ?? ""}
+                      fill
+                      sizes="(min-width: 1024px) 45vw, 92vw"
+                      className="object-cover object-[50%_25%]"
+                    />
                   </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent lg:hidden" />
                 </Link>

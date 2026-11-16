@@ -1,11 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Banknote, Check, CreditCard, Loader2, Lock, MapPin, QrCode, Tag, Truck, X, Zap } from "lucide-react";
-import { AnimatePresence, animate, motion } from "motion/react";
+import { Banknote, CreditCard, Loader2, Lock, MapPin, QrCode, Tag, Truck, X, Zap } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useRef, useState, useTransition } from "react";
-import { useForm, type UseFormRegisterReturn } from "react-hook-form";
+import { useEffect, useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { placeOrder, previewCoupon } from "@/app/actions/orders";
 import { CartLine } from "@/components/cart/cart-line";
@@ -17,6 +17,7 @@ import { CITIES } from "@/lib/site";
 import { cn, formatPrice } from "@/lib/utils";
 import { checkoutSchema, type CheckoutInput } from "@/lib/validators";
 import { cartSubtotal, useCart } from "@/store/cart";
+import { AnimatedPrice, Choice, Field, Row, Section } from "./form-parts";
 
 type SavedAddress = { id: number; label: string; fullName: string; phone: string; address: string; city: string; isDefault: boolean };
 
@@ -135,7 +136,7 @@ export function CheckoutForm({
   });
 
   if (!mounted) {
-    return <div className="skeleton h-[600px] rounded-3xl" />;
+    return <div className="h-[600px] skeleton rounded-3xl" />;
   }
 
   if (items.length === 0) {
@@ -199,11 +200,27 @@ export function CheckoutForm({
           <div className="grid gap-4 sm:grid-cols-2" onChange={() => setAddressId(null)}>
             <Field label={t("name")} error={err("name")} reg={register("name")} autoComplete="name" />
             <Field label={t("phone")} error={err("phone")} reg={register("phone")} autoComplete="tel" inputMode="tel" />
-            <Field label={t("email")} error={err("email")} reg={register("email")} autoComplete="email" type="email" className="sm:col-span-2" />
-            <Field label={t("address")} error={err("address")} reg={register("address")} autoComplete="street-address" className="sm:col-span-2" />
+            <Field
+              label={t("email")}
+              error={err("email")}
+              reg={register("email")}
+              autoComplete="email"
+              type="email"
+              className="sm:col-span-2"
+            />
+            <Field
+              label={t("address")}
+              error={err("address")}
+              reg={register("address")}
+              autoComplete="street-address"
+              className="sm:col-span-2"
+            />
             <label className="block sm:col-span-2">
               <span className="mb-1.5 block text-sm text-muted">{t("city")}</span>
-              <select {...register("city")} className="h-12 w-full rounded-xl border border-border bg-card px-4 outline-none focus:border-foreground">
+              <select
+                {...register("city")}
+                className="h-12 w-full rounded-xl border border-border bg-card px-4 outline-none focus:border-foreground"
+              >
                 {CITIES.map((c) => (
                   <option key={c}>{c}</option>
                 ))}
@@ -211,7 +228,11 @@ export function CheckoutForm({
             </label>
             <label className="block sm:col-span-2">
               <span className="mb-1.5 block text-sm text-muted">{t("note")}</span>
-              <textarea {...register("note")} rows={3} className="w-full resize-none rounded-xl border border-border bg-card px-4 py-3 outline-none focus:border-foreground" />
+              <textarea
+                {...register("note")}
+                rows={3}
+                className="w-full resize-none rounded-xl border border-border bg-card px-4 py-3 outline-none focus:border-foreground"
+              />
             </label>
             {signedIn && addressId === null ? (
               <label className="flex cursor-pointer items-center gap-2.5 text-sm sm:col-span-2">
@@ -244,9 +265,21 @@ export function CheckoutForm({
 
         <Section step={3} title={t("payment")}>
           <div className="grid gap-3 sm:grid-cols-2">
-            <Choice selected={paymentMethod === "cod"} onSelect={() => setValue("paymentMethod", "cod")} icon={<Banknote size={20} />} title={t("cod")} meta={t("codNote")} />
+            <Choice
+              selected={paymentMethod === "cod"}
+              onSelect={() => setValue("paymentMethod", "cod")}
+              icon={<Banknote size={20} />}
+              title={t("cod")}
+              meta={t("codNote")}
+            />
             {payments.bank ? (
-              <Choice selected={paymentMethod === "bank"} onSelect={() => setValue("paymentMethod", "bank")} icon={<QrCode size={20} />} title={t("bank")} meta={t("bankNote")} />
+              <Choice
+                selected={paymentMethod === "bank"}
+                onSelect={() => setValue("paymentMethod", "bank")}
+                icon={<QrCode size={20} />}
+                title={t("bank")}
+                meta={t("bankNote")}
+              />
             ) : null}
             {payments.vnpay ? (
               <Choice
@@ -284,7 +317,9 @@ export function CheckoutForm({
                   exit={{ opacity: 0 }}
                   className={cn(
                     "rounded-xl border border-dashed px-4 py-3 text-sm",
-                    couponShort ? "border-amber-500 bg-amber-500/10 text-amber-700 dark:text-amber-300" : "border-success bg-success/10 text-success",
+                    couponShort
+                      ? "border-amber-500 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                      : "border-success bg-success/10 text-success",
                   )}
                 >
                   <div className="flex items-center justify-between">
@@ -313,7 +348,12 @@ export function CheckoutForm({
                     aria-label={t("coupon")}
                     className="h-11 min-w-0 flex-1 rounded-xl border border-border bg-background px-4 text-sm uppercase outline-none placeholder:normal-case focus:border-foreground"
                   />
-                  <button type="button" onClick={applyCoupon} disabled={checking} className="grid h-11 min-w-20 place-items-center rounded-xl bg-subtle px-4 text-sm font-medium hover:bg-border">
+                  <button
+                    type="button"
+                    onClick={applyCoupon}
+                    disabled={checking}
+                    className="grid h-11 min-w-20 place-items-center rounded-xl bg-subtle px-4 text-sm font-medium hover:bg-border"
+                  >
                     {checking ? <Loader2 size={16} className="animate-spin" /> : t("apply")}
                   </button>
                 </motion.div>
@@ -356,114 +396,5 @@ export function CheckoutForm({
         </div>
       </aside>
     </form>
-  );
-}
-
-function AnimatedPrice({ value, locale }: { value: number; locale: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const prev = useRef(value);
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const controls = animate(prev.current, value, {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: (v) => (node.textContent = formatPrice(Math.round(v), locale)),
-    });
-    prev.current = value;
-    return () => controls.stop();
-  }, [value, locale]);
-  return <span ref={ref}>{formatPrice(value, locale)}</span>;
-}
-
-function Section({ step, title, children }: { step: number; title: string; children: React.ReactNode }) {
-  return (
-    <section>
-      <h2 className="mb-5 flex items-center gap-3 font-display text-2xl">
-        <span className="grid size-8 place-items-center rounded-full bg-foreground font-sans text-sm text-background">{step}</span>
-        {title}
-      </h2>
-      {children}
-    </section>
-  );
-}
-
-function Field({
-  label,
-  error,
-  reg,
-  className,
-  ...props
-}: { label: string; error?: string; reg: UseFormRegisterReturn; className?: string } & React.InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <label className={cn("block", className)}>
-      <span className="mb-1.5 block text-sm text-muted">{label}</span>
-      <input
-        {...reg}
-        {...props}
-        aria-invalid={!!error}
-        className={cn(
-          "h-12 w-full rounded-xl border bg-card px-4 outline-none transition-colors focus:border-foreground",
-          error ? "border-danger" : "border-border",
-        )}
-      />
-      <AnimatePresence>
-        {error ? (
-          <motion.span initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-1 block text-xs text-danger">
-            {error}
-          </motion.span>
-        ) : null}
-      </AnimatePresence>
-    </label>
-  );
-}
-
-function Choice({
-  selected,
-  onSelect,
-  icon,
-  title,
-  meta,
-  disabled,
-  className,
-}: {
-  selected: boolean;
-  onSelect: () => void;
-  icon: React.ReactNode;
-  title: string;
-  meta?: string;
-  disabled?: boolean;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      aria-pressed={selected}
-      disabled={disabled}
-      className={cn(
-        "relative flex items-start gap-3 rounded-2xl border p-4 text-left transition-all disabled:cursor-not-allowed disabled:opacity-50",
-        selected ? "border-foreground bg-card shadow-sm" : "border-border enabled:hover:border-foreground/50",
-        className,
-      )}
-    >
-      <span className={cn("mt-0.5 transition-colors", selected ? "text-accent" : "text-muted")}>{icon}</span>
-      <span className="flex-1">
-        <span className="block text-sm font-medium">{title}</span>
-        {meta ? <span className="mt-0.5 block text-xs text-muted">{meta}</span> : null}
-      </span>
-      <span className={cn("grid size-5 place-items-center rounded-full border transition-all", selected ? "border-foreground bg-foreground text-background" : "border-border")}>
-        {selected ? <Check size={12} /> : null}
-      </span>
-    </button>
-  );
-}
-
-function Row({ label, value, className }: { label: string; value: string; className?: string }) {
-  return (
-    <div className={cn("flex justify-between", className)}>
-      <dt className="text-muted">{label}</dt>
-      <dd className="tabular-nums">{value}</dd>
-    </div>
   );
 }

@@ -11,7 +11,17 @@ import { useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 type Result = {
-  products: { id: number; slug: string; nameVi: string; nameEn: string; price: number; compareAtPrice: number | null; kind: string; color: string; imageUrl: string | null }[];
+  products: {
+    id: number;
+    slug: string;
+    nameVi: string;
+    nameEn: string;
+    price: number;
+    compareAtPrice: number | null;
+    kind: string;
+    color: string;
+    imageUrl: string | null;
+  }[];
   categories: { slug: string; nameVi: string; nameEn: string }[];
   total: number;
 };
@@ -55,7 +65,8 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
   // global shortcuts
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      const typing = e.target instanceof HTMLElement && (e.target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName));
+      const typing =
+        e.target instanceof HTMLElement && (e.target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName));
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || (e.key === "/" && !typing)) {
         e.preventDefault();
         onOpenChange(true);
@@ -139,7 +150,13 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
     <AnimatePresence>
       {open ? (
         <div className="fixed inset-0 z-[90] flex items-start justify-center px-3 pt-[10vh] sm:pt-[14vh]" onKeyDown={onKeyDown}>
-          <motion.div className="absolute inset-0 bg-black/40 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={close} />
+          <motion.div
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={close}
+          />
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -151,7 +168,11 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
             transition={{ type: "spring", stiffness: 400, damping: 32 }}
           >
             <div className="flex items-center gap-3 border-b border-border px-5">
-              {loading ? <Loader2 size={20} className="shrink-0 animate-spin text-muted" /> : <Search size={20} className="shrink-0 text-muted" />}
+              {loading ? (
+                <Loader2 size={20} className="shrink-0 animate-spin text-muted" />
+              ) : (
+                <Search size={20} className="shrink-0 text-muted" />
+              )}
               <input
                 ref={inputRef}
                 autoFocus
@@ -165,7 +186,11 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
                 aria-activedescendant={options[active] ? `search-opt-${active}` : undefined}
                 className="h-16 w-full bg-transparent text-lg outline-none placeholder:text-muted/70"
               />
-              <button onClick={close} className="grid size-9 shrink-0 place-items-center rounded-full hover:bg-subtle" aria-label={t("close")}>
+              <button
+                onClick={close}
+                className="grid size-9 shrink-0 place-items-center rounded-full hover:bg-subtle"
+                aria-label={t("close")}
+              >
                 <X size={18} />
               </button>
             </div>
@@ -209,7 +234,10 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
                         <button
                           onMouseEnter={() => setActive(i)}
                           onClick={() => go(`/product/${p.slug}`, q.trim())}
-                          className={cn("flex w-full items-center gap-4 rounded-2xl p-2 text-left transition-colors", i === active && "bg-subtle")}
+                          className={cn(
+                            "flex w-full items-center gap-4 rounded-2xl p-2 text-left transition-colors",
+                            i === active && "bg-subtle",
+                          )}
                         >
                           <div className="h-16 w-14 shrink-0 overflow-hidden rounded-xl">
                             <ProductImage kind={p.kind} color={p.color} imageUrl={p.imageUrl} alt="" />
@@ -227,7 +255,10 @@ export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenCh
                     <button
                       onMouseEnter={() => setActive(options.length)}
                       onClick={searchAll}
-                      className={cn("mt-1 flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm transition-colors", active === options.length && "bg-subtle")}
+                      className={cn(
+                        "mt-1 flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm transition-colors",
+                        active === options.length && "bg-subtle",
+                      )}
                     >
                       {t("seeAll", { count: result.total, q: q.trim() })}
                       <ArrowRight size={16} />
@@ -269,7 +300,10 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 
 function Chip({ children, onClick, icon }: { children: React.ReactNode; onClick: () => void; icon?: React.ReactNode }) {
   return (
-    <button onClick={onClick} className="flex items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-sm transition-colors hover:border-foreground">
+    <button
+      onClick={onClick}
+      className="flex items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-sm transition-colors hover:border-foreground"
+    >
       {icon ? <span className="text-muted">{icon}</span> : null}
       {children}
     </button>

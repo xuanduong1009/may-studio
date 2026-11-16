@@ -40,7 +40,10 @@ export function MegaMenu({ open, categories, onNavigate }: { open: boolean; cate
                       onPointerEnter={() => setHovered(i)}
                       onFocus={() => setHovered(i)}
                       onClick={onNavigate}
-                      className={cn("group flex items-baseline gap-2 py-1 font-display text-2xl transition-colors", i === hovered ? "text-foreground" : "text-muted")}
+                      className={cn(
+                        "group flex items-baseline gap-2 py-1 font-display text-2xl transition-colors",
+                        i === hovered ? "text-foreground" : "text-muted",
+                      )}
                     >
                       <span className="transition-transform duration-300 group-hover:translate-x-1.5">{name(c)}</span>
                       <sup className="font-sans text-[10px] text-muted">{c.productCount}</sup>
@@ -64,14 +67,21 @@ export function MegaMenu({ open, categories, onNavigate }: { open: boolean; cate
                   <li key={l.href}>
                     <Link href={l.href} onClick={onNavigate} className="group inline-flex items-center gap-2 hover:text-accent">
                       {l.label}
-                      <ArrowRight size={13} className="-translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+                      <ArrowRight
+                        size={13}
+                        className="-translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
+                      />
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <Link href={`/shop?category=${current.slug}`} onClick={onNavigate} className="group relative block aspect-[4/3] overflow-hidden rounded-3xl bg-subtle">
+            <Link
+              href={`/shop?category=${current.slug}`}
+              onClick={onNavigate}
+              className="group relative block aspect-[4/3] overflow-hidden rounded-3xl bg-subtle"
+            >
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.div
                   key={current.slug}
@@ -81,7 +91,13 @@ export function MegaMenu({ open, categories, onNavigate }: { open: boolean; cate
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <Image src={categoryPhoto(current.slug)} alt="" fill sizes="360px" className="object-cover object-[50%_22%] transition-transform duration-700 group-hover:scale-105" />
+                  <Image
+                    src={categoryPhoto(current.slug)}
+                    alt=""
+                    fill
+                    sizes="360px"
+                    className="object-cover object-[50%_22%] transition-transform duration-700 group-hover:scale-105"
+                  />
                 </motion.div>
               </AnimatePresence>
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/50 to-transparent p-5 pt-16 text-white">
@@ -92,8 +108,15 @@ export function MegaMenu({ open, categories, onNavigate }: { open: boolean; cate
               </div>
             </Link>
 
-            <Link href="/shop?sale=1" onClick={onNavigate} className="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-foreground p-6 text-background">
-              <div aria-hidden className="absolute -top-10 -right-10 size-40 rounded-full bg-accent/50 blur-3xl transition-transform duration-700 group-hover:scale-150" />
+            <Link
+              href="/shop?sale=1"
+              onClick={onNavigate}
+              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-foreground p-6 text-background"
+            >
+              <div
+                aria-hidden
+                className="absolute -top-10 -right-10 size-40 rounded-full bg-accent/50 blur-3xl transition-transform duration-700 group-hover:scale-150"
+              />
               <p className="relative text-[11px] tracking-[0.25em] text-accent uppercase">Flash sale</p>
               <p className="relative font-display text-4xl leading-tight">
                 −30%

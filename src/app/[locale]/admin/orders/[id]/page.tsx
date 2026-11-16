@@ -145,7 +145,9 @@ export default async function AdminOrderDetail({ params }: { params: Promise<{ l
                   {order.paymentRef ? ` · ${order.paymentRef}` : ""}
                 </p>
               ) : null}
-              {order.paymentStatus === "unpaid" && order.paymentMethod !== "cod" && order.status !== "cancelled" ? <ConfirmPaymentButton orderId={order.id} /> : null}
+              {order.paymentStatus === "unpaid" && order.paymentMethod !== "cod" && order.status !== "cancelled" ? (
+                <ConfirmPaymentButton orderId={order.id} />
+              ) : null}
             </section>
           </div>
         </div>

@@ -190,7 +190,10 @@ export async function placeOrder(
 
       // remember the address for next time
       if (session && data.saveAddress) {
-        const existing = await tx.select({ id: addresses.id, address: addresses.address }).from(addresses).where(eq(addresses.userId, session.user.id));
+        const existing = await tx
+          .select({ id: addresses.id, address: addresses.address })
+          .from(addresses)
+          .where(eq(addresses.userId, session.user.id));
         if (!existing.some((a) => a.address.toLowerCase() === data.address.toLowerCase())) {
           await tx.insert(addresses).values({
             userId: session.user.id,
@@ -256,7 +259,12 @@ export async function simulateBankPayment(code: string) {
   if (!(await allow("orderAction"))) return { ok: false as const };
   const order = await db.query.orders.findFirst({ where: eq(orders.code, String(code).toUpperCase()) });
   if (!order || order.paymentMethod !== "bank") return { ok: false as const };
-  const res = await markOrderPaid(order.id, { ref: `DEMO-${Date.now().toString(36).toUpperCase()}`, actor: "bank-webhook (demo)", amount: order.total, method: "VietQR" });
+  const res = await markOrderPaid(order.id, {
+    ref: `DEMO-${Date.now().toString(36).toUpperCase()}`,
+    actor: "bank-webhook (demo)",
+    amount: order.total,
+    method: "VietQR",
+  });
   revalidatePath("/", "layout");
   return { ok: res.ok };
 }

@@ -85,13 +85,25 @@ export default async function AdminOrders({
               </Link>
               <span className="text-xs">
                 <span className="block text-muted uppercase">{o.paymentMethod}</span>
-                <span className={cn(o.paymentStatus === "paid" ? "text-success" : o.paymentStatus === "refunded" ? "text-muted" : "text-amber-600 dark:text-amber-400")}>
+                <span
+                  className={cn(
+                    o.paymentStatus === "paid"
+                      ? "text-success"
+                      : o.paymentStatus === "refunded"
+                        ? "text-muted"
+                        : "text-amber-600 dark:text-amber-400",
+                  )}
+                >
                   {tt(`payment.${o.paymentStatus}`)}
                 </span>
               </span>
               <span className="w-28 text-right text-sm font-semibold tabular-nums">{formatPrice(o.total, locale)}</span>
               <OrderStatusSelect orderId={o.id} status={o.status} />
-              <Link href={`/admin/orders/${o.id}`} aria-label={o.code} className="grid size-8 place-items-center rounded-full text-muted hover:bg-subtle hover:text-foreground">
+              <Link
+                href={`/admin/orders/${o.id}`}
+                aria-label={o.code}
+                className="grid size-8 place-items-center rounded-full text-muted hover:bg-subtle hover:text-foreground"
+              >
                 <ChevronRight size={16} />
               </Link>
             </li>

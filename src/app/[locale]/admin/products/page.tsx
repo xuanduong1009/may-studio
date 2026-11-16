@@ -34,7 +34,12 @@ export default async function AdminProducts({
 
       <form className="relative max-w-sm">
         <Search size={16} className="absolute top-1/2 left-4 -translate-y-1/2 text-muted" />
-        <input name="q" defaultValue={q} placeholder={t("search")} className="h-11 w-full rounded-full border border-border bg-card pr-4 pl-10 text-sm outline-none focus:border-foreground" />
+        <input
+          name="q"
+          defaultValue={q}
+          placeholder={t("search")}
+          className="h-11 w-full rounded-full border border-border bg-card pr-4 pl-10 text-sm outline-none focus:border-foreground"
+        />
       </form>
 
       <div className="overflow-x-auto rounded-3xl border border-border bg-card">
@@ -54,7 +59,13 @@ export default async function AdminProducts({
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-3">
                     <div className="h-14 w-12 shrink-0 overflow-hidden rounded-lg">
-                      <ProductImage kind={p.kind} color={p.colors[0]?.hex ?? "#ccc"} imageUrl={primaryPhoto(p.images, p.colors[0]?.hex) ?? p.imageUrl} alt="" sizes="48px" />
+                      <ProductImage
+                        kind={p.kind}
+                        color={p.colors[0]?.hex ?? "#ccc"}
+                        imageUrl={primaryPhoto(p.images, p.colors[0]?.hex) ?? p.imageUrl}
+                        alt=""
+                        sizes="48px"
+                      />
                     </div>
                     <div className="min-w-0">
                       <Link href={`/product/${p.slug}`} className="block truncate font-medium hover:underline">
@@ -71,16 +82,32 @@ export default async function AdminProducts({
                 <td className="px-5 py-3 text-muted">{locale === "vi" ? categoryVi : categoryEn}</td>
                 <td className="px-5 py-3 tabular-nums">
                   {formatPrice(p.price, locale)}
-                  {p.compareAtPrice ? <span className="ml-2 text-xs text-muted line-through">{formatPrice(p.compareAtPrice, locale)}</span> : null}
+                  {p.compareAtPrice ? (
+                    <span className="ml-2 text-xs text-muted line-through">{formatPrice(p.compareAtPrice, locale)}</span>
+                  ) : null}
                 </td>
                 <td className="px-5 py-3">
-                  <span className={cn("rounded-full px-2.5 py-1 text-xs font-medium tabular-nums", p.stock === 0 ? "bg-danger/15 text-danger" : p.stock <= 5 ? "bg-amber-500/15 text-amber-700 dark:text-amber-300" : "bg-subtle")}>
+                  <span
+                    className={cn(
+                      "rounded-full px-2.5 py-1 text-xs font-medium tabular-nums",
+                      p.stock === 0
+                        ? "bg-danger/15 text-danger"
+                        : p.stock <= 5
+                          ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                          : "bg-subtle",
+                    )}
+                  >
                     {p.stock}
                   </span>
                 </td>
                 <td className="px-5 py-3">
                   <div className="flex justify-end gap-1">
-                    <Link href={`/admin/products/${p.id}`} className="grid size-9 place-items-center rounded-full hover:bg-subtle" aria-label={t("edit")} title={t("edit")}>
+                    <Link
+                      href={`/admin/products/${p.id}`}
+                      className="grid size-9 place-items-center rounded-full hover:bg-subtle"
+                      aria-label={t("edit")}
+                      title={t("edit")}
+                    >
                       <Pencil size={15} />
                     </Link>
                     <DeleteProductButton id={p.id} />

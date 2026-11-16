@@ -24,7 +24,7 @@ export default async function AdminLayout({ children, params }: { children: Reac
   return (
     <div className="container-x pt-32 pb-12 print:pt-0">
       {session.user.role === "viewer" ? (
-        <p className="mb-6 flex items-center gap-2 rounded-2xl bg-amber-500/15 print:hidden px-4 py-3 text-sm text-amber-800 dark:text-amber-200">
+        <p className="mb-6 flex items-center gap-2 rounded-2xl bg-amber-500/15 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 print:hidden">
           <Eye size={16} className="shrink-0" /> {t("readonly")}
         </p>
       ) : null}

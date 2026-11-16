@@ -68,7 +68,11 @@ export function OrderNoteForm({ orderId }: { orderId: number }) {
         placeholder={t("notePlaceholder")}
         className="h-10 min-w-0 flex-1 rounded-full border border-border bg-background px-4 text-sm outline-none focus:border-foreground"
       />
-      <button disabled={pending || !note.trim()} className="grid size-10 shrink-0 place-items-center rounded-full bg-foreground text-background disabled:opacity-30" aria-label={t("addNote")}>
+      <button
+        disabled={pending || !note.trim()}
+        className="grid size-10 shrink-0 place-items-center rounded-full bg-foreground text-background disabled:opacity-30"
+        aria-label={t("addNote")}
+      >
         {pending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
       </button>
     </form>

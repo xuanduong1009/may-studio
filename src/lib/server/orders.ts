@@ -41,7 +41,9 @@ export async function logEvent(
   type: (typeof orderEvents.$inferInsert)["type"],
   opts: { status?: string | null; message?: string | null; actor?: string } = {},
 ) {
-  await ex.insert(orderEvents).values({ orderId, type, status: opts.status ?? null, message: opts.message ?? null, actor: opts.actor ?? "system" });
+  await ex
+    .insert(orderEvents)
+    .values({ orderId, type, status: opts.status ?? null, message: opts.message ?? null, actor: opts.actor ?? "system" });
 }
 
 /** Puts the items of an order back into stock (used when it is cancelled). */
@@ -113,9 +115,7 @@ export async function changeOrderStatus(orderId: number, next: OrderStatus, acto
   return result;
 }
 
-export type PaymentResult =
-  | { ok: true; already: boolean }
-  | { ok: false; error: "notFound" | "cancelled" | "amount" };
+export type PaymentResult = { ok: true; already: boolean } | { ok: false; error: "notFound" | "cancelled" | "amount" };
 
 /**
  * Marks an order as paid. Idempotent: bank webhooks and payment gateways may
@@ -141,7 +141,11 @@ export async function markOrderPaid(
       .returning();
     if (!updated) return { ok: true as const, already: true };
 
-    await logEvent(tx, orderId, "payment", { status: "paid", message: [opts.method, opts.ref].filter(Boolean).join(" · ") || null, actor: opts.actor });
+    await logEvent(tx, orderId, "payment", {
+      status: "paid",
+      message: [opts.method, opts.ref].filter(Boolean).join(" · ") || null,
+      actor: opts.actor,
+    });
     if (nextStatus !== order.status) await logEvent(tx, orderId, "status", { status: nextStatus, actor: "system" });
     return { ok: true as const, already: false, order: updated };
   });

@@ -11,7 +11,18 @@ import type { ProductColor, ProductPhoto } from "@/lib/db/schema";
 import { primaryPhoto } from "@/lib/photos/gallery";
 import { cn } from "@/lib/utils";
 
-type Row = { id: number; productId: number; nameVi: string; nameEn: string; kind: string; colors: ProductColor[]; images: ProductPhoto[]; colorHex: string; size: string; stock: number };
+type Row = {
+  id: number;
+  productId: number;
+  nameVi: string;
+  nameEn: string;
+  kind: string;
+  colors: ProductColor[];
+  images: ProductPhoto[];
+  colorHex: string;
+  size: string;
+  stock: number;
+};
 
 /** Variants running out, with an inline restock field. */
 export function LowStock({ rows }: { rows: Row[] }) {
@@ -35,7 +46,12 @@ export function LowStock({ rows }: { rows: Row[] }) {
                 {(locale === "vi" ? color?.nameVi : color?.nameEn) ?? r.colorHex} · {r.size}
               </p>
             </div>
-            <span className={cn("rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums", r.stock === 0 ? "bg-danger/15 text-danger" : "bg-amber-500/15 text-amber-700 dark:text-amber-300")}>
+            <span
+              className={cn(
+                "rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums",
+                r.stock === 0 ? "bg-danger/15 text-danger" : "bg-amber-500/15 text-amber-700 dark:text-amber-300",
+              )}
+            >
               {r.stock}
             </span>
             <Restock id={r.id} />
@@ -76,7 +92,11 @@ function Restock({ id }: { id: number }) {
         aria-label={t("newStock")}
         className="h-8 w-16 rounded-lg border border-border bg-background px-2 text-xs outline-none focus:border-foreground"
       />
-      <button disabled={pending || !value} className="grid size-8 place-items-center rounded-lg bg-foreground text-background disabled:opacity-30" aria-label={t("save")}>
+      <button
+        disabled={pending || !value}
+        className="grid size-8 place-items-center rounded-lg bg-foreground text-background disabled:opacity-30"
+        aria-label={t("save")}
+      >
         {pending ? <Loader2 size={13} className="animate-spin" /> : <Check size={13} />}
       </button>
     </form>

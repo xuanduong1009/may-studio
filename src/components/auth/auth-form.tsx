@@ -26,9 +26,7 @@ export function AuthForm({ mode, redirectTo }: { mode: "login" | "register"; red
     setError(null);
     setLoading(true);
     const res =
-      mode === "login"
-        ? await authClient.signIn.email({ email, password })
-        : await authClient.signUp.email({ email, password, name });
+      mode === "login" ? await authClient.signIn.email({ email, password }) : await authClient.signUp.email({ email, password, name });
     setLoading(false);
     if (res.error) {
       setError(mode === "login" ? t("error") : t("registerError"));
@@ -47,7 +45,11 @@ export function AuthForm({ mode, redirectTo }: { mode: "login" | "register"; red
           animate={{ scale: 1 }}
           transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <GarmentArt kind={mode === "login" ? "jacket" : "dress"} color={mode === "login" ? "#a3b19b" : "#d8a7a1"} className="h-full w-full" />
+          <GarmentArt
+            kind={mode === "login" ? "jacket" : "dress"}
+            color={mode === "login" ? "#a3b19b" : "#d8a7a1"}
+            className="h-full w-full"
+          />
         </motion.div>
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent p-12 text-white">
           <p className="font-display text-5xl italic">Mây.</p>
@@ -81,7 +83,12 @@ export function AuthForm({ mode, redirectTo }: { mode: "login" | "register"; red
                 required
                 minLength={8}
               />
-              <button type="button" onClick={() => setShow((s) => !s)} className="absolute top-1/2 right-3 -translate-y-1/2 text-muted hover:text-foreground" aria-label="Toggle password">
+              <button
+                type="button"
+                onClick={() => setShow((s) => !s)}
+                className="absolute top-1/2 right-3 -translate-y-1/2 text-muted hover:text-foreground"
+                aria-label="Toggle password"
+              >
                 {show ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
@@ -128,10 +135,24 @@ export function AuthForm({ mode, redirectTo }: { mode: "login" | "register"; red
           {mode === "login" && process.env.NEXT_PUBLIC_SHOW_DEMO_ACCOUNTS === "true" ? (
             <div className="mt-10 rounded-2xl border border-dashed border-border p-4 text-xs text-muted">
               <p className="mb-2 font-semibold text-foreground">Demo</p>
-              <button type="button" className="block hover:text-foreground" onClick={() => { setEmail("demo@may.studio"); setPassword("demo12345"); }}>
+              <button
+                type="button"
+                className="block hover:text-foreground"
+                onClick={() => {
+                  setEmail("demo@may.studio");
+                  setPassword("demo12345");
+                }}
+              >
                 👤 demo@may.studio / demo12345
               </button>
-              <button type="button" className="mt-1 block hover:text-foreground" onClick={() => { setEmail("viewer@may.studio"); setPassword("viewer12345"); }}>
+              <button
+                type="button"
+                className="mt-1 block hover:text-foreground"
+                onClick={() => {
+                  setEmail("viewer@may.studio");
+                  setPassword("viewer12345");
+                }}
+              >
                 🛠 viewer@may.studio / viewer12345 (admin, read-only)
               </button>
             </div>
@@ -148,7 +169,10 @@ export function FloatingInput({
   onChange,
   className,
   ...props
-}: { label: string; value: string; onChange: (v: string) => void } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value">) {
+}: { label: string; value: string; onChange: (v: string) => void } & Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "value"
+>) {
   return (
     <label className={cn("relative block", className)}>
       <input
@@ -156,7 +180,7 @@ export function FloatingInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder=" "
-        className="peer h-14 w-full rounded-xl border border-border bg-card px-4 pt-4 outline-none transition-colors focus:border-foreground"
+        className="peer h-14 w-full rounded-xl border border-border bg-card px-4 pt-4 transition-colors outline-none focus:border-foreground"
       />
       <span className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted transition-all duration-200 peer-focus:top-3.5 peer-focus:text-[11px] peer-[:not(:placeholder-shown)]:top-3.5 peer-[:not(:placeholder-shown)]:text-[11px]">
         {label}

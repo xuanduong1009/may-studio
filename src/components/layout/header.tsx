@@ -1,27 +1,21 @@
 "use client";
 
-import { Heart, LayoutDashboard, Menu, Moon, Search, ShoppingBag, Sun, User, X } from "lucide-react";
+import { Heart, LayoutDashboard, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { useLocale, useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { CommandPalette, OPEN_SEARCH } from "@/components/search/command-palette";
 import { useMounted } from "@/hooks/use-mounted";
-import { useScrollLock } from "@/hooks/use-scroll-lock";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { cartCount, useCart } from "@/store/cart";
 import { useWishlist } from "@/store/wishlist";
+import { LanguageSwitch } from "./language-switch";
 import { MegaMenu, type MenuCategory } from "./mega-menu";
-
-const NAV = [
-  { href: "/shop", key: "shop" },
-  { href: "/shop?new=1", key: "newArrivals" },
-  { href: "/shop?sale=1", key: "sale" },
-  { href: "/#look", key: "lookbook" },
-  { href: "/about", key: "about" },
-] as const;
+import { MobileMenu } from "./mobile-menu";
+import { NAV } from "./nav";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header({ categories = [] }: { categories?: MenuCategory[] }) {
   const t = useTranslations("Nav");
@@ -79,9 +73,7 @@ export function Header({ categories = [] }: { categories?: MenuCategory[] }) {
         <div
           className={cn(
             "border-b transition-[background-color,border-color,backdrop-filter] duration-500",
-            transparent
-              ? "border-transparent bg-transparent"
-              : "border-border/70 bg-background/75 backdrop-blur-xl backdrop-saturate-150",
+            transparent ? "border-transparent bg-transparent" : "border-border/70 bg-background/75 backdrop-blur-xl backdrop-saturate-150",
           )}
         >
           <nav className="container-x flex h-16 items-center gap-4 lg:h-[4.5rem]">
@@ -95,9 +87,7 @@ export function Header({ categories = [] }: { categories?: MenuCategory[] }) {
 
             <Link href="/" className="group flex items-baseline gap-1.5" aria-label="MÂY Studio">
               <span className="font-display text-2xl font-semibold tracking-[0.18em] lg:text-[1.7rem]">MÂY</span>
-              <span className="text-[10px] tracking-[0.3em] text-muted uppercase transition-colors group-hover:text-accent">
-                studio
-              </span>
+              <span className="text-[10px] tracking-[0.3em] text-muted uppercase transition-colors group-hover:text-accent">studio</span>
             </Link>
 
             <ul className="mx-auto hidden items-center gap-1 lg:flex">
@@ -190,12 +180,7 @@ function Badge({ count }: { count: number }) {
   );
 }
 
-function IconButton({
-  label,
-  children,
-  className,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { label: string }) {
+function IconButton({ label, children, className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { label: string }) {
   return (
     <button
       aria-label={label}
@@ -231,121 +216,5 @@ function IconLink({
       {children}
       {badge ? <Badge count={badge} /> : null}
     </Link>
-  );
-}
-
-export function LanguageSwitch({ className }: { className?: string }) {
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
-  const t = useTranslations("Nav");
-
-  function change(next: "vi" | "en") {
-    if (next === locale) return;
-    const search = typeof window !== "undefined" ? window.location.search : "";
-    router.replace(`${pathname}${search}`, { locale: next, scroll: false });
-  }
-
-  return (
-    <div role="group" aria-label={t("language")} className={cn("relative mx-1 flex h-8 items-center rounded-full bg-subtle p-0.5 text-[11px] font-semibold", className)}>
-      {(["vi", "en"] as const).map((l) => (
-        <button
-          key={l}
-          onClick={() => change(l)}
-          aria-pressed={locale === l}
-          className={cn("relative z-10 h-7 w-9 rounded-full uppercase transition-colors", locale === l ? "text-background" : "text-muted hover:text-foreground")}
-        >
-          {locale === l ? (
-            <motion.span layoutId="lang-pill" className="absolute inset-0 -z-10 rounded-full bg-foreground" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
-          ) : null}
-          {l}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-export function ThemeToggle({ className }: { className?: string }) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const mounted = useMounted();
-  const t = useTranslations("Nav");
-  const dark = mounted && resolvedTheme === "dark";
-
-  return (
-    <button
-      onClick={() => setTheme(dark ? "light" : "dark")}
-      aria-label={t("theme")}
-      title={t("theme")}
-      className={cn("relative size-10 place-items-center overflow-hidden rounded-full hover:bg-subtle", className)}
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={dark ? "moon" : "sun"}
-          initial={{ y: 20, rotate: -90, opacity: 0 }}
-          animate={{ y: 0, rotate: 0, opacity: 1 }}
-          exit={{ y: -20, rotate: 90, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="grid place-items-center"
-        >
-          {dark ? <Moon size={19} /> : <Sun size={19} />}
-        </motion.span>
-      </AnimatePresence>
-    </button>
-  );
-}
-
-function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const t = useTranslations("Nav");
-  const { data: session } = useSession();
-
-  useScrollLock(open);
-
-  const links = [
-    { href: "/", label: t("home") },
-    ...NAV.map((n) => ({ href: n.href, label: t(n.key) })),
-    { href: "/wishlist", label: t("wishlist") },
-    { href: "/track", label: t("track") },
-    { href: "/help", label: t("help") },
-    { href: session ? "/account" : "/login", label: session ? t("account") : t("login") },
-    ...(session?.user.role === "admin" || session?.user.role === "viewer" ? [{ href: "/admin", label: t("admin") }] : []),
-  ];
-
-  return (
-    <AnimatePresence>
-      {open ? (
-        <motion.div
-          className="fixed inset-0 z-[60] flex flex-col bg-background lg:hidden"
-          initial={{ clipPath: "circle(0% at 2rem 4.5rem)" }}
-          animate={{ clipPath: "circle(150% at 2rem 4.5rem)" }}
-          exit={{ clipPath: "circle(0% at 2rem 4.5rem)" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="container-x flex h-16 items-center justify-between pt-8">
-            <span className="font-display text-2xl font-semibold tracking-[0.18em]">MÂY</span>
-            <button onClick={onClose} aria-label={t("close")} className="grid size-10 place-items-center rounded-full hover:bg-subtle">
-              <X size={22} />
-            </button>
-          </div>
-          <ul className="container-x mt-10 flex flex-col gap-1">
-            {links.map((l, i) => (
-              <motion.li
-                key={l.href}
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.15 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <Link href={l.href} onClick={onClose} className="block py-2 font-display text-4xl">
-                  {l.label}
-                </Link>
-              </motion.li>
-            ))}
-          </ul>
-          <div className="container-x mt-auto flex items-center gap-3 pb-10">
-            <LanguageSwitch />
-            <ThemeToggle className="grid" />
-          </div>
-        </motion.div>
-      ) : null}
-    </AnimatePresence>
   );
 }

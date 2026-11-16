@@ -38,7 +38,10 @@ export async function getReviewedProductIds(userId: string) {
 /** Whether the signed-in user may review a product. */
 export async function getReviewEligibility(userId: string | undefined, productId: number) {
   if (!userId) return "signin" as const;
-  const existing = await db.query.reviews.findFirst({ where: and(eq(reviews.productId, productId), eq(reviews.userId, userId)), columns: { id: true } });
+  const existing = await db.query.reviews.findFirst({
+    where: and(eq(reviews.productId, productId), eq(reviews.userId, userId)),
+    columns: { id: true },
+  });
   if (existing) return "reviewed" as const;
   return (await findPurchase(userId, productId)) ? ("eligible" as const) : ("notPurchased" as const);
 }

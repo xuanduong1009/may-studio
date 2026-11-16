@@ -40,13 +40,7 @@
     "ctaShop": "Mua sắm ngay",
     "ctaLookbook": "Xem lookbook",
     "scroll": "Cuộn xuống",
-    "marquee": [
-      "Chất liệu tự nhiên",
-      "May tại Sài Gòn",
-      "Đổi trả 30 ngày",
-      "Giao hàng 2h nội thành",
-      "Thiết kế tối giản"
-    ],
+    "marquee": ["Chất liệu tự nhiên", "May tại Sài Gòn", "Đổi trả 30 ngày", "Giao hàng 2h nội thành", "Thiết kế tối giản"],
     "categoriesTitle": "Mua theo danh mục",
     "featuredTitle": "Được yêu thích nhất",
     "featuredSub": "Những món đồ khách hàng mua đi mua lại.",
@@ -101,11 +95,7 @@
     "socialProof": "2.000+ đánh giá",
     "manifestoEyebrow": "Tuyên ngôn",
     "manifesto": "Chúng tôi tin quần áo đẹp nhất là những món bạn với tay lấy mỗi sáng. Vải tự nhiên, đường may tử tế, thiết kế vừa đủ — để bạn thấy nhẹ như mây.",
-    "manifestoHighlight": [
-      "mỗi",
-      "sáng",
-      "mây"
-    ],
+    "manifestoHighlight": ["mỗi", "sáng", "mây"],
     "quickView": "Xem nhanh",
     "lookTitle": "Một bộ đồ, năm món",
     "lookHint": "Chạm vào dấu + để xem từng món",
@@ -807,11 +797,7 @@
     "lead": "MÂY bắt đầu từ một xưởng may nhỏ ở quận 3, với ý tưởng giản dị: làm ít mẫu hơn, nhưng làm thật tốt.",
     "manifestoEyebrow": "Điều chúng tôi tin",
     "manifesto": "Một chiếc áo tốt nên đi cùng bạn nhiều năm, không phải một mùa. Vì vậy chúng tôi chọn vải kỹ, may chậm, và chỉ ra mẫu mới khi thật sự cần.",
-    "manifestoHighlight": [
-      "nhiều",
-      "năm",
-      "chậm"
-    ],
+    "manifestoHighlight": ["nhiều", "năm", "chậm"],
     "stats": [
       {
         "value": 7,

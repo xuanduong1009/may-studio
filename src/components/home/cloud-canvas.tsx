@@ -96,7 +96,9 @@ export function CloudCanvas({ className }: { className?: string }) {
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
     const u = (name: string) => gl.getUniformLocation(prog, name);
-    const uRes = u("uRes"), uTime = u("uTime"), uMouse = u("uMouse");
+    const uRes = u("uRes"),
+      uTime = u("uTime"),
+      uMouse = u("uMouse");
     const pal = PALETTES[resolvedTheme === "dark" ? "dark" : "light"];
     gl.uniform3fv(u("uBg"), rgb(pal.bg));
     gl.uniform3fv(u("uC1"), rgb(pal.c1));

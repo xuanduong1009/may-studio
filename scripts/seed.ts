@@ -43,7 +43,7 @@ async function main() {
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
-  const pick = <T,>(arr: readonly T[]) => arr[Math.floor(rand() * arr.length)];
+  const pick = <T>(arr: readonly T[]) => arr[Math.floor(rand() * arr.length)];
 
   const CATALOG = process.argv.includes("--catalog");
   const FORCE = process.argv.includes("--force");
@@ -65,7 +65,9 @@ async function main() {
       .from(s.orders)
       .where(sql`${s.orders.email} not like '%@example.com' and ${s.orders.email} <> 'demo@may.studio'`);
     if (Number(n) > 0) {
-      throw new Error(`This database has ${n} order(s) from real customers, and seeding deletes every order. Re-run with --force only if you really mean it.`);
+      throw new Error(
+        `This database has ${n} order(s) from real customers, and seeding deletes every order. Re-run with --force only if you really mean it.`,
+      );
     }
   }
   const adminExists = !!(await db.query.user.findFirst({ where: eq(s.user.email, adminEmail), columns: { id: true } }));
@@ -131,7 +133,10 @@ async function main() {
       for (const v of values) if (rand() < 0.1) v.stock = 0;
     }
     await db.insert(s.productVariants).values(values);
-    await db.update(s.products).set({ stock: values.reduce((a, v) => a + v.stock, 0) }).where(eq(s.products.id, p.id));
+    await db
+      .update(s.products)
+      .set({ stock: values.reduce((a, v) => a + v.stock, 0) })
+      .where(eq(s.products.id, p.id));
     variantCount += values.length;
   }
 
@@ -147,7 +152,9 @@ async function main() {
       await db.delete(s.addresses).where(inArray(s.addresses.userId, ids));
       await db.delete(s.user).where(inArray(s.user.id, ids));
     }
-    console.log(`✓ Ready to sell: ${cats.length} categories, ${inserted.length} sample products (${variantCount} variants). No orders, reviews or coupons.`);
+    console.log(
+      `✓ Ready to sell: ${cats.length} categories, ${inserted.length} sample products (${variantCount} variants). No orders, reviews or coupons.`,
+    );
     console.log(`  Admin: ${adminEmail}${adminExists ? " (existing account, password unchanged)" : " (created with SEED_ADMIN_PASSWORD)"}`);
     if (ids.length) console.log(`  Removed ${ids.length} public demo account(s).`);
     return;
@@ -157,12 +164,65 @@ async function main() {
   const couponRows = await db
     .insert(s.coupons)
     .values([
-      { code: "MAY10", type: "percent", value: 10, maxDiscount: 200_000, minSubtotal: 0, descriptionVi: "Giảm 10% (tối đa 200K) cho mọi đơn", descriptionEn: "10% off every order (up to 200K)" },
-      { code: "WELCOME50K", type: "fixed", value: 50_000, minSubtotal: 400_000, usageLimit: 500, descriptionVi: "Giảm 50K cho đơn từ 400K", descriptionEn: "50K off orders from 400K" },
-      { code: "FREESHIP", type: "freeship", value: 0, minSubtotal: 0, endsAt: new Date(now + 30 * DAY), descriptionVi: "Miễn phí giao hàng", descriptionEn: "Free shipping" },
-      { code: "BLACKFRIDAY", type: "percent", value: 30, maxDiscount: 500_000, minSubtotal: 800_000, usageLimit: 200, startsAt: new Date(now + 14 * DAY), endsAt: new Date(now + 17 * DAY), descriptionVi: "Black Friday: giảm 30% đơn từ 800K", descriptionEn: "Black Friday: 30% off orders from 800K" },
-      { code: "SUMMER25", type: "percent", value: 25, maxDiscount: 300_000, minSubtotal: 500_000, endsAt: new Date(now - 40 * DAY), descriptionVi: "Sale hè (đã kết thúc)", descriptionEn: "Summer sale (ended)" },
-      { code: "VIP100K", type: "fixed", value: 100_000, minSubtotal: 1_000_000, usageLimit: 50, active: false, descriptionVi: "Ưu đãi khách VIP (tạm tắt)", descriptionEn: "VIP perk (paused)" },
+      {
+        code: "MAY10",
+        type: "percent",
+        value: 10,
+        maxDiscount: 200_000,
+        minSubtotal: 0,
+        descriptionVi: "Giảm 10% (tối đa 200K) cho mọi đơn",
+        descriptionEn: "10% off every order (up to 200K)",
+      },
+      {
+        code: "WELCOME50K",
+        type: "fixed",
+        value: 50_000,
+        minSubtotal: 400_000,
+        usageLimit: 500,
+        descriptionVi: "Giảm 50K cho đơn từ 400K",
+        descriptionEn: "50K off orders from 400K",
+      },
+      {
+        code: "FREESHIP",
+        type: "freeship",
+        value: 0,
+        minSubtotal: 0,
+        endsAt: new Date(now + 30 * DAY),
+        descriptionVi: "Miễn phí giao hàng",
+        descriptionEn: "Free shipping",
+      },
+      {
+        code: "BLACKFRIDAY",
+        type: "percent",
+        value: 30,
+        maxDiscount: 500_000,
+        minSubtotal: 800_000,
+        usageLimit: 200,
+        startsAt: new Date(now + 14 * DAY),
+        endsAt: new Date(now + 17 * DAY),
+        descriptionVi: "Black Friday: giảm 30% đơn từ 800K",
+        descriptionEn: "Black Friday: 30% off orders from 800K",
+      },
+      {
+        code: "SUMMER25",
+        type: "percent",
+        value: 25,
+        maxDiscount: 300_000,
+        minSubtotal: 500_000,
+        endsAt: new Date(now - 40 * DAY),
+        descriptionVi: "Sale hè (đã kết thúc)",
+        descriptionEn: "Summer sale (ended)",
+      },
+      {
+        code: "VIP100K",
+        type: "fixed",
+        value: 100_000,
+        minSubtotal: 1_000_000,
+        usageLimit: 50,
+        active: false,
+        descriptionVi: "Ưu đãi khách VIP (tạm tắt)",
+        descriptionEn: "VIP perk (paused)",
+      },
     ])
     .returning();
   const rules = new Map(couponRows.map((c) => [c.code, c]));
@@ -176,12 +236,37 @@ async function main() {
   await db.update(s.user).set({ role: "viewer" }).where(eq(s.user.id, viewerId));
 
   await db.insert(s.addresses).values([
-    { userId: demoId, label: "Nhà riêng", fullName: "Nguyễn Minh Anh", phone: "0912345678", address: "12 Nguyễn Thị Minh Khai, Phường Xuân Hòa", city: "TP. Hồ Chí Minh", isDefault: true },
-    { userId: demoId, label: "Công ty", fullName: "Nguyễn Minh Anh", phone: "0912345678", address: "Tòa nhà Bitexco, 2 Hải Triều, Phường Sài Gòn", city: "TP. Hồ Chí Minh", isDefault: false },
+    {
+      userId: demoId,
+      label: "Nhà riêng",
+      fullName: "Nguyễn Minh Anh",
+      phone: "0912345678",
+      address: "12 Nguyễn Thị Minh Khai, Phường Xuân Hòa",
+      city: "TP. Hồ Chí Minh",
+      isDefault: true,
+    },
+    {
+      userId: demoId,
+      label: "Công ty",
+      fullName: "Nguyễn Minh Anh",
+      phone: "0912345678",
+      address: "Tòa nhà Bitexco, 2 Hải Triều, Phường Sài Gòn",
+      city: "TP. Hồ Chí Minh",
+      isDefault: false,
+    },
   ]);
 
   console.log("→ Orders…");
-  const names = ["Trần Thu Hà", "Lê Quốc Bảo", "Phạm Ngọc Lan", "Võ Gia Huy", "Đặng Mai Phương", "Bùi Khánh Linh", "Hoàng Đức Minh", "Ngô Thảo Vy"];
+  const names = [
+    "Trần Thu Hà",
+    "Lê Quốc Bảo",
+    "Phạm Ngọc Lan",
+    "Võ Gia Huy",
+    "Đặng Mai Phương",
+    "Bùi Khánh Linh",
+    "Hoàng Đức Minh",
+    "Ngô Thảo Vy",
+  ];
   const cities = ["TP. Hồ Chí Minh", "Hà Nội", "Đà Nẵng", "Cần Thơ", "Hải Phòng", "Khánh Hòa"];
   const couponPick = [null, null, null, "MAY10", "FREESHIP", "WELCOME50K"];
   const ALPHA = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -198,10 +283,18 @@ async function main() {
       const p = pick(inserted);
       const c = pick(p.colors);
       return {
-        productId: p.id, slug: p.slug, nameVi: p.nameVi, nameEn: p.nameEn, kind: p.kind,
-        colorNameVi: c.nameVi, colorNameEn: c.nameEn, colorHex: c.hex,
+        productId: p.id,
+        slug: p.slug,
+        nameVi: p.nameVi,
+        nameEn: p.nameEn,
+        kind: p.kind,
+        colorNameVi: c.nameVi,
+        colorNameEn: c.nameEn,
+        colorHex: c.hex,
         imageUrl: p.images.find((im) => im.colorHex === c.hex.toLowerCase())?.url ?? p.images[0]?.url ?? null,
-        size: pick(p.sizes), price: p.price, quantity: 1 + Math.floor(rand() * 2),
+        size: pick(p.sizes),
+        price: p.price,
+        quantity: 1 + Math.floor(rand() * 2),
       };
     });
     const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0);
@@ -213,10 +306,15 @@ async function main() {
 
     const isDemo = i % 9 === 0;
     const status =
-      isDemo && i < 40 ? "delivered"
-      : daysAgo > 6 ? (rand() < 0.92 ? "delivered" : "cancelled")
-      : daysAgo > 2 ? pick(["shipping", "delivered", "confirmed"] as const)
-      : pick(["pending", "confirmed", "pending"] as const);
+      isDemo && i < 40
+        ? "delivered"
+        : daysAgo > 6
+          ? rand() < 0.92
+            ? "delivered"
+            : "cancelled"
+          : daysAgo > 2
+            ? pick(["shipping", "delivered", "confirmed"] as const)
+            : pick(["pending", "confirmed", "pending"] as const);
     const r = rand();
     const paymentMethod = r < 0.55 ? "cod" : r < 0.85 ? "bank" : "vnpay";
     // prepaid orders are paid before confirmation; COD is paid on delivery
@@ -251,31 +349,70 @@ async function main() {
     await db.insert(s.orderItems).values(items.map((it) => ({ ...it, orderId: order.id })));
 
     // event log that matches the final status
-    const events: (typeof s.orderEvents.$inferInsert)[] = [{ orderId: order.id, type: "created", status: "pending", actor: order.customerName, createdAt }];
+    const events: (typeof s.orderEvents.$inferInsert)[] = [
+      { orderId: order.id, type: "created", status: "pending", actor: order.customerName, createdAt },
+    ];
     let at = createdAt.getTime();
     const step = () => (at += (4 + rand() * 20) * 3600_000);
     if (paymentMethod !== "cod" && paymentStatus !== "unpaid") {
-      events.push({ orderId: order.id, type: "payment", status: "paid", message: paymentMethod === "bank" ? "VietQR" : "VNPay", actor: paymentMethod === "bank" ? "bank-webhook" : "vnpay", createdAt: new Date(at + 20 * 60_000) });
+      events.push({
+        orderId: order.id,
+        type: "payment",
+        status: "paid",
+        message: paymentMethod === "bank" ? "VietQR" : "VNPay",
+        actor: paymentMethod === "bank" ? "bank-webhook" : "vnpay",
+        createdAt: new Date(at + 20 * 60_000),
+      });
     }
     const reached = status === "cancelled" ? 0 : FLOW.indexOf(status);
     for (let k = 1; k <= reached; k++) {
-      events.push({ orderId: order.id, type: "status", status: FLOW[k], actor: k === 1 && paymentMethod !== "cod" ? "system" : "Admin MÂY", createdAt: new Date(step()) });
+      events.push({
+        orderId: order.id,
+        type: "status",
+        status: FLOW[k],
+        actor: k === 1 && paymentMethod !== "cod" ? "system" : "Admin MÂY",
+        createdAt: new Date(step()),
+      });
     }
     if (status === "delivered" && paymentMethod === "cod") {
       events.push({ orderId: order.id, type: "payment", status: "paid", message: "COD", actor: "Admin MÂY", createdAt: new Date(at) });
     }
     if (status === "cancelled") {
-      events.push({ orderId: order.id, type: "status", status: "cancelled", message: rand() < 0.5 ? "Customer cancelled" : "Không liên lạc được khách", actor: "Admin MÂY", createdAt: new Date(step()) });
-      if (paymentStatus === "refunded") events.push({ orderId: order.id, type: "payment", status: "refunded", actor: "Admin MÂY", createdAt: new Date(at + 3600_000) });
+      events.push({
+        orderId: order.id,
+        type: "status",
+        status: "cancelled",
+        message: rand() < 0.5 ? "Customer cancelled" : "Không liên lạc được khách",
+        actor: "Admin MÂY",
+        createdAt: new Date(step()),
+      });
+      if (paymentStatus === "refunded")
+        events.push({ orderId: order.id, type: "payment", status: "refunded", actor: "Admin MÂY", createdAt: new Date(at + 3600_000) });
     }
     await db.insert(s.orderEvents).values(events);
 
-    if (isDemo && status === "delivered") for (const it of items) demoDelivered.push({ productId: it.productId, colorNameVi: it.colorNameVi, size: it.size });
+    if (isDemo && status === "delivered")
+      for (const it of items) demoDelivered.push({ productId: it.productId, colorNameVi: it.colorNameVi, size: it.size });
   }
   for (const [c, n] of used) await db.update(s.coupons).set({ usedCount: n }).where(eq(s.coupons.code, c));
 
   console.log("→ Reviews…");
-  const reviewers = ["Thu Hà", "Quốc Bảo", "Ngọc Lan", "Gia Huy", "Mai Phương", "Khánh Linh", "Đức Minh", "Thảo Vy", "Hoàng Yến", "Tuấn Kiệt", "Bảo Ngọc", "Minh Châu", "Emily R.", "Daniel K."];
+  const reviewers = [
+    "Thu Hà",
+    "Quốc Bảo",
+    "Ngọc Lan",
+    "Gia Huy",
+    "Mai Phương",
+    "Khánh Linh",
+    "Đức Minh",
+    "Thảo Vy",
+    "Hoàng Yến",
+    "Tuấn Kiệt",
+    "Bảo Ngọc",
+    "Minh Châu",
+    "Emily R.",
+    "Daniel K.",
+  ];
   const praise = [
     "Vải mềm, mặc mát, form đúng như hình. Sẽ mua thêm màu khác.",
     "Đường may chắc chắn, giặt máy vài lần vẫn đẹp. Rất đáng tiền.",
@@ -339,10 +476,15 @@ async function main() {
   for (const p of inserted) {
     const list = await db.select({ rating: s.reviews.rating }).from(s.reviews).where(eq(s.reviews.productId, p.id));
     const avg = list.reduce((a, r) => a + r.rating, 0) / Math.max(1, list.length);
-    await db.update(s.products).set({ rating: Math.round(avg * 10) / 10, reviewCount: list.length }).where(eq(s.products.id, p.id));
+    await db
+      .update(s.products)
+      .set({ rating: Math.round(avg * 10) / 10, reviewCount: list.length })
+      .where(eq(s.products.id, p.id));
   }
 
-  console.log(`✓ Seeded ${cats.length} categories, ${inserted.length} products (${variantCount} variants), ${couponRows.length} coupons, 72 orders, ${reviewTotal} reviews.`);
+  console.log(
+    `✓ Seeded ${cats.length} categories, ${inserted.length} products (${variantCount} variants), ${couponRows.length} coupons, 72 orders, ${reviewTotal} reviews.`,
+  );
   console.log(`  Admin: ${adminEmail}${adminExists ? " (existing account, password unchanged)" : " / password from SEED_ADMIN_PASSWORD"}`);
   console.log("  Demo customer: demo@may.studio / demo12345");
   console.log("  Read-only admin: viewer@may.studio / viewer12345");

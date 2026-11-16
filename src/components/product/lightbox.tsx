@@ -1,11 +1,11 @@
 "use client";
 
+import { useLenis } from "lenis/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { useLenis } from "lenis/react";
 import { cn } from "@/lib/utils";
 
 /** Fullscreen photo viewer: arrows, keyboard (← → Esc), swipe and a thumbnail strip. */
@@ -64,7 +64,12 @@ export function Lightbox({
             <span className="text-sm tabular-nums">
               {index + 1} / {n}
             </span>
-            <button ref={closeRef} onClick={onClose} aria-label={t("closeViewer")} className="grid size-11 place-items-center rounded-full bg-white/60 hover:bg-white">
+            <button
+              ref={closeRef}
+              onClick={onClose}
+              aria-label={t("closeViewer")}
+              className="grid size-11 place-items-center rounded-full bg-white/60 hover:bg-white"
+            >
               <X size={20} />
             </button>
           </div>
@@ -88,15 +93,30 @@ export function Lightbox({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <Image src={photos[index]} alt={`${alt} ${index + 1}`} fill sizes="100vw" className="object-contain mix-blend-multiply" priority />
+                <Image
+                  src={photos[index]}
+                  alt={`${alt} ${index + 1}`}
+                  fill
+                  sizes="100vw"
+                  className="object-contain mix-blend-multiply"
+                  priority
+                />
               </motion.div>
             </AnimatePresence>
             {n > 1 ? (
               <>
-                <button onClick={() => go(-1)} aria-label={t("prevPhoto")} className="absolute top-1/2 left-3 z-10 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-white/70 hover:bg-white sm:grid">
+                <button
+                  onClick={() => go(-1)}
+                  aria-label={t("prevPhoto")}
+                  className="absolute top-1/2 left-3 z-10 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-white/70 hover:bg-white sm:grid"
+                >
                   <ChevronLeft size={22} />
                 </button>
-                <button onClick={() => go(1)} aria-label={t("nextPhoto")} className="absolute top-1/2 right-3 z-10 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-white/70 hover:bg-white sm:grid">
+                <button
+                  onClick={() => go(1)}
+                  aria-label={t("nextPhoto")}
+                  className="absolute top-1/2 right-3 z-10 hidden size-12 -translate-y-1/2 place-items-center rounded-full bg-white/70 hover:bg-white sm:grid"
+                >
                   <ChevronRight size={22} />
                 </button>
               </>
@@ -111,7 +131,10 @@ export function Lightbox({
                   onClick={() => onIndex(i)}
                   aria-label={`${alt} ${i + 1}`}
                   aria-current={i === index}
-                  className={cn("relative h-16 w-12 overflow-hidden rounded-lg border-2 bg-[#efe8dd] transition", i === index ? "border-[#1a1714]" : "border-transparent opacity-50 hover:opacity-100")}
+                  className={cn(
+                    "relative h-16 w-12 overflow-hidden rounded-lg border-2 bg-[#efe8dd] transition",
+                    i === index ? "border-[#1a1714]" : "border-transparent opacity-50 hover:opacity-100",
+                  )}
                 >
                   <Image src={p} alt="" fill sizes="48px" className="object-cover mix-blend-multiply" />
                 </button>

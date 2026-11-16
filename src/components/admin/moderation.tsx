@@ -44,7 +44,11 @@ export function RoleSelect({ userId, role, disabled }: { userId: string; role: s
         }}
         className={cn(
           "h-8 rounded-full border-0 px-3 text-xs font-medium outline-none disabled:opacity-60",
-          value === "admin" ? "bg-accent/15 text-accent" : value === "viewer" ? "bg-sky-500/15 text-sky-700 dark:text-sky-300" : "bg-subtle",
+          value === "admin"
+            ? "bg-accent/15 text-accent"
+            : value === "viewer"
+              ? "bg-sky-500/15 text-sky-700 dark:text-sky-300"
+              : "bg-subtle",
         )}
       >
         <option value="user">{t("roles.user")}</option>
@@ -72,7 +76,10 @@ export function ReviewActions({ id, hidden }: { id: number; hidden: boolean }) {
         disabled={pending}
         onClick={() => (confirm ? run(() => deleteReview(id), t("reviewDeleted")) : setConfirm(true))}
         onBlur={() => setConfirm(false)}
-        className={cn("flex h-8 items-center gap-1.5 rounded-full px-3 text-xs text-danger hover:bg-danger/10", confirm && "bg-danger text-white hover:bg-danger")}
+        className={cn(
+          "flex h-8 items-center gap-1.5 rounded-full px-3 text-xs text-danger hover:bg-danger/10",
+          confirm && "bg-danger text-white hover:bg-danger",
+        )}
       >
         <Trash2 size={14} /> {confirm ? t("confirmDelete") : t("delete")}
       </button>

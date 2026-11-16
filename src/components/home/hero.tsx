@@ -17,7 +17,9 @@ const curtain = [0.76, 0, 0.24, 1] as const;
 
 function SplitWord({ word, delay, className, ready }: { word: string; delay: number; className?: string; ready: boolean }) {
   return (
-    <span className={`-mt-[0.2em] -mr-[0.12em] inline-block overflow-hidden pt-[0.2em] pr-[0.12em] pb-[0.08em] align-bottom ${className ?? ""}`}>
+    <span
+      className={`-mt-[0.2em] -mr-[0.12em] inline-block overflow-hidden pt-[0.2em] pr-[0.12em] pb-[0.08em] align-bottom ${className ?? ""}`}
+    >
       {Array.from(word).map((ch, i) => (
         <motion.span
           key={i}
@@ -80,7 +82,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={ready ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 1, delay: 1.1, ease }}
-            className="mt-8 max-w-md text-lg leading-relaxed text-muted text-balance"
+            className="mt-8 max-w-md text-lg leading-relaxed text-balance text-muted"
           >
             {t("subtitle")}
           </motion.p>
@@ -98,7 +100,10 @@ export function Hero() {
               </Link>
             </Magnetic>
             <Magnetic>
-              <Link href="/#lookbook" className={buttonClasses({ size: "lg", variant: "outline", className: "bg-background/40 backdrop-blur" })}>
+              <Link
+                href="/#lookbook"
+                className={buttonClasses({ size: "lg", variant: "outline", className: "bg-background/40 backdrop-blur" })}
+              >
                 {t("ctaLookbook")}
               </Link>
             </Magnetic>
@@ -139,7 +144,14 @@ export function Hero() {
                 animate={ready ? { scale: 1 } : undefined}
                 transition={{ duration: 2.4, delay: 0.25, ease }}
               >
-                <Image src={EDITORIAL.heroMain} alt={t("heroAlt")} fill priority sizes="(min-width: 1024px) 500px, 90vw" className="object-cover object-[50%_28%]" />
+                <Image
+                  src={EDITORIAL.heroMain}
+                  alt={t("heroAlt")}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 500px, 90vw"
+                  className="object-cover object-[50%_28%]"
+                />
               </motion.div>
 
               {/* shoppable tag on the trousers */}
@@ -176,7 +188,13 @@ export function Hero() {
               animate={ready ? { opacity: 1, y: 0, rotate: -4 } : undefined}
               transition={{ duration: 1.3, delay: 0.75, ease }}
             >
-              <Image src={EDITORIAL.heroSecond} alt="" fill sizes="(min-width: 1024px) 220px, 40vw" className="object-cover object-[50%_20%]" />
+              <Image
+                src={EDITORIAL.heroSecond}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 220px, 40vw"
+                className="object-cover object-[50%_20%]"
+              />
             </motion.div>
           </motion.div>
 
@@ -187,7 +205,12 @@ export function Hero() {
             transition={{ duration: 1, delay: 1.3, ease }}
             className="absolute -top-2 -right-2 size-28 sm:-right-8 sm:size-32"
           >
-            <motion.svg viewBox="0 0 100 100" className="size-full" animate={{ rotate: 360 }} transition={{ duration: 18, repeat: Infinity, ease: "linear" }}>
+            <motion.svg
+              viewBox="0 0 100 100"
+              className="size-full"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+            >
               <defs>
                 <path id="badge-circle" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" />
               </defs>

@@ -72,8 +72,17 @@ export function QuickView() {
   return (
     <AnimatePresence>
       {slug ? (
-        <div className="fixed inset-0 z-[85] flex items-end justify-center sm:items-center sm:p-6" onKeyDown={(e) => e.key === "Escape" && close()}>
-          <motion.div className="absolute inset-0 bg-black/50 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={close} />
+        <div
+          className="fixed inset-0 z-[85] flex items-end justify-center sm:items-center sm:p-6"
+          onKeyDown={(e) => e.key === "Escape" && close()}
+        >
+          <motion.div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={close}
+          />
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -84,10 +93,21 @@ export function QuickView() {
             exit={{ y: "100%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 32 }}
           >
-            <button onClick={close} autoFocus className="absolute top-3 right-3 z-10 grid size-10 place-items-center rounded-full bg-background/80 backdrop-blur hover:bg-subtle" aria-label="Close">
+            <button
+              onClick={close}
+              autoFocus
+              className="absolute top-3 right-3 z-10 grid size-10 place-items-center rounded-full bg-background/80 backdrop-blur hover:bg-subtle"
+              aria-label="Close"
+            >
               <X size={18} />
             </button>
-            {data ? <Body key={data.id} data={data} onDone={close} /> : <div className="grid h-[60svh] place-items-center"><Loader2 className="animate-spin text-muted" /></div>}
+            {data ? (
+              <Body key={data.id} data={data} onDone={close} />
+            ) : (
+              <div className="grid h-[60svh] place-items-center">
+                <Loader2 className="animate-spin text-muted" />
+              </div>
+            )}
           </motion.div>
         </div>
       ) : null}
@@ -101,7 +121,12 @@ function Body({ data, onDone }: { data: Data; onDone: () => void }) {
   const add = useCart((s) => s.add);
   const openCart = useCart((s) => s.open);
   const profile = useFitProfile((s) => s.profile);
-  const [colorIndex, setColorIndex] = useState(() => Math.max(0, data.colors.findIndex((c) => colorStock(data.stockMap, c.hex, data.sizes) > 0)));
+  const [colorIndex, setColorIndex] = useState(() =>
+    Math.max(
+      0,
+      data.colors.findIndex((c) => colorStock(data.stockMap, c.hex, data.sizes) > 0),
+    ),
+  );
   const [size, setSize] = useState<string | null>(data.sizes.length === 1 ? data.sizes[0] : null);
   const [qty, setQty] = useState(1);
   const [view, setView] = useState<GarmentView>("front");
@@ -141,8 +166,22 @@ function Body({ data, onDone }: { data: Data; onDone: () => void }) {
     <div className="grid sm:grid-cols-2">
       <div className="relative aspect-[5/6] bg-subtle sm:aspect-auto sm:min-h-[560px]">
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div key={`${color.hex}-${view}-${photo}`} className="absolute inset-0" initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-            <ProductImage kind={data.kind} color={color.hex} imageUrl={photo} view={view} alt={name} sizes="(min-width: 640px) 450px, 100vw" />
+          <motion.div
+            key={`${color.hex}-${view}-${photo}`}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ProductImage
+              kind={data.kind}
+              color={color.hex}
+              imageUrl={photo}
+              view={view}
+              alt={name}
+              sizes="(min-width: 640px) 450px, 100vw"
+            />
           </motion.div>
         </AnimatePresence>
         {photos.length > 1 ? (
@@ -157,12 +196,17 @@ function Body({ data, onDone }: { data: Data; onDone: () => void }) {
             ))}
           </div>
         ) : null}
-        <div className={cn("absolute bottom-3 left-3 flex gap-1.5 rounded-full bg-background/80 p-1 backdrop-blur", photos.length && "hidden")}>
+        <div
+          className={cn("absolute bottom-3 left-3 flex gap-1.5 rounded-full bg-background/80 p-1 backdrop-blur", photos.length && "hidden")}
+        >
           {(["front", "back", "detail"] as const).map((v) => (
             <button
               key={v}
               onClick={() => setView(v)}
-              className={cn("rounded-full px-3 py-1 text-xs transition-colors", view === v ? "bg-foreground text-background" : "hover:bg-subtle")}
+              className={cn(
+                "rounded-full px-3 py-1 text-xs transition-colors",
+                view === v ? "bg-foreground text-background" : "hover:bg-subtle",
+              )}
             >
               {t(v === "front" ? "viewFront" : v === "back" ? "viewBack" : "viewDetail")}
             </button>
@@ -192,7 +236,10 @@ function Body({ data, onDone }: { data: Data; onDone: () => void }) {
               }}
               aria-label={locale === "vi" ? c.nameVi : c.nameEn}
               aria-pressed={i === colorIndex}
-              className={cn("grid size-10 place-items-center rounded-full border-2 transition-colors", i === colorIndex ? "border-foreground" : "border-transparent")}
+              className={cn(
+                "grid size-10 place-items-center rounded-full border-2 transition-colors",
+                i === colorIndex ? "border-foreground" : "border-transparent",
+              )}
             >
               <span className="size-7 rounded-full border border-foreground/20" style={{ background: c.hex }} />
             </button>
@@ -233,19 +280,38 @@ function Body({ data, onDone }: { data: Data; onDone: () => void }) {
 
         <div className="mt-auto flex gap-2 pt-6">
           <div className="flex h-12 items-center rounded-full border border-border">
-            <button className="grid h-full w-10 place-items-center disabled:opacity-30" onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={qty <= 1} aria-label="-">
+            <button
+              className="grid h-full w-10 place-items-center disabled:opacity-30"
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+              disabled={qty <= 1}
+              aria-label="-"
+            >
               <Minus size={14} />
             </button>
             <span className="w-6 text-center text-sm tabular-nums">{qty}</span>
-            <button className="grid h-full w-10 place-items-center disabled:opacity-30" onClick={() => setQty((q) => Math.min(Math.max(1, available), q + 1))} disabled={qty >= available} aria-label="+">
+            <button
+              className="grid h-full w-10 place-items-center disabled:opacity-30"
+              onClick={() => setQty((q) => Math.min(Math.max(1, available), q + 1))}
+              disabled={qty >= available}
+              aria-label="+"
+            >
               <Plus size={14} />
             </button>
           </div>
           <Button className="h-12 flex-1" onClick={addToCart} disabled={available <= 0}>
-            {available <= 0 ? t("soldOut") : <><ShoppingBag size={16} /> {t("addToCart")}</>}
+            {available <= 0 ? (
+              t("soldOut")
+            ) : (
+              <>
+                <ShoppingBag size={16} /> {t("addToCart")}
+              </>
+            )}
           </Button>
         </div>
-        <Link href={`/product/${data.slug}`} className="mt-4 flex items-center justify-center gap-1.5 text-sm text-muted hover:text-foreground">
+        <Link
+          href={`/product/${data.slug}`}
+          className="mt-4 flex items-center justify-center gap-1.5 text-sm text-muted hover:text-foreground"
+        >
           {t("viewDetails")} <ArrowUpRight size={14} />
         </Link>
         {size && sizeStock(size) > 0 ? (

@@ -65,7 +65,10 @@ export function ShopTheLook({ looks }: { looks: Look[] }) {
           Shop <i className="text-[#f3c7b2]">the</i> look
         </motion.h2>
 
-        <motion.div style={{ scale: sceneScale }} className="relative flex h-[min(84svh,860px)] items-center justify-center gap-3 px-3 will-change-transform sm:gap-6">
+        <motion.div
+          style={{ scale: sceneScale }}
+          className="relative flex h-[min(84svh,860px)] items-center justify-center gap-3 px-3 will-change-transform sm:gap-6"
+        >
           {looks.map((look, li) => (
             <motion.div
               key={look.photo}
@@ -118,10 +121,17 @@ export function ShopTheLook({ looks }: { looks: Look[] }) {
                                   </div>
                                 </div>
                                 <div className="mt-3 flex gap-1.5">
-                                  <button onClick={() => openQuick(it.slug)} className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full bg-foreground text-xs font-medium text-background">
+                                  <button
+                                    onClick={() => openQuick(it.slug)}
+                                    className="flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full bg-foreground text-xs font-medium text-background"
+                                  >
                                     <Eye size={14} /> {t("quickView")}
                                   </button>
-                                  <Link href={`/product/${it.slug}`} aria-label={name} className="grid size-9 place-items-center rounded-full border border-border hover:border-foreground">
+                                  <Link
+                                    href={`/product/${it.slug}`}
+                                    aria-label={name}
+                                    className="grid size-9 place-items-center rounded-full border border-border hover:border-foreground"
+                                  >
                                     <ArrowUpRight size={15} />
                                   </Link>
                                 </div>

@@ -16,7 +16,12 @@ export function GalleryWall({ shots, title, sub, cta }: { shots: Shot[]; title: 
           <h2 className="font-display text-4xl sm:text-5xl">{title}</h2>
           <p className="mt-2 max-w-md text-muted">{sub}</p>
         </div>
-        <a href={site.socials.instagram} target="_blank" rel="noreferrer" className="rounded-full border border-border px-5 py-2.5 text-sm hover:border-foreground">
+        <a
+          href={site.socials.instagram}
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-full border border-border px-5 py-2.5 text-sm hover:border-foreground"
+        >
           {cta}
         </a>
       </div>

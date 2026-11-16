@@ -53,7 +53,11 @@ export function FaqSearch({ groups }: { groups: Group[] }) {
                 const open = openKey === key || (needle.length > 2 && g.items.length <= 3);
                 return (
                   <div key={key} className="border-b border-border">
-                    <button onClick={() => setOpenKey(openKey === key ? null : key)} aria-expanded={open} className="flex w-full items-center justify-between gap-6 py-5 text-left font-medium">
+                    <button
+                      onClick={() => setOpenKey(openKey === key ? null : key)}
+                      aria-expanded={open}
+                      className="flex w-full items-center justify-between gap-6 py-5 text-left font-medium"
+                    >
                       {it.q}
                       <motion.span animate={{ rotate: open ? 180 : 0 }} className="shrink-0 text-muted">
                         <ChevronDown size={18} />
@@ -61,7 +65,12 @@ export function FaqSearch({ groups }: { groups: Group[] }) {
                     </button>
                     <AnimatePresence initial={false}>
                       {open ? (
-                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden"
+                        >
                           <p className="pb-5 leading-relaxed text-muted">{it.a}</p>
                         </motion.div>
                       ) : null}
@@ -84,11 +93,19 @@ export function ContactForm() {
   const [sent, setSent] = useState(false);
   const [pending, start] = useTransition();
   const set = <K extends keyof ContactInput>(k: K, value: ContactInput[K]) => setV((p) => ({ ...p, [k]: value }));
-  const field = (k: string) => cn("w-full rounded-xl border bg-background px-4 outline-none focus:border-foreground", bad.includes(k) ? "border-danger" : "border-border");
+  const field = (k: string) =>
+    cn(
+      "w-full rounded-xl border bg-background px-4 outline-none focus:border-foreground",
+      bad.includes(k) ? "border-danger" : "border-border",
+    );
 
   if (sent) {
     return (
-      <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="rounded-3xl bg-subtle p-10 text-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="rounded-3xl bg-subtle p-10 text-center"
+      >
         <p className="font-display text-3xl">{t("sentTitle")}</p>
         <p className="mt-2 text-muted">{t("sentText")}</p>
       </motion.div>
@@ -112,15 +129,32 @@ export function ContactForm() {
     >
       <label className="block text-sm">
         <span className="mb-1.5 block text-muted">{t("name")}</span>
-        <input className={cn(field("name"), "h-12")} value={v.name} onChange={(e) => set("name", e.target.value)} autoComplete="name" required />
+        <input
+          className={cn(field("name"), "h-12")}
+          value={v.name}
+          onChange={(e) => set("name", e.target.value)}
+          autoComplete="name"
+          required
+        />
       </label>
       <label className="block text-sm">
         <span className="mb-1.5 block text-muted">{t("email")}</span>
-        <input className={cn(field("email"), "h-12")} type="email" value={v.email} onChange={(e) => set("email", e.target.value)} autoComplete="email" required />
+        <input
+          className={cn(field("email"), "h-12")}
+          type="email"
+          value={v.email}
+          onChange={(e) => set("email", e.target.value)}
+          autoComplete="email"
+          required
+        />
       </label>
       <label className="block text-sm sm:col-span-2">
         <span className="mb-1.5 block text-muted">{t("topic")}</span>
-        <select className={cn(field("topic"), "h-12")} value={v.topic} onChange={(e) => set("topic", e.target.value as ContactInput["topic"])}>
+        <select
+          className={cn(field("topic"), "h-12")}
+          value={v.topic}
+          onChange={(e) => set("topic", e.target.value as ContactInput["topic"])}
+        >
           {(["order", "product", "return", "partnership", "other"] as const).map((k) => (
             <option key={k} value={k}>
               {t(`topics.${k}`)}
@@ -130,10 +164,24 @@ export function ContactForm() {
       </label>
       <label className="block text-sm sm:col-span-2">
         <span className="mb-1.5 block text-muted">{t("message")}</span>
-        <textarea className={cn(field("message"), "resize-none py-3")} rows={5} value={v.message} onChange={(e) => set("message", e.target.value)} required minLength={10} />
+        <textarea
+          className={cn(field("message"), "resize-none py-3")}
+          rows={5}
+          value={v.message}
+          onChange={(e) => set("message", e.target.value)}
+          required
+          minLength={10}
+        />
       </label>
       {/* honeypot, hidden from people */}
-      <input tabIndex={-1} autoComplete="off" aria-hidden className="hidden" value={v.website} onChange={(e) => set("website", e.target.value)} />
+      <input
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden
+        className="hidden"
+        value={v.website}
+        onChange={(e) => set("website", e.target.value)}
+      />
       <div className="sm:col-span-2">
         <Button type="submit" size="lg" disabled={pending}>
           {pending ? <Loader2 size={18} className="animate-spin" /> : <Send size={16} />} {t("send")}

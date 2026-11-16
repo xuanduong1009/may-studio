@@ -66,8 +66,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <Reveal key={p.title} delay={i * 0.08}>
               <article className="group">
                 <div className="relative">
-                  <EditorialImage src={EDITORIAL.process[i % 4]} alt={p.title} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 92vw" parallax={0.06} className="aspect-[4/5] rounded-3xl" />
-                  <span className="absolute top-4 left-5 font-display text-6xl text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]">0{i + 1}</span>
+                  <EditorialImage
+                    src={EDITORIAL.process[i % 4]}
+                    alt={p.title}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 92vw"
+                    parallax={0.06}
+                    className="aspect-[4/5] rounded-3xl"
+                  />
+                  <span className="absolute top-4 left-5 font-display text-6xl text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]">
+                    0{i + 1}
+                  </span>
                 </div>
                 <h3 className="mt-5 font-display text-2xl">{p.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{p.text}</p>
@@ -106,7 +114,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           {stores.map((s, i) => (
             <Reveal key={s.city} delay={i * 0.08}>
               <div className="flex h-full flex-col justify-between gap-8 overflow-hidden rounded-3xl border border-border bg-card p-3 pb-8">
-                <EditorialImage src={EDITORIAL.stores[i % 2]} alt={s.city} sizes="(min-width: 768px) 45vw, 92vw" parallax={0.05} className="aspect-[16/10] rounded-2xl" />
+                <EditorialImage
+                  src={EDITORIAL.stores[i % 2]}
+                  alt={s.city}
+                  sizes="(min-width: 768px) 45vw, 92vw"
+                  parallax={0.05}
+                  className="aspect-[16/10] rounded-2xl"
+                />
                 <p className="px-5 font-display text-4xl">{s.city}</p>
                 <div className="space-y-2 px-5 text-sm text-muted">
                   <p className="flex items-center gap-2">

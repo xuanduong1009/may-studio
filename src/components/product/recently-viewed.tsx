@@ -26,7 +26,7 @@ export function RecentlyViewed({ excludeId }: { excludeId?: number }) {
           {t("clearHistory")}
         </button>
       </div>
-      <div className="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2">
+      <div className="-mx-4 no-scrollbar flex snap-x gap-4 overflow-x-auto px-4 pb-2">
         {items.map((p, i) => (
           <motion.div
             key={p.id}

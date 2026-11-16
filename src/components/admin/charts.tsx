@@ -37,13 +37,23 @@ export function RevenueChart({ data, locale }: { data: { date: string; revenue: 
             </linearGradient>
           </defs>
           <CartesianGrid vertical={false} stroke={c.border} strokeDasharray="3 3" />
-          <XAxis dataKey="date" tickFormatter={day} tick={{ fill: c.muted, fontSize: 11 }} axisLine={false} tickLine={false} minTickGap={24} />
+          <XAxis
+            dataKey="date"
+            tickFormatter={day}
+            tick={{ fill: c.muted, fontSize: 11 }}
+            axisLine={false}
+            tickLine={false}
+            minTickGap={24}
+          />
           <YAxis tickFormatter={short} tick={{ fill: c.muted, fontSize: 11 }} axisLine={false} tickLine={false} width={48} />
           <Tooltip
             cursor={{ stroke: c.muted, strokeDasharray: "4 4" }}
             contentStyle={{ background: c.card, border: `1px solid ${c.border}`, borderRadius: 12, color: c.fg, fontSize: 12 }}
             labelFormatter={(label) => day(String(label))}
-            formatter={(value, name) => [name === "revenue" ? formatPrice(Number(value), locale) : String(value), name === "revenue" ? (locale === "vi" ? "Doanh thu" : "Revenue") : name]}
+            formatter={(value, name) => [
+              name === "revenue" ? formatPrice(Number(value), locale) : String(value),
+              name === "revenue" ? (locale === "vi" ? "Doanh thu" : "Revenue") : name,
+            ]}
           />
           <Area type="monotone" dataKey="revenue" stroke={c.accent} strokeWidth={2.5} fill="url(#rev)" animationDuration={1400} />
         </AreaChart>

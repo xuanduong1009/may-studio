@@ -49,7 +49,8 @@ describe("validators", () => {
     paymentMethod: "bank",
   };
   it("accepts Vietnamese mobile numbers", () => {
-    for (const phone of ["0912345678", "+84912345678", "0381234567"]) assert.equal(checkoutSchema.safeParse({ ...valid, phone }).success, true, phone);
+    for (const phone of ["0912345678", "+84912345678", "0381234567"])
+      assert.equal(checkoutSchema.safeParse({ ...valid, phone }).success, true, phone);
   });
   it("rejects malformed phones and unknown payment methods", () => {
     assert.equal(checkoutSchema.safeParse({ ...valid, phone: "0212345678" }).success, false);
@@ -57,16 +58,40 @@ describe("validators", () => {
     assert.equal(checkoutSchema.safeParse({ ...valid, paymentMethod: "crypto" }).success, false);
   });
   it("keeps percentage coupons between 1 and 100", () => {
-    const coupon = { code: "TEST", type: "percent", value: 120, maxDiscount: null, minSubtotal: 0, usageLimit: null, startsAt: null, endsAt: null, active: true, descriptionVi: "", descriptionEn: "" };
+    const coupon = {
+      code: "TEST",
+      type: "percent",
+      value: 120,
+      maxDiscount: null,
+      minSubtotal: 0,
+      usageLimit: null,
+      startsAt: null,
+      endsAt: null,
+      active: true,
+      descriptionVi: "",
+      descriptionEn: "",
+    };
     assert.equal(couponSchema.safeParse(coupon).success, false);
     assert.equal(couponSchema.safeParse({ ...coupon, value: 20 }).success, true);
     assert.equal(couponSchema.safeParse({ ...coupon, code: "bad code!" }).success, false);
   });
   it("rejects stock for a colour the product does not have", () => {
     const product = {
-      nameVi: "Áo", nameEn: "Tee", slug: "ao", descriptionVi: "", descriptionEn: "", price: 200_000, compareAtPrice: null,
-      categoryId: 1, kind: "tee", colors: [{ nameVi: "Đen", nameEn: "Black", hex: "#1c1c1c" }], sizes: ["M"],
-      variants: [{ colorHex: "#1c1c1c", size: "M", stock: 5 }], featured: false, isNew: false, imageUrl: null,
+      nameVi: "Áo",
+      nameEn: "Tee",
+      slug: "ao",
+      descriptionVi: "",
+      descriptionEn: "",
+      price: 200_000,
+      compareAtPrice: null,
+      categoryId: 1,
+      kind: "tee",
+      colors: [{ nameVi: "Đen", nameEn: "Black", hex: "#1c1c1c" }],
+      sizes: ["M"],
+      variants: [{ colorHex: "#1c1c1c", size: "M", stock: 5 }],
+      featured: false,
+      isNew: false,
+      imageUrl: null,
     };
     assert.equal(productSchema.safeParse(product).success, true);
     assert.equal(productSchema.safeParse({ ...product, variants: [{ colorHex: "#ffffff", size: "M", stock: 5 }] }).success, false);

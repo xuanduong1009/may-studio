@@ -51,7 +51,11 @@ export async function POST(req: NextRequest) {
     method: "VietQR",
   });
   if (!res.ok && res.error === "amount") {
-    await logEvent(db, order.id, "payment", { status: "partial", message: `Received ${tx.transferAmount} < ${order.total}`, actor: "bank-webhook" });
+    await logEvent(db, order.id, "payment", {
+      status: "partial",
+      message: `Received ${tx.transferAmount} < ${order.total}`,
+      actor: "bank-webhook",
+    });
   }
   return NextResponse.json({ success: true, matched: order.code, result: res.ok ? "paid" : res.error });
 }

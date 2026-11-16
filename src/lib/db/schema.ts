@@ -24,7 +24,9 @@ export const user = sqliteTable("user", {
   email: text("email").notNull().unique(),
   emailVerified: integer("email_verified", { mode: "boolean" }).notNull().default(false),
   image: text("image"),
-  role: text("role", { enum: ["user", "admin", "viewer"] }).notNull().default("user"),
+  role: text("role", { enum: ["user", "admin", "viewer"] })
+    .notNull()
+    .default("user"),
   ...timestamps,
 });
 
@@ -123,8 +125,14 @@ export const products = sqliteTable(
       .notNull()
       .references(() => categories.id, { onDelete: "restrict" }),
     kind: text("kind").notNull(),
-    colors: text("colors", { mode: "json" }).$type<ProductColor[]>().notNull().default(sql`'[]'`),
-    sizes: text("sizes", { mode: "json" }).$type<string[]>().notNull().default(sql`'[]'`),
+    colors: text("colors", { mode: "json" })
+      .$type<ProductColor[]>()
+      .notNull()
+      .default(sql`'[]'`),
+    sizes: text("sizes", { mode: "json" })
+      .$type<string[]>()
+      .notNull()
+      .default(sql`'[]'`),
     stock: integer("stock").notNull().default(0),
     sold: integer("sold").notNull().default(0),
     rating: real("rating").notNull().default(5),
@@ -132,7 +140,10 @@ export const products = sqliteTable(
     featured: integer("featured", { mode: "boolean" }).notNull().default(false),
     isNew: integer("is_new", { mode: "boolean" }).notNull().default(false),
     imageUrl: text("image_url"),
-    images: text("images", { mode: "json" }).$type<ProductPhoto[]>().notNull().default(sql`'[]'`),
+    images: text("images", { mode: "json" })
+      .$type<ProductPhoto[]>()
+      .notNull()
+      .default(sql`'[]'`),
     ...timestamps,
   },
   (t) => [index("products_category_idx").on(t.categoryId)],
@@ -172,7 +183,9 @@ export const orders = sqliteTable(
     paymentRef: text("payment_ref"),
     paidAt: integer("paid_at", { mode: "timestamp" }),
     /** language used for customer emails */
-    locale: text("locale", { enum: ["vi", "en"] }).notNull().default("vi"),
+    locale: text("locale", { enum: ["vi", "en"] })
+      .notNull()
+      .default("vi"),
     couponCode: text("coupon_code"),
     subtotal: integer("subtotal").notNull(),
     shippingFee: integer("shipping_fee").notNull(),

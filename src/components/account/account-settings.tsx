@@ -63,11 +63,26 @@ export function AccountSettings({ name: initialName, isDemo }: { name: string; i
         </h2>
         <label className="block text-sm">
           <span className="mb-1.5 block text-muted">{t("currentPassword")}</span>
-          <input className={field} type="password" value={current} onChange={(e) => setCurrent(e.target.value)} autoComplete="current-password" required />
+          <input
+            className={field}
+            type="password"
+            value={current}
+            onChange={(e) => setCurrent(e.target.value)}
+            autoComplete="current-password"
+            required
+          />
         </label>
         <label className="block text-sm">
           <span className="mb-1.5 block text-muted">{t("newPassword")}</span>
-          <input className={field} type="password" value={next} onChange={(e) => setNext(e.target.value)} autoComplete="new-password" minLength={8} required />
+          <input
+            className={field}
+            type="password"
+            value={next}
+            onChange={(e) => setNext(e.target.value)}
+            autoComplete="new-password"
+            minLength={8}
+            required
+          />
         </label>
         <p className="text-xs text-muted">{t("signOutOthers")}</p>
         <Button type="submit" disabled={savingPw}>

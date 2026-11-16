@@ -21,7 +21,7 @@ export function CategoryChips({ categories }: { categories: Category[] }) {
   const current = params.get("category");
 
   return (
-    <div className="no-scrollbar -mx-4 mb-8 flex gap-2 overflow-x-auto px-4 pb-1" data-lenis-prevent-wheel>
+    <div className="-mx-4 mb-8 no-scrollbar flex gap-2 overflow-x-auto px-4 pb-1" data-lenis-prevent-wheel>
       <button
         onClick={() => set("category", null)}
         className={cn(
@@ -44,7 +44,13 @@ export function CategoryChips({ categories }: { categories: Category[] }) {
             )}
           >
             <span className="relative size-10 overflow-hidden rounded-full bg-subtle">
-              <Image src={categoryPhoto(c.slug)} alt="" fill sizes="40px" className="object-cover object-[50%_25%] transition-transform duration-500 group-hover:scale-110" />
+              <Image
+                src={categoryPhoto(c.slug)}
+                alt=""
+                fill
+                sizes="40px"
+                className="object-cover object-[50%_25%] transition-transform duration-500 group-hover:scale-110"
+              />
             </span>
             {locale === "vi" ? c.nameVi : c.nameEn}
             <span className={cn("text-xs", active ? "text-background/60" : "text-muted")}>{c.productCount}</span>
@@ -107,7 +113,10 @@ export function DensityToggle() {
           onClick={() => setCols(o.n)}
           aria-pressed={mounted && cols === o.n}
           aria-label={t("columns", { count: o.n })}
-          className={cn("grid size-8 place-items-center rounded-full transition-colors", mounted && cols === o.n ? "bg-foreground text-background" : "text-muted hover:text-foreground")}
+          className={cn(
+            "grid size-8 place-items-center rounded-full transition-colors",
+            mounted && cols === o.n ? "bg-foreground text-background" : "text-muted hover:text-foreground",
+          )}
         >
           <o.icon size={15} />
         </button>

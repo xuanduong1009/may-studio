@@ -16,7 +16,11 @@ import { couponSchema, productSchema, type CouponInput, type ProductInput } from
 
 export type ActionResult =
   | { ok: true; id?: number }
-  | { ok: false; error: "readonly" | "unauthorized" | "invalid" | "conflict" | "transition" | "notFound" | "self" | "generic"; fields?: string[] };
+  | {
+      ok: false;
+      error: "readonly" | "unauthorized" | "invalid" | "conflict" | "transition" | "notFound" | "self" | "generic";
+      fields?: string[];
+    };
 
 /** Every admin mutation goes through this guard: only real admins may write. */
 async function guard(): Promise<{ ok: false; result: ActionResult } | { ok: true; session: NonNullable<Session> }> {
@@ -77,12 +81,20 @@ export async function saveProduct(productId: number | null, input: ProductInput)
       const keep = matrix.map((v) => `${v.colorHex}|${v.size}`);
       await tx
         .delete(productVariants)
-        .where(and(eq(productVariants.productId, pid), notInArray(sql`lower(${productVariants.colorHex}) || '|' || ${productVariants.size}`, keep)));
+        .where(
+          and(
+            eq(productVariants.productId, pid),
+            notInArray(sql`lower(${productVariants.colorHex}) || '|' || ${productVariants.size}`, keep),
+          ),
+        );
       for (const v of matrix) {
         await tx
           .insert(productVariants)
           .values({ productId: pid, ...v })
-          .onConflictDoUpdate({ target: [productVariants.productId, productVariants.colorHex, productVariants.size], set: { stock: v.stock } });
+          .onConflictDoUpdate({
+            target: [productVariants.productId, productVariants.colorHex, productVariants.size],
+            set: { stock: v.stock },
+          });
       }
       return pid;
     });
@@ -136,7 +148,11 @@ export async function setVariantStock(variantId: number, stock: number): Promise
   const parsed = z.object({ variantId: id, stock: z.number().int().min(0).max(100_000) }).safeParse({ variantId, stock });
   if (!parsed.success) return { ok: false, error: "invalid" };
   await db.transaction(async (tx) => {
-    const [v] = await tx.update(productVariants).set({ stock: parsed.data.stock }).where(eq(productVariants.id, parsed.data.variantId)).returning();
+    const [v] = await tx
+      .update(productVariants)
+      .set({ stock: parsed.data.stock })
+      .where(eq(productVariants.id, parsed.data.variantId))
+      .returning();
     if (!v) return;
     await tx
       .update(products)
@@ -222,7 +238,10 @@ export async function saveCoupon(couponId: number | null, input: CouponInput): P
 export async function toggleCoupon(couponId: number, active: boolean): Promise<ActionResult> {
   const g = await guard();
   if (!g.ok) return g.result;
-  await db.update(coupons).set({ active: !!active }).where(eq(coupons.id, id.parse(couponId)));
+  await db
+    .update(coupons)
+    .set({ active: !!active })
+    .where(eq(coupons.id, id.parse(couponId)));
   refresh();
   return { ok: true };
 }
@@ -255,7 +274,11 @@ export async function setUserRole(userId: string, role: string): Promise<ActionR
 export async function setReviewHidden(reviewId: number, hidden: boolean): Promise<ActionResult> {
   const g = await guard();
   if (!g.ok) return g.result;
-  const [row] = await db.update(reviews).set({ hidden: !!hidden }).where(eq(reviews.id, id.parse(reviewId))).returning({ productId: reviews.productId });
+  const [row] = await db
+    .update(reviews)
+    .set({ hidden: !!hidden })
+    .where(eq(reviews.id, id.parse(reviewId)))
+    .returning({ productId: reviews.productId });
   if (!row) return { ok: false, error: "notFound" };
   await refreshProductRating(db, row.productId);
   refresh();
@@ -265,7 +288,10 @@ export async function setReviewHidden(reviewId: number, hidden: boolean): Promis
 export async function deleteReview(reviewId: number): Promise<ActionResult> {
   const g = await guard();
   if (!g.ok) return g.result;
-  const [row] = await db.delete(reviews).where(eq(reviews.id, id.parse(reviewId))).returning({ productId: reviews.productId });
+  const [row] = await db
+    .delete(reviews)
+    .where(eq(reviews.id, id.parse(reviewId)))
+    .returning({ productId: reviews.productId });
   if (!row) return { ok: false, error: "notFound" };
   await refreshProductRating(db, row.productId);
   refresh();

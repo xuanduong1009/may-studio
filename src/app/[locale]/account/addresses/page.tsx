@@ -13,7 +13,15 @@ export default async function AddressesPage({ params }: { params: Promise<{ loca
   const items = await getUserAddresses(session.user.id);
   return (
     <AddressBook
-      items={items.map((a) => ({ id: a.id, label: a.label, fullName: a.fullName, phone: a.phone, address: a.address, city: a.city, isDefault: a.isDefault }))}
+      items={items.map((a) => ({
+        id: a.id,
+        label: a.label,
+        fullName: a.fullName,
+        phone: a.phone,
+        address: a.address,
+        city: a.city,
+        isDefault: a.isDefault,
+      }))}
     />
   );
 }

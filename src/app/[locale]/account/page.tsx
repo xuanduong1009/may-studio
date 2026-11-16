@@ -71,7 +71,10 @@ export default async function AccountOrdersPage({ params }: { params: Promise<{ 
                     </p>
                   </div>
                   {order.status === "delivered" && item.productId && !reviewed.has(item.productId) ? (
-                    <Link href={`/product/${item.slug}#reviews`} className="flex shrink-0 items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs hover:border-foreground">
+                    <Link
+                      href={`/product/${item.slug}#reviews`}
+                      className="flex shrink-0 items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs hover:border-foreground"
+                    >
                       <PenLine size={12} /> {t("writeReview")}
                     </Link>
                   ) : null}
@@ -86,7 +89,10 @@ export default async function AccountOrdersPage({ params }: { params: Promise<{ 
               </span>
               <span className="flex flex-wrap items-center gap-2">
                 {order.status === "pending" ? <CancelOrderButton code={order.code} /> : null}
-                <Link href={`/track?code=${order.code}`} className="flex items-center gap-1.5 font-medium underline-offset-4 hover:underline">
+                <Link
+                  href={`/track?code=${order.code}`}
+                  className="flex items-center gap-1.5 font-medium underline-offset-4 hover:underline"
+                >
                   {t("details")} <ArrowRight size={14} />
                 </Link>
               </span>

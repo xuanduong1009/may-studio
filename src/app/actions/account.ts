@@ -10,7 +10,9 @@ import { findPurchase, refreshProductRating } from "@/lib/server/reviews";
 import { getSession } from "@/lib/server/session";
 import { addressSchema, reviewSchema, type AddressInput, type ReviewInput } from "@/lib/validators";
 
-type Result = { ok: true } | { ok: false; error: "unauthorized" | "invalid" | "notPurchased" | "duplicate" | "rateLimited" | "generic"; fields?: string[] };
+type Result =
+  | { ok: true }
+  | { ok: false; error: "unauthorized" | "invalid" | "notPurchased" | "duplicate" | "rateLimited" | "generic"; fields?: string[] };
 
 /* ------------------------------------------------------------------ */
 /* Address book                                                        */

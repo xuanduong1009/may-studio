@@ -32,7 +32,10 @@ export async function getDashboardStats() {
     }
   }
 
-  const statusCounts = Object.fromEntries(ORDER_STATUSES.map((s) => [s, recent.filter((o) => o.status === s).length])) as Record<OrderStatus, number>;
+  const statusCounts = Object.fromEntries(ORDER_STATUSES.map((s) => [s, recent.filter((o) => o.status === s).length])) as Record<
+    OrderStatus,
+    number
+  >;
 
   // distinct buyers (guest checkouts included)
   const [{ customers }] = await db.select({ customers: sql<number>`count(distinct lower(${orders.email}))` }).from(orders);

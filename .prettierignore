@@ -1,0 +1,11 @@
+# generated or third-party
+.next
+node_modules
+package-lock.json
+next-env.d.ts
+drizzle
+# assets and prose
+public
+docs
+*.md
+*.db

@@ -48,7 +48,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       if (!p) return [];
       const wanted = PALETTE.find((c) => c.key === spot.color)?.hex;
       const color = p.colors.find((c) => c.hex.toLowerCase() === wanted)?.hex ?? p.colors[0]?.hex ?? "#cccccc";
-      return [{ slug: p.slug, nameVi: p.nameVi, nameEn: p.nameEn, price: p.price, compareAtPrice: p.compareAtPrice, kind: p.kind, color, image: primaryPhoto(p.images, color), x: spot.x, y: spot.y }];
+      return [
+        {
+          slug: p.slug,
+          nameVi: p.nameVi,
+          nameEn: p.nameEn,
+          price: p.price,
+          compareAtPrice: p.compareAtPrice,
+          kind: p.kind,
+          color,
+          image: primaryPhoto(p.images, color),
+          x: spot.x,
+          y: spot.y,
+        },
+      ];
     }),
   }));
   const campaignText = t.raw("campaign") as { title: string; text: string }[];
@@ -106,9 +119,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
-              <div className="no-scrollbar relative flex snap-x gap-4 overflow-x-auto px-8 pb-10 sm:px-12 lg:px-16" data-lenis-prevent-wheel>
+              <div
+                className="relative no-scrollbar flex snap-x gap-4 overflow-x-auto px-8 pb-10 sm:px-12 lg:px-16"
+                data-lenis-prevent-wheel
+              >
                 {sale.map((p) => (
-                  <div key={p.id} className="w-[46vw] shrink-0 snap-start sm:w-64 [&_h3]:text-[#f7f4ee] [&_.text-muted]:text-[#f7f4ee]/60">
+                  <div key={p.id} className="w-[46vw] shrink-0 snap-start sm:w-64 [&_.text-muted]:text-[#f7f4ee]/60 [&_h3]:text-[#f7f4ee]">
                     <ProductCard product={p} />
                   </div>
                 ))}
@@ -130,20 +146,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      <ReviewsWall
-        reviews={highlights}
-        locale={locale}
-        title={t("reviewsTitle")}
-        sub={t("reviewsSub")}
-        verifiedLabel={tr("verified")}
-      />
+      <ReviewsWall reviews={highlights} locale={locale} title={t("reviewsTitle")} sub={t("reviewsSub")} verifiedLabel={tr("verified")} />
 
-      <GalleryWall
-        shots={HOME_GALLERY}
-        title={t("galleryTitle")}
-        sub={t("gallerySub")}
-        cta={t("galleryCta")}
-      />
+      <GalleryWall shots={HOME_GALLERY} title={t("galleryTitle")} sub={t("gallerySub")} cta={t("galleryCta")} />
 
       <Marquee items={t.raw("marquee") as string[]} reverse />
 

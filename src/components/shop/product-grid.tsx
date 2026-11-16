@@ -20,7 +20,11 @@ export function ProductGrid({ products }: { products: ProductCardData[] }) {
 
   if (products.length === 0) {
     return (
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center justify-center rounded-3xl bg-subtle px-6 py-24 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col items-center justify-center rounded-3xl bg-subtle px-6 py-24 text-center"
+      >
         <SearchX size={40} className="text-muted" />
         <p className="mt-4 font-display text-2xl">{t("noResults")}</p>
         <p className="mt-2 text-muted">{t("noResultsHint")}</p>

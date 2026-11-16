@@ -111,7 +111,12 @@ export function CartDrawer() {
                 <footer className="space-y-4 border-t border-border px-6 py-5">
                   <div className="flex items-center justify-between">
                     <span className="text-muted">{t("subtotal")}</span>
-                    <motion.span key={subtotal} initial={{ y: -6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-lg font-semibold tabular-nums">
+                    <motion.span
+                      key={subtotal}
+                      initial={{ y: -6, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      className="text-lg font-semibold tabular-nums"
+                    >
                       {formatPrice(subtotal, locale)}
                     </motion.span>
                   </div>
@@ -119,7 +124,10 @@ export function CartDrawer() {
                   <Link href="/checkout" onClick={close} className={buttonClasses({ size: "lg", className: "w-full" })}>
                     {t("checkout")}
                   </Link>
-                  <button onClick={close} className="w-full text-center text-sm text-muted underline-offset-4 hover:text-foreground hover:underline">
+                  <button
+                    onClick={close}
+                    className="w-full text-center text-sm text-muted underline-offset-4 hover:text-foreground hover:underline"
+                  >
                     {t("continue")}
                   </button>
                 </footer>

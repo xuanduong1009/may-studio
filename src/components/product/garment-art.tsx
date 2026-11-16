@@ -216,12 +216,8 @@ const GARMENTS: Record<GarmentKind, Garment> = {
       { d: "M102 192 L298 192", stroke: true, dash: true },
       { d: "M86 414 L314 414", stroke: true, dash: true },
     ],
-    front: [
-      { d: "M150 172 C150 64 250 64 250 172", stroke: true, width: 14, tone: -0.12 },
-    ],
-    back: [
-      { d: "M140 172 C140 76 260 76 260 172", stroke: true, width: 14, tone: -0.2 },
-    ],
+    front: [{ d: "M150 172 C150 64 250 64 250 172", stroke: true, width: 14, tone: -0.12 }],
+    back: [{ d: "M140 172 C140 76 260 76 260 172", stroke: true, width: 14, tone: -0.2 }],
     detailBox: "110 150 180 216",
     logo: { x: 200, y: 312, size: 40 },
     backPrint: { x: 200, y: 312, size: 26 },
@@ -330,12 +326,7 @@ export function GarmentArt({
           <text x={g.backPrint.x} y={g.backPrint.y} fontSize={g.backPrint.size} fontStyle="italic" fontWeight={600}>
             Mây
           </text>
-          <text
-            x={g.backPrint.x}
-            y={g.backPrint.y + g.backPrint.size * 0.55}
-            fontSize={g.backPrint.size * 0.24}
-            letterSpacing="0.4em"
-          >
+          <text x={g.backPrint.x} y={g.backPrint.y + g.backPrint.size * 0.55} fontSize={g.backPrint.size * 0.24} letterSpacing="0.4em">
             STUDIO · SÀI GÒN
           </text>
         </g>

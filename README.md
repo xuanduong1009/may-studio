@@ -174,15 +174,19 @@ Demo coupons: `MAY10`, `WELCOME50K` (from 400K), `FREESHIP`. `BLACKFRIDAY` is sc
 ```
 src/
   app/
-    [locale]/            pages: home, shop, product, checkout (+ success), track, account/*, login,
-                         register, forgot/reset password, wishlist, admin/* (dashboard, products,
-                         orders, coupons, customers, reviews)
+    [locale]/            layout, loading, error and not-found pages shared by every page
+      (store)/             the shop: home, shop, product, wishlist, checkout (+ success), track, about, help
+      (auth)/              login, register, forgot / reset password
+      account/             orders, addresses, settings
+      admin/               dashboard, products, orders, coupons, customers, reviews
+                           (folders in parentheses only group pages: they are not part of the URL)
     actions/             server actions (writes): orders, account, admin, contact
     api/                 route handlers: auth, search, quick-view product, payments (VNPay IPN/return,
                          bank webhook), order payment status, admin CSV export, uploaded photos
   components/
-    ui/                  building blocks: button, price, stars, reveal, count-up, cursor…
-    layout/              header, mega menu, footer, mobile tab bar, intro
+    ui/                  building blocks: button, price, stars, accordion, reveal, count-up, cursor…
+    layout/              header (+ nav, mega menu, mobile menu, language and theme switches), footer,
+                         mobile tab bar, intro
     home/ shop/ product/ search/ cart/ checkout/ help/ auth/
     orders/              shared by account, tracking and admin: status & payment badges, timeline
     account/  admin/     screens of the customer area and the back office
@@ -215,6 +219,8 @@ tests/                   unit tests (Node test runner)
 
 Where things go: pages read through `lib/server/queries/*` and write through `app/actions/*`; anything that imports `lib/server` stays on the server (client components may only `import type` from it), and everything else in `lib/` is safe for the browser and for unit tests.
 
+Code style: Prettier (140 columns, Tailwind classes sorted). VS Code formats on save once the recommended Prettier extension is installed; `npm run format` formats everything.
+
 ## Scripts
 
 | Command | What it does |
@@ -222,6 +228,7 @@ Where things go: pages read through `lib/server/queries/*` and write through `ap
 | `npm run dev` | Development server |
 | `npm run build` / `npm start` | Production build / serve |
 | `npm run typecheck` | TypeScript check |
+| `npm run format` / `format:check` | Format all code with Prettier / check that it is formatted |
 | `npm test` | Unit tests |
 | `npm run db:push` | Create or update tables from the schema (`db:push:prod` for the production database) |
 | `npm run db:seed` | Full demo: sample catalogue, demo accounts, orders, reviews and coupons |

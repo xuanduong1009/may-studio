@@ -18,8 +18,18 @@ function Panel({ slide, index, total, cta }: { slide: Slide; index: number; tota
 
   return (
     <div ref={ref} className="sticky top-0 h-[100svh] p-2 sm:p-4">
-      <motion.div style={{ scale }} className="relative h-full overflow-hidden rounded-[1.75rem] will-change-transform sm:rounded-[2.25rem]">
-        <Image src={slide.src} alt={slide.title} fill sizes="100vw" className="object-cover" style={{ objectPosition: slide.position ?? "50% 50%" }} />
+      <motion.div
+        style={{ scale }}
+        className="relative h-full overflow-hidden rounded-[1.75rem] will-change-transform sm:rounded-[2.25rem]"
+      >
+        <Image
+          src={slide.src}
+          alt={slide.title}
+          fill
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: slide.position ?? "50% 50%" }}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
         <motion.div style={{ opacity: dim }} className="absolute inset-0 bg-black" />
         <motion.div style={{ y: textY }} className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-12 lg:p-16">
@@ -29,7 +39,10 @@ function Panel({ slide, index, total, cta }: { slide: Slide; index: number; tota
           <h3 className="max-w-4xl font-display text-[clamp(2.8rem,8vw,7.5rem)] leading-[0.95]">{slide.title}</h3>
           <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
             <p className="max-w-md text-base opacity-85 sm:text-lg">{slide.text}</p>
-            <Link href={slide.href} className="group inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-medium text-black">
+            <Link
+              href={slide.href}
+              className="group inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-medium text-black"
+            >
               {cta} <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </Link>
           </div>

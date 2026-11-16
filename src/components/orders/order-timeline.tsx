@@ -7,17 +7,29 @@ const STEPS: OrderStatus[] = ["pending", "confirmed", "shipping", "delivered"];
 const ICONS = { pending: Clock, confirmed: Check, shipping: Truck, delivered: PackageCheck };
 
 /** Progress bar with the date each step was reached, read from the order's event log. */
-export function OrderProgress({ status, events, createdAt, locale }: { status: OrderStatus; events: OrderEvent[]; createdAt: Date; locale: string }) {
+export function OrderProgress({
+  status,
+  events,
+  createdAt,
+  locale,
+}: {
+  status: OrderStatus;
+  events: OrderEvent[];
+  createdAt: Date;
+  locale: string;
+}) {
   const ts = useTranslations("Status");
   if (status === "cancelled") return null;
   const reached = STEPS.indexOf(status);
-  const dateOf = (s: OrderStatus) =>
-    s === "pending" ? createdAt : events.find((e) => e.type === "status" && e.status === s)?.createdAt;
+  const dateOf = (s: OrderStatus) => (s === "pending" ? createdAt : events.find((e) => e.type === "status" && e.status === s)?.createdAt);
 
   return (
     <ol className="relative grid grid-cols-4">
       <div className="absolute top-4 right-[12.5%] left-[12.5%] h-0.5 bg-subtle" aria-hidden>
-        <div className="h-full bg-accent transition-all duration-700" style={{ width: `${(Math.max(reached, 0) / (STEPS.length - 1)) * 100}%` }} />
+        <div
+          className="h-full bg-accent transition-all duration-700"
+          style={{ width: `${(Math.max(reached, 0) / (STEPS.length - 1)) * 100}%` }}
+        />
       </div>
       {STEPS.map((s, i) => {
         const Icon = ICONS[s as keyof typeof ICONS];
@@ -52,7 +64,16 @@ export function OrderEventLog({ events, locale, showNotes = false }: { events: O
   return (
     <ol className="relative space-y-5 border-l border-border pl-6">
       {[...visible].reverse().map((e) => {
-        const Icon = e.type === "payment" ? CircleDollarSign : e.type === "note" ? MessageSquare : e.status === "cancelled" ? Ban : e.status === "shipping" ? Truck : Check;
+        const Icon =
+          e.type === "payment"
+            ? CircleDollarSign
+            : e.type === "note"
+              ? MessageSquare
+              : e.status === "cancelled"
+                ? Ban
+                : e.status === "shipping"
+                  ? Truck
+                  : Check;
         const label =
           e.type === "created"
             ? t("eventCreated")

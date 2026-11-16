@@ -80,11 +80,15 @@ export async function getCategories() {
 }
 
 export async function getFeaturedProducts(limit = 8) {
-  return withStock(await db.select(cardColumns).from(products).where(eq(products.featured, true)).orderBy(desc(products.sold)).limit(limit));
+  return withStock(
+    await db.select(cardColumns).from(products).where(eq(products.featured, true)).orderBy(desc(products.sold)).limit(limit),
+  );
 }
 
 export async function getNewProducts(limit = 8) {
-  return withStock(await db.select(cardColumns).from(products).where(eq(products.isNew, true)).orderBy(desc(products.createdAt)).limit(limit));
+  return withStock(
+    await db.select(cardColumns).from(products).where(eq(products.isNew, true)).orderBy(desc(products.createdAt)).limit(limit),
+  );
 }
 
 export async function getSaleProducts(limit = 10) {
@@ -161,7 +165,9 @@ export async function searchProducts(f: ShopFilters) {
   });
 
   // drop the columns that were only needed for filtering and sorting
-  const cards: CardBase[] = list.map(({ categorySlug: _c, descriptionVi: _dv, descriptionEn: _de, sold: _s, createdAt: _t, ...card }) => card);
+  const cards: CardBase[] = list.map(
+    ({ categorySlug: _c, descriptionVi: _dv, descriptionEn: _de, sold: _s, createdAt: _t, ...card }) => card,
+  );
   return withStock(cards);
 }
 
@@ -212,7 +218,12 @@ export async function getRelatedProducts(productId: number, categoryId: number, 
   const more = await db
     .select(cardColumns)
     .from(products)
-    .where(sql`${products.id} not in (${sql.join(exclude.map((id) => sql`${id}`), sql`, `)})`)
+    .where(
+      sql`${products.id} not in (${sql.join(
+        exclude.map((id) => sql`${id}`),
+        sql`, `,
+      )})`,
+    )
     .orderBy(desc(products.sold))
     .limit(limit - same.length);
   return withStock([...same, ...more]);

@@ -19,10 +19,13 @@ export async function GET(req: NextRequest) {
   if (!config || !order) return NextResponse.redirect(new URL("/", site.url));
 
   const valid = verifyVnpayParams(query, config.hashSecret);
-  const success = valid && query.vnp_ResponseCode === "00" && query.vnp_TransactionStatus === "00" && Number(query.vnp_Amount) === order.total * 100;
+  const success =
+    valid && query.vnp_ResponseCode === "00" && query.vnp_TransactionStatus === "00" && Number(query.vnp_Amount) === order.total * 100;
   if (success) {
     await markOrderPaid(order.id, { ref: query.vnp_TransactionNo, actor: "vnpay", amount: order.total, method: "VNPay" });
   }
   const prefix = order.locale === "en" ? "/en" : "";
-  return NextResponse.redirect(new URL(`${prefix}/checkout/success?code=${order.code}&payment=${success ? "success" : "failed"}`, site.url));
+  return NextResponse.redirect(
+    new URL(`${prefix}/checkout/success?code=${order.code}&payment=${success ? "success" : "failed"}`, site.url),
+  );
 }
